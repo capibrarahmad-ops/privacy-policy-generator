@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { policy, isNew } = deployPolicy({
+    const { policy, isNew } = await deployPolicy({
       formData,
       requestedSlug,
       editToken,

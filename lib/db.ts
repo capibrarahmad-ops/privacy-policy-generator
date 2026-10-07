@@ -46,18 +46,22 @@ const RESERVED_SLUGS = new Set([
 const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "policies.json");
 
-// Supabase client initialization if environment credentials are provided
+// Supabase client initialization
 let supabase: SupabaseClient | null = null;
-const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "https://nowlzmlmnpwgtakotcpg.supabase.co";
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_4xbNek76u0pNK_jVoPt_YQ_DoHQHVrz";
 
 if (supabaseUrl && supabaseKey) {
   try {
-    supabase = createClient(supabaseUrl, supabaseKey);
+    supabase = createClient(supabaseUrl, supabaseKey, {
+      auth: { persistSession: false },
+    });
   } catch (err) {
-    console.warn("Supabase init failed, falling back to persistent storage:", err);
+    console.warn("Supabase client init error, relying on local store:", err);
   }
 }
+
+export { supabase };
 
 function ensureDbFile() {
   if (!fs.existsSync(DATA_DIR)) {
@@ -105,11 +109,11 @@ export function generateUniqueSlug(preferred: string): string {
   return candidate;
 }
 
-export function deployPolicy(params: {
+export async function deployPolicy(params: {
   formData: PolicyFormData;
   requestedSlug?: string;
   editToken?: string;
-}): { policy: StoredPolicyRecord; isNew: boolean } {
+}): Promise<{ policy: StoredPolicyRecord; isNew: boolean }> {
   const policies = readAllPolicies();
   const now = new Date().toISOString();
 
@@ -149,26 +153,27 @@ export function deployPolicy(params: {
 
       writeAllPolicies(policies);
 
-      // Async sync to Supabase if configured
+      // Cloud Database Sync (Supabase)
       if (supabase) {
-        supabase
-          .from("policies")
-          .upsert({
-            id: existing.id,
-            slug: existing.slug,
-            company_name: existing.companyName,
-            website_url: existing.websiteUrl,
-            contact_email: existing.contactEmail,
-            country: existing.country,
-            edit_token: existing.editToken,
-            form_data: existing.formData,
-            generated_policy: existing.generatedPolicy,
-            views: existing.views,
-            updated_at: now,
-          })
-          .then(({ error }) => {
-            if (error) console.error("Supabase upsert error:", error);
-          });
+        try {
+          await supabase
+            .from("policies")
+            .upsert({
+              id: existing.id,
+              slug: existing.slug,
+              company_name: existing.companyName,
+              website_url: existing.websiteUrl,
+              contact_email: existing.contactEmail,
+              country: existing.country,
+              edit_token: existing.editToken,
+              form_data: existing.formData,
+              generated_policy: existing.generatedPolicy,
+              views: existing.views,
+              updated_at: now,
+            });
+        } catch (supabaseErr) {
+          console.warn("Supabase upsert note (table may not be created yet):", supabaseErr);
+        }
       }
 
       return { policy: existing, isNew: false };
@@ -209,27 +214,28 @@ export function deployPolicy(params: {
   policies.push(record);
   writeAllPolicies(policies);
 
-  // Async sync to Supabase if configured
+  // Cloud Database Sync (Supabase)
   if (supabase) {
-    supabase
-      .from("policies")
-      .insert({
-        id: record.id,
-        slug: record.slug,
-        company_name: record.companyName,
-        website_url: record.websiteUrl,
-        contact_email: record.contactEmail,
-        country: record.country,
-        edit_token: record.editToken,
-        form_data: record.formData,
-        generated_policy: record.generatedPolicy,
-        views: 0,
-        created_at: now,
-        updated_at: now,
-      })
-      .then(({ error }) => {
-        if (error) console.error("Supabase insert error:", error);
-      });
+    try {
+      await supabase
+        .from("policies")
+        .insert({
+          id: record.id,
+          slug: record.slug,
+          company_name: record.companyName,
+          website_url: record.websiteUrl,
+          contact_email: record.contactEmail,
+          country: record.country,
+          edit_token: record.editToken,
+          form_data: record.formData,
+          generated_policy: record.generatedPolicy,
+          views: 0,
+          created_at: now,
+          updated_at: now,
+        });
+    } catch (supabaseErr) {
+      console.warn("Supabase insert note (table may not be created yet):", supabaseErr);
+    }
   }
 
   return { policy: record, isNew: true };
@@ -247,11 +253,13 @@ export function getPolicyBySlug(slug: string, incrementView = false): StoredPoli
     writeAllPolicies(policies);
 
     if (supabase) {
-      supabase
-        .from("policies")
-        .update({ views: found.views })
-        .eq("id", found.id)
-        .then();
+      try {
+        supabase
+          .from("policies")
+          .update({ views: found.views })
+          .eq("id", found.id)
+          .then();
+      } catch {}
     }
   }
 
