@@ -584,7 +584,7 @@
       "markdown": "# Privacy Policy for stack\n\n**Website:** [https://teck.io](https://teck.io)  \n**Last Updated:** October 7, 2026  \n**Jurisdiction:** California, United States  \n\n---\n\n## 1. Introduction\n\nWelcome to stack (operated by stack) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data you share with us.\n\nThis Privacy Policy governs your use of our website at https://teck.io and our related applications, products, and services (collectively, the \"Services\"). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.\n\n## 2. Information We Collect\n\nWe collect information you directly provide to us, as well as technical information generated automatically when you use our Services:\n\n* **Personal Identification Information:** Your name, email address (privacy@example.com), phone number, account credentials, and any messages or files you submit to us.\n* **Automated Usage and Device Telemetry:** Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.\n\n## 3. How We Use Information\n\nWe process the collected data for legitimate commercial and operational purposes, including:\n\n* To provide, operate, maintain, and secure the stack Services at https://teck.io.\n* To handle customer service inquiries, provide technical support, and send administrative notices to privacy@example.com.\n* To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.\n* To power intelligent features and process user-submitted prompts via machine learning models.\n* To deliver product announcements, feature updates, and promotional communications (which you may opt out of at any time).\n* To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.\n* To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.\n\n## 4. Cookies and Tracking Technologies\n\nCookies are small text records deposited on your device by our web server. They allow stack to recognize your browser, retain session state, and deliver a consistent user experience.\n\nCookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://teck.io.\n\n* **Essential / Security Cookies:** Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).\n* **Analytics & Performance Cookies:** Used to aggregate anonymous usage counts and identify navigation paths across https://teck.io.\n* **Functional / Preference Cookies:** Store your interface preferences, dark/light theme, and language choices across sessions.\n\n## 5. Third-Party Services & Integrations\n\nWe may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:\n\n* **Analytics Providers:** We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.\n* **Email & Communication Infrastructure:** We use transactional and marketing communication partners (Resend) to distribute emails and alerts.\n\n## 6. Artificial Intelligence & Automated Processing\n\nCertain features of stack utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API, Google Gemini API, Custom AI Model Processing).\n\nData submitted to our AI features may be used in an aggregated or de-identified format to fine-tune and improve machine learning models.\n\nYou retain ownership of your submitted prompts and generated outputs, subject to our service terms.\n\n## 7. Data Security\n\nWe employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.\n\nHowever, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.\n\n## 8. Data Retention\n\nWe retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.\n\nUpon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.\n\n## 9. Your Privacy Rights\n\nDepending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:\n\n* **Right to Access & Portability:** Request a complete machine-readable copy of your personal data on record.\n* **Right to Rectification:** Request corrections to any inaccurate, outdated, or incomplete information.\n* **Right to Erasure ('Right to be Forgotten'):** Request the irreversible deletion of your personal records, subject to statutory retention exceptions.\n* **Right to Restrict or Object:** Object to automated profiling, marketing processing, or request restricted handling.\n* **Right to Non-Discrimination:** We will not deny services or degrade service quality for exercising your lawful privacy rights.\n\n## 10. Children's Privacy\n\nstack is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.\n\nIf you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@example.com so we can promptly expunge the data.\n\n## 11. test\n\nthis is atest clause\n\n## 12. Changes to This Privacy Policy\n\nWe reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@example.com.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current version.\n\n## 13. Contact Us\n\nIf you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:\n\n* **Legal Entity:** stack\n* **Product / App Name:** stack\n* **Official Website:** https://teck.io\n* **Primary Privacy Contact:** privacy@example.com\n* **Registered Address:** 100 Innovation Way, Suite 400\n* **Governing Jurisdiction:** California, United States\n",
       "html": "<div class=\"privacy-policy\">\n  <h1>Privacy Policy for stack</h1>\n  <p class=\"meta\"><strong>Website:</strong> <a href=\"https://teck.io\" target=\"_blank\" rel=\"noopener noreferrer\">https://teck.io</a><br>\n  <strong>Last Updated:</strong> October 7, 2026<br>\n  <strong>Jurisdiction:</strong> California, United States</p>\n  <hr />\n  <section id=\"introduction\">\n    <h2>1. Introduction</h2>\n    <p>Welcome to stack (operated by stack) (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;). We respect your privacy and are committed to protecting any personal data you share with us.</p>\n    <p>This Privacy Policy governs your use of our website at https://teck.io and our related applications, products, and services (collectively, the &quot;Services&quot;). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.</p>\n  </section>\n  <section id=\"information-we-collect\">\n    <h2>2. Information We Collect</h2>\n    <p>We collect information you directly provide to us, as well as technical information generated automatically when you use our Services:</p>\n    <ul>\n      <li><strong>Personal Identification Information:</strong> Your name, email address (privacy@example.com), phone number, account credentials, and any messages or files you submit to us.</li>\n      <li><strong>Automated Usage and Device Telemetry:</strong> Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.</li>\n    </ul>\n  </section>\n  <section id=\"how-we-use-information\">\n    <h2>3. How We Use Information</h2>\n    <p>We process the collected data for legitimate commercial and operational purposes, including:</p>\n    <ul>\n      <li>To provide, operate, maintain, and secure the stack Services at https://teck.io.</li>\n      <li>To handle customer service inquiries, provide technical support, and send administrative notices to privacy@example.com.</li>\n      <li>To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.</li>\n      <li>To power intelligent features and process user-submitted prompts via machine learning models.</li>\n      <li>To deliver product announcements, feature updates, and promotional communications (which you may opt out of at any time).</li>\n      <li>To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.</li>\n      <li>To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.</li>\n    </ul>\n  </section>\n  <section id=\"cookies\">\n    <h2>4. Cookies and Tracking Technologies</h2>\n    <p>Cookies are small text records deposited on your device by our web server. They allow stack to recognize your browser, retain session state, and deliver a consistent user experience.</p>\n    <p>Cookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://teck.io.</p>\n    <ul>\n      <li><strong>Essential / Security Cookies:</strong> Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).</li>\n      <li><strong>Analytics &amp; Performance Cookies:</strong> Used to aggregate anonymous usage counts and identify navigation paths across https://teck.io.</li>\n      <li><strong>Functional / Preference Cookies:</strong> Store your interface preferences, dark/light theme, and language choices across sessions.</li>\n    </ul>\n  </section>\n  <section id=\"third-party-services\">\n    <h2>5. Third-Party Services &amp; Integrations</h2>\n    <p>We may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:</p>\n    <ul>\n      <li><strong>Analytics Providers:</strong> We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.</li>\n      <li><strong>Email &amp; Communication Infrastructure:</strong> We use transactional and marketing communication partners (Resend) to distribute emails and alerts.</li>\n    </ul>\n  </section>\n  <section id=\"ai-processing\">\n    <h2>6. Artificial Intelligence &amp; Automated Processing</h2>\n    <p>Certain features of stack utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API, Google Gemini API, Custom AI Model Processing).</p>\n    <p>Data submitted to our AI features may be used in an aggregated or de-identified format to fine-tune and improve machine learning models.</p>\n    <p>You retain ownership of your submitted prompts and generated outputs, subject to our service terms.</p>\n  </section>\n  <section id=\"data-security\">\n    <h2>7. Data Security</h2>\n    <p>We employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.</p>\n    <p>However, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.</p>\n  </section>\n  <section id=\"data-retention\">\n    <h2>8. Data Retention</h2>\n    <p>We retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.</p>\n    <p>Upon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.</p>\n  </section>\n  <section id=\"user-rights\">\n    <h2>9. Your Privacy Rights</h2>\n    <p>Depending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:</p>\n    <ul>\n      <li><strong>Right to Access &amp; Portability:</strong> Request a complete machine-readable copy of your personal data on record.</li>\n      <li><strong>Right to Rectification:</strong> Request corrections to any inaccurate, outdated, or incomplete information.</li>\n      <li><strong>Right to Erasure (&#039;Right to be Forgotten&#039;):</strong> Request the irreversible deletion of your personal records, subject to statutory retention exceptions.</li>\n      <li><strong>Right to Restrict or Object:</strong> Object to automated profiling, marketing processing, or request restricted handling.</li>\n      <li><strong>Right to Non-Discrimination:</strong> We will not deny services or degrade service quality for exercising your lawful privacy rights.</li>\n    </ul>\n  </section>\n  <section id=\"childrens-privacy\">\n    <h2>10. Children&#039;s Privacy</h2>\n    <p>stack is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.</p>\n    <p>If you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@example.com so we can promptly expunge the data.</p>\n  </section>\n  <section id=\"test\">\n    <h2>11. test</h2>\n    <p>this is atest clause</p>\n  </section>\n  <section id=\"changes-to-policy\">\n    <h2>12. Changes to This Privacy Policy</h2>\n    <p>We reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@example.com.</p>\n    <p>The &quot;Last Updated&quot; timestamp at the top of this document indicates the effective date of the current version.</p>\n  </section>\n  <section id=\"contact-us\">\n    <h2>13. Contact Us</h2>\n    <p>If you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:</p>\n    <ul>\n      <li><strong>Legal Entity:</strong> stack</li>\n      <li><strong>Product / App Name:</strong> stack</li>\n      <li><strong>Official Website:</strong> https://teck.io</li>\n      <li><strong>Primary Privacy Contact:</strong> privacy@example.com</li>\n      <li><strong>Registered Address:</strong> 100 Innovation Way, Suite 400</li>\n      <li><strong>Governing Jurisdiction:</strong> California, United States</li>\n    </ul>\n  </section>\n</div>"
     },
-    "views": 6,
+    "views": 7,
     "createdAt": "2026-10-07T09:44:42.064Z",
     "updatedAt": "2026-10-07T09:44:42.064Z"
   },
@@ -1020,5 +1020,297 @@
     "views": 1,
     "createdAt": "2026-10-07T09:54:28.781Z",
     "updatedAt": "2026-10-07T09:54:28.781Z"
+  },
+  {
+    "id": "ee1f2be1-924b-4e14-8fce-e6381a059b1a",
+    "slug": "apexcloud",
+    "companyName": "Apex Cloud Solutions LLC",
+    "websiteUrl": "https://apexcloud.io",
+    "contactEmail": "privacy@apexcloud.io",
+    "country": "United States",
+    "editToken": "2cdf019091c0391337eed489dada5a35cf47d45b49074de2",
+    "formData": {
+      "companyName": "Apex Cloud Solutions LLC",
+      "tradingName": "ApexCloud",
+      "websiteUrl": "https://apexcloud.io",
+      "contactEmail": "privacy@apexcloud.io",
+      "country": "United States",
+      "stateOrProvince": "Delaware",
+      "customSlug": "apexcloud",
+      "policyEffectiveDate": "2026-10-07",
+      "complianceFrameworks": [
+        "gdpr",
+        "ccpa",
+        "caloppa",
+        "pipeda",
+        "coppa"
+      ],
+      "isMobileApp": true,
+      "hasInAppPurchases": true,
+      "hasSubscriptions": true,
+      "dataDeletionInstructions": "Users can delete their account in settings or email privacy@apexcloud.io.",
+      "collectsPersonalData": "yes",
+      "personalDataTypes": [
+        "Name",
+        "Email",
+        "Billing Address"
+      ],
+      "usesCookies": "yes",
+      "cookieTypes": [
+        "Essential",
+        "Analytics",
+        "Marketing"
+      ],
+      "hasThirdPartyAnalytics": "yes",
+      "analyticsProviders": [
+        "Google Analytics 4",
+        "Mixpanel"
+      ],
+      "hasThirdPartyAds": "no",
+      "adNetworks": [],
+      "hasSocialLogin": "yes",
+      "socialLoginProviders": [
+        "Google",
+        "Apple",
+        "GitHub"
+      ],
+      "processesPayments": "yes",
+      "paymentProcessors": [
+        "Stripe",
+        "Apple Pay"
+      ],
+      "collectsLocationData": "yes",
+      "locationPrecision": "approximate",
+      "targetedAtChildrenUnder13": "no",
+      "dataRetentionPeriod": "For the duration of active account plus 3 years",
+      "dpoContact": "dpo@apexcloud.io",
+      "optOutEmail": "optout@apexcloud.io"
+    },
+    "generatedPolicy": {
+      "companyName": "Apex Cloud Solutions LLC",
+      "tradingName": "ApexCloud",
+      "platform": "Web & Mobile",
+      "websiteUrl": "https://apexcloud.io",
+      "contactEmail": "privacy@apexcloud.io",
+      "country": "United States",
+      "slug": "apexcloud",
+      "lastUpdated": "October 7, 2026",
+      "sections": [
+        {
+          "id": "introduction",
+          "number": 1,
+          "title": "Introduction & Scope",
+          "paragraphs": [
+            "Welcome to ApexCloud (operated by Apex Cloud Solutions LLC) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.",
+            "This Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://apexcloud.io, and associated cloud services (collectively, the \"Services\"). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of United States."
+          ]
+        },
+        {
+          "id": "information-we-collect",
+          "number": 2,
+          "title": "Information We Collect",
+          "paragraphs": [
+            "We collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:"
+          ],
+          "bulletPoints": []
+        },
+        {
+          "id": "how-we-use-information",
+          "number": 3,
+          "title": "How We Use Information & Legal Bases (GDPR Article 6)",
+          "paragraphs": [
+            "Under European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:",
+            "1. Performance of a Contract: To deliver our mobile app and services to you.",
+            "2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.",
+            "3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.",
+            "4. Legal Obligation: For tax compliance and statutory data retention."
+          ],
+          "bulletPoints": [
+            {
+              "text": "To provide, operate, maintain, and enhance the Apex Cloud Solutions LLC application and cloud infrastructure."
+            },
+            {
+              "text": "To authenticate user identity, prevent unauthorized access, and manage user accounts."
+            },
+            {
+              "text": "To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@apexcloud.io."
+            },
+            {
+              "text": "To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity."
+            },
+            {
+              "text": "To comply with regulatory, legal, and judicial compliance mandates under United States."
+            }
+          ]
+        },
+        {
+          "id": "cookies",
+          "number": 4,
+          "title": "Cookies",
+          "paragraphs": [
+            "We do not deploy tracking cookies or third-party advertising beacons on https://apexcloud.io to monitor cross-site behavior."
+          ]
+        },
+        {
+          "id": "ccpa-notice",
+          "number": 5,
+          "title": "California Consumer Privacy Rights (CCPA / CPRA & CalOPPA)",
+          "paragraphs": [
+            "Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):",
+            "1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.",
+            "2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.",
+            "3. Right to Opt-Out & Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@apexcloud.io."
+          ]
+        },
+        {
+          "id": "international-transfers",
+          "number": 6,
+          "title": "Cross-Border Data Transfers (EU-US DPF & SCCs)",
+          "paragraphs": [
+            "Your information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.",
+            "When transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection."
+          ]
+        },
+        {
+          "id": "data-security",
+          "number": 7,
+          "title": "Data Security & Encryption",
+          "paragraphs": [
+            "We implement rigorous technical, administrative, and physical safeguards:",
+            "* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).",
+            "* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.",
+            "* Access Control: Principle of least privilege is enforced for all administrative server access."
+          ]
+        },
+        {
+          "id": "childrens-privacy",
+          "number": 8,
+          "title": "Children's Privacy (COPPA & Global Age Thresholds)",
+          "paragraphs": [
+            "Apex Cloud Solutions LLC is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.",
+            "If a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@apexcloud.io so we can promptly delete the records."
+          ]
+        },
+        {
+          "id": "changes-to-policy",
+          "number": 9,
+          "title": "Changes to This Privacy Policy",
+          "paragraphs": [
+            "We reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@apexcloud.io.",
+            "The \"Last Updated\" timestamp at the top of this document indicates the effective date of the current revision."
+          ]
+        },
+        {
+          "id": "contact-us",
+          "number": 10,
+          "title": "Contact Us & Privacy Officer",
+          "paragraphs": [
+            "For inquiries, data access requests, or regulatory filings, contact our designated privacy department:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Legal Entity",
+              "text": "Apex Cloud Solutions LLC"
+            },
+            {
+              "title": "Product / App Name",
+              "text": "ApexCloud"
+            },
+            {
+              "title": "Official Website",
+              "text": "https://apexcloud.io"
+            },
+            {
+              "title": "Primary Privacy Contact",
+              "text": "privacy@apexcloud.io"
+            },
+            {
+              "title": "Jurisdiction & Governing Law",
+              "text": "United States"
+            }
+          ]
+        }
+      ],
+      "plainText": "PRIVACY POLICY FOR APEX CLOUD SOLUTIONS LLC\nWebsite: https://apexcloud.io\nPlatform: Web & Mobile\nLast Updated: October 7, 2026\nJurisdiction: United States\n--------------------------------------------------\n\n1. INTRODUCTION & SCOPE\nWelcome to ApexCloud (operated by Apex Cloud Solutions LLC) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.\n\nThis Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://apexcloud.io, and associated cloud services (collectively, the \"Services\"). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of United States.\n\n2. INFORMATION WE COLLECT\nWe collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:\n\n\n3. HOW WE USE INFORMATION & LEGAL BASES (GDPR ARTICLE 6)\nUnder European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:\n\n1. Performance of a Contract: To deliver our mobile app and services to you.\n\n2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.\n\n3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.\n\n4. Legal Obligation: For tax compliance and statutory data retention.\n\n  * To provide, operate, maintain, and enhance the Apex Cloud Solutions LLC application and cloud infrastructure.\n  * To authenticate user identity, prevent unauthorized access, and manage user accounts.\n  * To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@apexcloud.io.\n  * To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity.\n  * To comply with regulatory, legal, and judicial compliance mandates under United States.\n\n4. COOKIES\nWe do not deploy tracking cookies or third-party advertising beacons on https://apexcloud.io to monitor cross-site behavior.\n\n5. CALIFORNIA CONSUMER PRIVACY RIGHTS (CCPA / CPRA & CALOPPA)\nUnder the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):\n\n1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.\n\n2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.\n\n3. Right to Opt-Out & Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@apexcloud.io.\n\n6. CROSS-BORDER DATA TRANSFERS (EU-US DPF & SCCS)\nYour information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.\n\nWhen transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection.\n\n7. DATA SECURITY & ENCRYPTION\nWe implement rigorous technical, administrative, and physical safeguards:\n\n* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).\n\n* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.\n\n* Access Control: Principle of least privilege is enforced for all administrative server access.\n\n8. CHILDREN'S PRIVACY (COPPA & GLOBAL AGE THRESHOLDS)\nApex Cloud Solutions LLC is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.\n\nIf a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@apexcloud.io so we can promptly delete the records.\n\n9. CHANGES TO THIS PRIVACY POLICY\nWe reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@apexcloud.io.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current revision.\n\n10. CONTACT US & PRIVACY OFFICER\nFor inquiries, data access requests, or regulatory filings, contact our designated privacy department:\n\n  * Legal Entity: Apex Cloud Solutions LLC\n  * Product / App Name: ApexCloud\n  * Official Website: https://apexcloud.io\n  * Primary Privacy Contact: privacy@apexcloud.io\n  * Jurisdiction & Governing Law: United States\n",
+      "markdown": "# Privacy Policy for Apex Cloud Solutions LLC\n\n**Platform:** Web & Mobile  \n**Website:** [https://apexcloud.io](https://apexcloud.io)  \n**Last Updated:** October 7, 2026  \n**Jurisdiction:** United States  \n\n---\n\n## 1. Introduction & Scope\n\nWelcome to ApexCloud (operated by Apex Cloud Solutions LLC) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.\n\nThis Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://apexcloud.io, and associated cloud services (collectively, the \"Services\"). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of United States.\n\n## 2. Information We Collect\n\nWe collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:\n\n\n## 3. How We Use Information & Legal Bases (GDPR Article 6)\n\nUnder European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:\n\n1. Performance of a Contract: To deliver our mobile app and services to you.\n\n2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.\n\n3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.\n\n4. Legal Obligation: For tax compliance and statutory data retention.\n\n* To provide, operate, maintain, and enhance the Apex Cloud Solutions LLC application and cloud infrastructure.\n* To authenticate user identity, prevent unauthorized access, and manage user accounts.\n* To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@apexcloud.io.\n* To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity.\n* To comply with regulatory, legal, and judicial compliance mandates under United States.\n\n## 4. Cookies\n\nWe do not deploy tracking cookies or third-party advertising beacons on https://apexcloud.io to monitor cross-site behavior.\n\n## 5. California Consumer Privacy Rights (CCPA / CPRA & CalOPPA)\n\nUnder the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):\n\n1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.\n\n2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.\n\n3. Right to Opt-Out & Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@apexcloud.io.\n\n## 6. Cross-Border Data Transfers (EU-US DPF & SCCs)\n\nYour information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.\n\nWhen transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection.\n\n## 7. Data Security & Encryption\n\nWe implement rigorous technical, administrative, and physical safeguards:\n\n* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).\n\n* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.\n\n* Access Control: Principle of least privilege is enforced for all administrative server access.\n\n## 8. Children's Privacy (COPPA & Global Age Thresholds)\n\nApex Cloud Solutions LLC is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.\n\nIf a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@apexcloud.io so we can promptly delete the records.\n\n## 9. Changes to This Privacy Policy\n\nWe reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@apexcloud.io.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current revision.\n\n## 10. Contact Us & Privacy Officer\n\nFor inquiries, data access requests, or regulatory filings, contact our designated privacy department:\n\n* **Legal Entity:** Apex Cloud Solutions LLC\n* **Product / App Name:** ApexCloud\n* **Official Website:** https://apexcloud.io\n* **Primary Privacy Contact:** privacy@apexcloud.io\n* **Jurisdiction & Governing Law:** United States\n",
+      "html": "<div class=\"privacy-policy\">\n  <h1>Privacy Policy for Apex Cloud Solutions LLC</h1>\n  <p class=\"meta\"><strong>Platform:</strong> Web &amp; Mobile<br>\n  <strong>Website:</strong> <a href=\"https://apexcloud.io\" target=\"_blank\" rel=\"noopener noreferrer\">https://apexcloud.io</a><br>\n  <strong>Last Updated:</strong> October 7, 2026<br>\n  <strong>Jurisdiction:</strong> United States</p>\n  <hr />\n  <section id=\"introduction\">\n    <h2>1. Introduction &amp; Scope</h2>\n    <p>Welcome to ApexCloud (operated by Apex Cloud Solutions LLC) (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.</p>\n    <p>This Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://apexcloud.io, and associated cloud services (collectively, the &quot;Services&quot;). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of United States.</p>\n  </section>\n  <section id=\"information-we-collect\">\n    <h2>2. Information We Collect</h2>\n    <p>We collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:</p>\n  </section>\n  <section id=\"how-we-use-information\">\n    <h2>3. How We Use Information &amp; Legal Bases (GDPR Article 6)</h2>\n    <p>Under European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:</p>\n    <p>1. Performance of a Contract: To deliver our mobile app and services to you.</p>\n    <p>2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.</p>\n    <p>3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.</p>\n    <p>4. Legal Obligation: For tax compliance and statutory data retention.</p>\n    <ul>\n      <li>To provide, operate, maintain, and enhance the Apex Cloud Solutions LLC application and cloud infrastructure.</li>\n      <li>To authenticate user identity, prevent unauthorized access, and manage user accounts.</li>\n      <li>To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@apexcloud.io.</li>\n      <li>To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity.</li>\n      <li>To comply with regulatory, legal, and judicial compliance mandates under United States.</li>\n    </ul>\n  </section>\n  <section id=\"cookies\">\n    <h2>4. Cookies</h2>\n    <p>We do not deploy tracking cookies or third-party advertising beacons on https://apexcloud.io to monitor cross-site behavior.</p>\n  </section>\n  <section id=\"ccpa-notice\">\n    <h2>5. California Consumer Privacy Rights (CCPA / CPRA &amp; CalOPPA)</h2>\n    <p>Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):</p>\n    <p>1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.</p>\n    <p>2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.</p>\n    <p>3. Right to Opt-Out &amp; Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@apexcloud.io.</p>\n  </section>\n  <section id=\"international-transfers\">\n    <h2>6. Cross-Border Data Transfers (EU-US DPF &amp; SCCs)</h2>\n    <p>Your information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.</p>\n    <p>When transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection.</p>\n  </section>\n  <section id=\"data-security\">\n    <h2>7. Data Security &amp; Encryption</h2>\n    <p>We implement rigorous technical, administrative, and physical safeguards:</p>\n    <p>* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).</p>\n    <p>* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.</p>\n    <p>* Access Control: Principle of least privilege is enforced for all administrative server access.</p>\n  </section>\n  <section id=\"childrens-privacy\">\n    <h2>8. Children&#039;s Privacy (COPPA &amp; Global Age Thresholds)</h2>\n    <p>Apex Cloud Solutions LLC is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.</p>\n    <p>If a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@apexcloud.io so we can promptly delete the records.</p>\n  </section>\n  <section id=\"changes-to-policy\">\n    <h2>9. Changes to This Privacy Policy</h2>\n    <p>We reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@apexcloud.io.</p>\n    <p>The &quot;Last Updated&quot; timestamp at the top of this document indicates the effective date of the current revision.</p>\n  </section>\n  <section id=\"contact-us\">\n    <h2>10. Contact Us &amp; Privacy Officer</h2>\n    <p>For inquiries, data access requests, or regulatory filings, contact our designated privacy department:</p>\n    <ul>\n      <li><strong>Legal Entity:</strong> Apex Cloud Solutions LLC</li>\n      <li><strong>Product / App Name:</strong> ApexCloud</li>\n      <li><strong>Official Website:</strong> https://apexcloud.io</li>\n      <li><strong>Primary Privacy Contact:</strong> privacy@apexcloud.io</li>\n      <li><strong>Jurisdiction &amp; Governing Law:</strong> United States</li>\n    </ul>\n  </section>\n</div>",
+      "appleNutritionLabels": [
+        {
+          "category": "Contact Info",
+          "dataTypes": [
+            "Name",
+            "Email Address"
+          ],
+          "collected": false,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purpose": "App Functionality & Account Management"
+        },
+        {
+          "category": "User Content",
+          "dataTypes": [
+            "Photos or Videos",
+            "Customer Support Messages"
+          ],
+          "collected": false,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purpose": "App Functionality"
+        },
+        {
+          "category": "Identifiers",
+          "dataTypes": [
+            "User ID",
+            "Device ID"
+          ],
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purpose": "Analytics & Security"
+        },
+        {
+          "category": "Usage Data",
+          "dataTypes": [
+            "Product Interaction",
+            "Advertising Data"
+          ],
+          "collected": false,
+          "linkedToUser": false,
+          "usedForTracking": false,
+          "purpose": "Analytics & Product Improvement"
+        },
+        {
+          "category": "Diagnostics",
+          "dataTypes": [
+            "Crash Data",
+            "Performance Diagnostics"
+          ],
+          "collected": false,
+          "linkedToUser": false,
+          "usedForTracking": false,
+          "purpose": "App Stability & Diagnostics"
+        },
+        {
+          "category": "Location",
+          "dataTypes": [
+            "Coarse / Precise Location"
+          ],
+          "collected": false,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purpose": "App Functionality"
+        }
+      ],
+      "googlePlayDataSafety": {
+        "collectedData": [],
+        "sharedData": [],
+        "encryptedInTransit": true,
+        "deletionMechanism": "In-App Setting & Email Request",
+        "deletionUrl": "https://apexcloud.io/delete-account"
+      }
+    },
+    "views": 0,
+    "createdAt": "2026-10-07T10:26:47.222Z",
+    "updatedAt": "2026-10-07T10:26:47.222Z"
   }
 ]

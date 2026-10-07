@@ -8,9 +8,11 @@ interface PageProps {
   searchParams: Promise<{ embed?: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const policy = getPolicyBySlug(slug);
+  const policy = await getPolicyBySlug(slug);
 
   if (!policy) {
     return {
@@ -38,7 +40,7 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
   const { embed } = await searchParams;
   const isEmbed = embed === "true";
 
-  const record = getPolicyBySlug(slug, true);
+  const record = await getPolicyBySlug(slug, true);
 
   if (!record) {
     notFound();

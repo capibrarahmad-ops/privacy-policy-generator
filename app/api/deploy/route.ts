@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { deployPolicy, getPolicyByEditToken, isSlugAvailable } from "@/lib/db";
 import { PolicyFormData } from "@/lib/generatePrivacyPolicy";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -13,7 +15,10 @@ export async function POST(request: NextRequest) {
 
     if (!formData || !formData.companyName || !formData.websiteUrl || !formData.contactEmail) {
       return NextResponse.json(
-        { success: false, error: "Missing required company information." },
+        {
+          success: false,
+          error: "Missing required company information (Company name, Website URL, and Contact email are required).",
+        },
         { status: 400 }
       );
     }
@@ -24,9 +29,14 @@ export async function POST(request: NextRequest) {
       editToken,
     });
 
-    const host = request.headers.get("host") || "localhost:3000";
-    const protocol = request.headers.get("x-forwarded-proto") || "http";
-    const fullLiveUrl = `${protocol}://${host}/p/${policy.slug}`;
+    const host =
+      request.headers.get("x-forwarded-host") ||
+      request.headers.get("host") ||
+      "localhost:3000";
+    const proto =
+      request.headers.get("x-forwarded-proto") ||
+      (host.includes("localhost") ? "http" : "https");
+    const fullLiveUrl = `${proto}://${host}/p/${policy.slug}`;
 
     return NextResponse.json({
       success: true,
@@ -38,10 +48,13 @@ export async function POST(request: NextRequest) {
       companyName: policy.companyName,
       lastUpdated: policy.generatedPolicy.lastUpdated,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Deploy API error:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to deploy privacy policy." },
+      {
+        success: false,
+        error: error?.message || "Failed to deploy privacy policy. Please try again.",
+      },
       { status: 500 }
     );
   }
@@ -54,7 +67,7 @@ export async function GET(request: NextRequest) {
     const editToken = searchParams.get("editToken");
 
     if (editToken) {
-      const found = getPolicyByEditToken(editToken);
+      const found = await getPolicyByEditToken(editToken);
       if (!found) {
         return NextResponse.json(
           { success: false, error: "Policy not found for this edit token." },
@@ -70,7 +83,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (slug) {
-      const available = isSlugAvailable(slug);
+      const available = await isSlugAvailable(slug);
       return NextResponse.json({
         success: true,
         slug,
@@ -82,10 +95,10 @@ export async function GET(request: NextRequest) {
       { success: false, error: "Provide either a slug or editToken parameter." },
       { status: 400 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Check slug API error:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to process request." },
+      { success: false, error: error?.message || "Failed to process request." },
       { status: 500 }
     );
   }
