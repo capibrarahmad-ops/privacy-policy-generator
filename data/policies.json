@@ -1,0 +1,1024 @@
+[
+  {
+    "id": "b31c76bf-3c78-4897-a856-c474a7afd809",
+    "slug": "vortex-chat",
+    "companyName": "Vortex AI Global Inc.",
+    "websiteUrl": "https://vortexchat.ai",
+    "contactEmail": "privacy@vortexchat.ai",
+    "country": "United States",
+    "editToken": "046d8e97a719135f376dc4e0d388fbef4b452100ae45c4d1",
+    "formData": {
+      "companyName": "Vortex AI Global Inc.",
+      "tradingName": "Vortex Chat",
+      "websiteUrl": "https://vortexchat.ai",
+      "contactEmail": "privacy@vortexchat.ai",
+      "country": "United States",
+      "stateProvince": "California",
+      "customSlug": "vortex-chat",
+      "collectsPersonalInfo": "Yes",
+      "collectsLocation": "Yes",
+      "collectsPayment": "Yes",
+      "usesCookies": "Yes",
+      "usesAnalytics": "Yes",
+      "analyticsServices": [
+        "Google Analytics 4",
+        "PostHog"
+      ],
+      "usesSocialLogin": "Yes",
+      "authProviders": [
+        "Sign in with Google",
+        "Sign in with Apple"
+      ],
+      "usesAI": "Yes",
+      "aiServices": [
+        "OpenAI API (ChatGPT)",
+        "Anthropic Claude API"
+      ],
+      "aiTrainsOnData": "No",
+      "customClauses": [
+        {
+          "id": "beta-1",
+          "title": "Beta Testing Disclaimer",
+          "content": "Vortex Chat features marked as Beta may contain experimental features."
+        },
+        {
+          "id": "clause-2",
+          "title": "European Union GDPR Addendum",
+          "content": "European users have statutory rights under Article 17 of GDPR."
+        }
+      ]
+    },
+    "generatedPolicy": {
+      "companyName": "Vortex AI Global Inc.",
+      "tradingName": "Vortex Chat",
+      "websiteUrl": "https://vortexchat.ai",
+      "contactEmail": "privacy@vortexchat.ai",
+      "country": "United States",
+      "slug": "vortex-chat",
+      "lastUpdated": "October 7, 2026",
+      "sections": [
+        {
+          "id": "introduction",
+          "number": 1,
+          "title": "Introduction",
+          "paragraphs": [
+            "Welcome to Vortex Chat (operated by Vortex AI Global Inc.) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data you share with us.",
+            "This Privacy Policy governs your use of our website at https://vortexchat.ai and our related applications, products, and services (collectively, the \"Services\"). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States."
+          ]
+        },
+        {
+          "id": "information-we-collect",
+          "number": 2,
+          "title": "Information We Collect",
+          "paragraphs": [
+            "We collect information you directly provide to us, as well as technical information generated automatically when you use our Services:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Personal Identification Information",
+              "text": "Your name, email address (privacy@vortexchat.ai), account credentials, and any messages or files you submit to us."
+            },
+            {
+              "title": "Location Information",
+              "text": "Precise or approximate location data derived from your IP address, GPS coordinates, or regional mobile signals to deliver location-specific functionality and optimize network routing."
+            },
+            {
+              "title": "Payment and Transaction Data",
+              "text": "Billing information, subscription tiers, transaction history, and payment verification details. Sensitive credit/debit card numbers are never stored on our application servers."
+            },
+            {
+              "title": "Automated Usage and Device Telemetry",
+              "text": "Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps."
+            }
+          ]
+        },
+        {
+          "id": "how-we-use-information",
+          "number": 3,
+          "title": "How We Use Information",
+          "paragraphs": [
+            "We process the collected data for legitimate commercial and operational purposes, including:"
+          ],
+          "bulletPoints": [
+            {
+              "text": "To provide, operate, maintain, and secure the Vortex AI Global Inc. Services at https://vortexchat.ai."
+            },
+            {
+              "text": "To handle customer service inquiries, provide technical support, and send administrative notices to privacy@vortexchat.ai."
+            },
+            {
+              "text": "To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience."
+            },
+            {
+              "text": "To process purchases, invoice subscriptions, verify billing eligibility, and prevent payment fraud."
+            },
+            {
+              "text": "To power intelligent features and process user-submitted prompts via machine learning models."
+            },
+            {
+              "text": "To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure."
+            },
+            {
+              "text": "To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States."
+            }
+          ]
+        },
+        {
+          "id": "cookies",
+          "number": 4,
+          "title": "Cookies and Tracking Technologies",
+          "paragraphs": [
+            "Cookies are small text records deposited on your device by our web server. They allow Vortex AI Global Inc. to recognize your browser, retain session state, and deliver a consistent user experience.",
+            "Cookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://vortexchat.ai."
+          ],
+          "bulletPoints": [
+            {
+              "title": "Essential / Security Cookies",
+              "text": "Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF)."
+            },
+            {
+              "title": "Analytics & Performance Cookies",
+              "text": "Used to aggregate anonymous usage counts and identify navigation paths across https://vortexchat.ai."
+            },
+            {
+              "title": "Functional / Preference Cookies",
+              "text": "Store your interface preferences, dark/light theme, and language choices across sessions."
+            }
+          ]
+        },
+        {
+          "id": "third-party-services",
+          "number": 5,
+          "title": "Third-Party Services & Integrations",
+          "paragraphs": [
+            "We may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Analytics Providers",
+              "text": "We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement."
+            },
+            {
+              "title": "Identity & Social Authentication",
+              "text": "When signing in through identity providers (Sign in with Google, Sign in with Apple), basic profile credentials (name, email, unique ID) are exchanged under their respective privacy policies."
+            }
+          ]
+        },
+        {
+          "id": "ai-processing",
+          "number": 6,
+          "title": "Artificial Intelligence & Automated Processing",
+          "paragraphs": [
+            "Certain features of Vortex AI Global Inc. utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API).",
+            "We strictly mandate that user prompts, inputs, and proprietary content submitted to our AI integrations are NOT used by foundation model providers to train or improve public AI models.",
+            "You retain ownership of your submitted prompts and generated outputs, subject to our service terms."
+          ]
+        },
+        {
+          "id": "data-security",
+          "number": 7,
+          "title": "Data Security",
+          "paragraphs": [
+            "We employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.",
+            "However, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials."
+          ]
+        },
+        {
+          "id": "data-retention",
+          "number": 8,
+          "title": "Data Retention",
+          "paragraphs": [
+            "We retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.",
+            "Upon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized."
+          ]
+        },
+        {
+          "id": "user-rights",
+          "number": 9,
+          "title": "Your Privacy Rights",
+          "paragraphs": [
+            "Depending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Right to Access & Portability",
+              "text": "Request a complete machine-readable copy of your personal data on record."
+            },
+            {
+              "title": "Right to Rectification",
+              "text": "Request corrections to any inaccurate, outdated, or incomplete information."
+            },
+            {
+              "title": "Right to Erasure ('Right to be Forgotten')",
+              "text": "Request the irreversible deletion of your personal records, subject to statutory retention exceptions."
+            },
+            {
+              "title": "Right to Restrict or Object",
+              "text": "Object to automated profiling, marketing processing, or request restricted handling."
+            },
+            {
+              "title": "Right to Non-Discrimination",
+              "text": "We will not deny services or degrade service quality for exercising your lawful privacy rights."
+            }
+          ]
+        },
+        {
+          "id": "childrens-privacy",
+          "number": 10,
+          "title": "Children's Privacy",
+          "paragraphs": [
+            "Vortex AI Global Inc. is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.",
+            "If you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@vortexchat.ai so we can promptly expunge the data."
+          ]
+        },
+        {
+          "id": "beta-testing-disclaimer",
+          "number": 11,
+          "title": "Beta Testing Disclaimer",
+          "paragraphs": [
+            "Vortex Chat features marked as Beta may contain experimental features."
+          ]
+        },
+        {
+          "id": "european-union-gdpr-addendum",
+          "number": 12,
+          "title": "European Union GDPR Addendum",
+          "paragraphs": [
+            "European users have statutory rights under Article 17 of GDPR."
+          ]
+        },
+        {
+          "id": "changes-to-policy",
+          "number": 13,
+          "title": "Changes to This Privacy Policy",
+          "paragraphs": [
+            "We reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@vortexchat.ai.",
+            "The \"Last Updated\" timestamp at the top of this document indicates the effective date of the current version."
+          ]
+        },
+        {
+          "id": "contact-us",
+          "number": 14,
+          "title": "Contact Us",
+          "paragraphs": [
+            "If you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Legal Entity",
+              "text": "Vortex AI Global Inc."
+            },
+            {
+              "title": "Product / App Name",
+              "text": "Vortex Chat"
+            },
+            {
+              "title": "Official Website",
+              "text": "https://vortexchat.ai"
+            },
+            {
+              "title": "Primary Privacy Contact",
+              "text": "privacy@vortexchat.ai"
+            },
+            {
+              "title": "Governing Jurisdiction",
+              "text": "California, United States"
+            }
+          ]
+        }
+      ],
+      "plainText": "PRIVACY POLICY FOR VORTEX AI GLOBAL INC.\nWebsite: https://vortexchat.ai\nLast Updated: October 7, 2026\nJurisdiction: California, United States\n--------------------------------------------------\n\n1. INTRODUCTION\nWelcome to Vortex Chat (operated by Vortex AI Global Inc.) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data you share with us.\n\nThis Privacy Policy governs your use of our website at https://vortexchat.ai and our related applications, products, and services (collectively, the \"Services\"). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.\n\n2. INFORMATION WE COLLECT\nWe collect information you directly provide to us, as well as technical information generated automatically when you use our Services:\n\n  * Personal Identification Information: Your name, email address (privacy@vortexchat.ai), account credentials, and any messages or files you submit to us.\n  * Location Information: Precise or approximate location data derived from your IP address, GPS coordinates, or regional mobile signals to deliver location-specific functionality and optimize network routing.\n  * Payment and Transaction Data: Billing information, subscription tiers, transaction history, and payment verification details. Sensitive credit/debit card numbers are never stored on our application servers.\n  * Automated Usage and Device Telemetry: Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.\n\n3. HOW WE USE INFORMATION\nWe process the collected data for legitimate commercial and operational purposes, including:\n\n  * To provide, operate, maintain, and secure the Vortex AI Global Inc. Services at https://vortexchat.ai.\n  * To handle customer service inquiries, provide technical support, and send administrative notices to privacy@vortexchat.ai.\n  * To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.\n  * To process purchases, invoice subscriptions, verify billing eligibility, and prevent payment fraud.\n  * To power intelligent features and process user-submitted prompts via machine learning models.\n  * To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.\n  * To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.\n\n4. COOKIES AND TRACKING TECHNOLOGIES\nCookies are small text records deposited on your device by our web server. They allow Vortex AI Global Inc. to recognize your browser, retain session state, and deliver a consistent user experience.\n\nCookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://vortexchat.ai.\n\n  * Essential / Security Cookies: Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).\n  * Analytics & Performance Cookies: Used to aggregate anonymous usage counts and identify navigation paths across https://vortexchat.ai.\n  * Functional / Preference Cookies: Store your interface preferences, dark/light theme, and language choices across sessions.\n\n5. THIRD-PARTY SERVICES & INTEGRATIONS\nWe may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:\n\n  * Analytics Providers: We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.\n  * Identity & Social Authentication: When signing in through identity providers (Sign in with Google, Sign in with Apple), basic profile credentials (name, email, unique ID) are exchanged under their respective privacy policies.\n\n6. ARTIFICIAL INTELLIGENCE & AUTOMATED PROCESSING\nCertain features of Vortex AI Global Inc. utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API).\n\nWe strictly mandate that user prompts, inputs, and proprietary content submitted to our AI integrations are NOT used by foundation model providers to train or improve public AI models.\n\nYou retain ownership of your submitted prompts and generated outputs, subject to our service terms.\n\n7. DATA SECURITY\nWe employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.\n\nHowever, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.\n\n8. DATA RETENTION\nWe retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.\n\nUpon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.\n\n9. YOUR PRIVACY RIGHTS\nDepending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:\n\n  * Right to Access & Portability: Request a complete machine-readable copy of your personal data on record.\n  * Right to Rectification: Request corrections to any inaccurate, outdated, or incomplete information.\n  * Right to Erasure ('Right to be Forgotten'): Request the irreversible deletion of your personal records, subject to statutory retention exceptions.\n  * Right to Restrict or Object: Object to automated profiling, marketing processing, or request restricted handling.\n  * Right to Non-Discrimination: We will not deny services or degrade service quality for exercising your lawful privacy rights.\n\n10. CHILDREN'S PRIVACY\nVortex AI Global Inc. is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.\n\nIf you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@vortexchat.ai so we can promptly expunge the data.\n\n11. BETA TESTING DISCLAIMER\nVortex Chat features marked as Beta may contain experimental features.\n\n12. EUROPEAN UNION GDPR ADDENDUM\nEuropean users have statutory rights under Article 17 of GDPR.\n\n13. CHANGES TO THIS PRIVACY POLICY\nWe reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@vortexchat.ai.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current version.\n\n14. CONTACT US\nIf you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:\n\n  * Legal Entity: Vortex AI Global Inc.\n  * Product / App Name: Vortex Chat\n  * Official Website: https://vortexchat.ai\n  * Primary Privacy Contact: privacy@vortexchat.ai\n  * Governing Jurisdiction: California, United States\n",
+      "markdown": "# Privacy Policy for Vortex AI Global Inc.\n\n**Website:** [https://vortexchat.ai](https://vortexchat.ai)  \n**Last Updated:** October 7, 2026  \n**Jurisdiction:** California, United States  \n\n---\n\n## 1. Introduction\n\nWelcome to Vortex Chat (operated by Vortex AI Global Inc.) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data you share with us.\n\nThis Privacy Policy governs your use of our website at https://vortexchat.ai and our related applications, products, and services (collectively, the \"Services\"). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.\n\n## 2. Information We Collect\n\nWe collect information you directly provide to us, as well as technical information generated automatically when you use our Services:\n\n* **Personal Identification Information:** Your name, email address (privacy@vortexchat.ai), account credentials, and any messages or files you submit to us.\n* **Location Information:** Precise or approximate location data derived from your IP address, GPS coordinates, or regional mobile signals to deliver location-specific functionality and optimize network routing.\n* **Payment and Transaction Data:** Billing information, subscription tiers, transaction history, and payment verification details. Sensitive credit/debit card numbers are never stored on our application servers.\n* **Automated Usage and Device Telemetry:** Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.\n\n## 3. How We Use Information\n\nWe process the collected data for legitimate commercial and operational purposes, including:\n\n* To provide, operate, maintain, and secure the Vortex AI Global Inc. Services at https://vortexchat.ai.\n* To handle customer service inquiries, provide technical support, and send administrative notices to privacy@vortexchat.ai.\n* To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.\n* To process purchases, invoice subscriptions, verify billing eligibility, and prevent payment fraud.\n* To power intelligent features and process user-submitted prompts via machine learning models.\n* To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.\n* To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.\n\n## 4. Cookies and Tracking Technologies\n\nCookies are small text records deposited on your device by our web server. They allow Vortex AI Global Inc. to recognize your browser, retain session state, and deliver a consistent user experience.\n\nCookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://vortexchat.ai.\n\n* **Essential / Security Cookies:** Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).\n* **Analytics & Performance Cookies:** Used to aggregate anonymous usage counts and identify navigation paths across https://vortexchat.ai.\n* **Functional / Preference Cookies:** Store your interface preferences, dark/light theme, and language choices across sessions.\n\n## 5. Third-Party Services & Integrations\n\nWe may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:\n\n* **Analytics Providers:** We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.\n* **Identity & Social Authentication:** When signing in through identity providers (Sign in with Google, Sign in with Apple), basic profile credentials (name, email, unique ID) are exchanged under their respective privacy policies.\n\n## 6. Artificial Intelligence & Automated Processing\n\nCertain features of Vortex AI Global Inc. utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API).\n\nWe strictly mandate that user prompts, inputs, and proprietary content submitted to our AI integrations are NOT used by foundation model providers to train or improve public AI models.\n\nYou retain ownership of your submitted prompts and generated outputs, subject to our service terms.\n\n## 7. Data Security\n\nWe employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.\n\nHowever, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.\n\n## 8. Data Retention\n\nWe retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.\n\nUpon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.\n\n## 9. Your Privacy Rights\n\nDepending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:\n\n* **Right to Access & Portability:** Request a complete machine-readable copy of your personal data on record.\n* **Right to Rectification:** Request corrections to any inaccurate, outdated, or incomplete information.\n* **Right to Erasure ('Right to be Forgotten'):** Request the irreversible deletion of your personal records, subject to statutory retention exceptions.\n* **Right to Restrict or Object:** Object to automated profiling, marketing processing, or request restricted handling.\n* **Right to Non-Discrimination:** We will not deny services or degrade service quality for exercising your lawful privacy rights.\n\n## 10. Children's Privacy\n\nVortex AI Global Inc. is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.\n\nIf you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@vortexchat.ai so we can promptly expunge the data.\n\n## 11. Beta Testing Disclaimer\n\nVortex Chat features marked as Beta may contain experimental features.\n\n## 12. European Union GDPR Addendum\n\nEuropean users have statutory rights under Article 17 of GDPR.\n\n## 13. Changes to This Privacy Policy\n\nWe reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@vortexchat.ai.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current version.\n\n## 14. Contact Us\n\nIf you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:\n\n* **Legal Entity:** Vortex AI Global Inc.\n* **Product / App Name:** Vortex Chat\n* **Official Website:** https://vortexchat.ai\n* **Primary Privacy Contact:** privacy@vortexchat.ai\n* **Governing Jurisdiction:** California, United States\n",
+      "html": "<div class=\"privacy-policy\">\n  <h1>Privacy Policy for Vortex AI Global Inc.</h1>\n  <p class=\"meta\"><strong>Website:</strong> <a href=\"https://vortexchat.ai\" target=\"_blank\" rel=\"noopener noreferrer\">https://vortexchat.ai</a><br>\n  <strong>Last Updated:</strong> October 7, 2026<br>\n  <strong>Jurisdiction:</strong> California, United States</p>\n  <hr />\n  <section id=\"introduction\">\n    <h2>1. Introduction</h2>\n    <p>Welcome to Vortex Chat (operated by Vortex AI Global Inc.) (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;). We respect your privacy and are committed to protecting any personal data you share with us.</p>\n    <p>This Privacy Policy governs your use of our website at https://vortexchat.ai and our related applications, products, and services (collectively, the &quot;Services&quot;). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.</p>\n  </section>\n  <section id=\"information-we-collect\">\n    <h2>2. Information We Collect</h2>\n    <p>We collect information you directly provide to us, as well as technical information generated automatically when you use our Services:</p>\n    <ul>\n      <li><strong>Personal Identification Information:</strong> Your name, email address (privacy@vortexchat.ai), account credentials, and any messages or files you submit to us.</li>\n      <li><strong>Location Information:</strong> Precise or approximate location data derived from your IP address, GPS coordinates, or regional mobile signals to deliver location-specific functionality and optimize network routing.</li>\n      <li><strong>Payment and Transaction Data:</strong> Billing information, subscription tiers, transaction history, and payment verification details. Sensitive credit/debit card numbers are never stored on our application servers.</li>\n      <li><strong>Automated Usage and Device Telemetry:</strong> Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.</li>\n    </ul>\n  </section>\n  <section id=\"how-we-use-information\">\n    <h2>3. How We Use Information</h2>\n    <p>We process the collected data for legitimate commercial and operational purposes, including:</p>\n    <ul>\n      <li>To provide, operate, maintain, and secure the Vortex AI Global Inc. Services at https://vortexchat.ai.</li>\n      <li>To handle customer service inquiries, provide technical support, and send administrative notices to privacy@vortexchat.ai.</li>\n      <li>To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.</li>\n      <li>To process purchases, invoice subscriptions, verify billing eligibility, and prevent payment fraud.</li>\n      <li>To power intelligent features and process user-submitted prompts via machine learning models.</li>\n      <li>To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.</li>\n      <li>To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.</li>\n    </ul>\n  </section>\n  <section id=\"cookies\">\n    <h2>4. Cookies and Tracking Technologies</h2>\n    <p>Cookies are small text records deposited on your device by our web server. They allow Vortex AI Global Inc. to recognize your browser, retain session state, and deliver a consistent user experience.</p>\n    <p>Cookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://vortexchat.ai.</p>\n    <ul>\n      <li><strong>Essential / Security Cookies:</strong> Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).</li>\n      <li><strong>Analytics &amp; Performance Cookies:</strong> Used to aggregate anonymous usage counts and identify navigation paths across https://vortexchat.ai.</li>\n      <li><strong>Functional / Preference Cookies:</strong> Store your interface preferences, dark/light theme, and language choices across sessions.</li>\n    </ul>\n  </section>\n  <section id=\"third-party-services\">\n    <h2>5. Third-Party Services &amp; Integrations</h2>\n    <p>We may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:</p>\n    <ul>\n      <li><strong>Analytics Providers:</strong> We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.</li>\n      <li><strong>Identity &amp; Social Authentication:</strong> When signing in through identity providers (Sign in with Google, Sign in with Apple), basic profile credentials (name, email, unique ID) are exchanged under their respective privacy policies.</li>\n    </ul>\n  </section>\n  <section id=\"ai-processing\">\n    <h2>6. Artificial Intelligence &amp; Automated Processing</h2>\n    <p>Certain features of Vortex AI Global Inc. utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API).</p>\n    <p>We strictly mandate that user prompts, inputs, and proprietary content submitted to our AI integrations are NOT used by foundation model providers to train or improve public AI models.</p>\n    <p>You retain ownership of your submitted prompts and generated outputs, subject to our service terms.</p>\n  </section>\n  <section id=\"data-security\">\n    <h2>7. Data Security</h2>\n    <p>We employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.</p>\n    <p>However, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.</p>\n  </section>\n  <section id=\"data-retention\">\n    <h2>8. Data Retention</h2>\n    <p>We retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.</p>\n    <p>Upon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.</p>\n  </section>\n  <section id=\"user-rights\">\n    <h2>9. Your Privacy Rights</h2>\n    <p>Depending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:</p>\n    <ul>\n      <li><strong>Right to Access &amp; Portability:</strong> Request a complete machine-readable copy of your personal data on record.</li>\n      <li><strong>Right to Rectification:</strong> Request corrections to any inaccurate, outdated, or incomplete information.</li>\n      <li><strong>Right to Erasure (&#039;Right to be Forgotten&#039;):</strong> Request the irreversible deletion of your personal records, subject to statutory retention exceptions.</li>\n      <li><strong>Right to Restrict or Object:</strong> Object to automated profiling, marketing processing, or request restricted handling.</li>\n      <li><strong>Right to Non-Discrimination:</strong> We will not deny services or degrade service quality for exercising your lawful privacy rights.</li>\n    </ul>\n  </section>\n  <section id=\"childrens-privacy\">\n    <h2>10. Children&#039;s Privacy</h2>\n    <p>Vortex AI Global Inc. is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.</p>\n    <p>If you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@vortexchat.ai so we can promptly expunge the data.</p>\n  </section>\n  <section id=\"beta-testing-disclaimer\">\n    <h2>11. Beta Testing Disclaimer</h2>\n    <p>Vortex Chat features marked as Beta may contain experimental features.</p>\n  </section>\n  <section id=\"european-union-gdpr-addendum\">\n    <h2>12. European Union GDPR Addendum</h2>\n    <p>European users have statutory rights under Article 17 of GDPR.</p>\n  </section>\n  <section id=\"changes-to-policy\">\n    <h2>13. Changes to This Privacy Policy</h2>\n    <p>We reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@vortexchat.ai.</p>\n    <p>The &quot;Last Updated&quot; timestamp at the top of this document indicates the effective date of the current version.</p>\n  </section>\n  <section id=\"contact-us\">\n    <h2>14. Contact Us</h2>\n    <p>If you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:</p>\n    <ul>\n      <li><strong>Legal Entity:</strong> Vortex AI Global Inc.</li>\n      <li><strong>Product / App Name:</strong> Vortex Chat</li>\n      <li><strong>Official Website:</strong> https://vortexchat.ai</li>\n      <li><strong>Primary Privacy Contact:</strong> privacy@vortexchat.ai</li>\n      <li><strong>Governing Jurisdiction:</strong> California, United States</li>\n    </ul>\n  </section>\n</div>"
+    },
+    "views": 2,
+    "createdAt": "2026-10-07T09:40:39.021Z",
+    "updatedAt": "2026-10-07T09:41:15.071Z"
+  },
+  {
+    "id": "20d00fb3-399d-4b26-98fb-120b3ed039a8",
+    "slug": "techstach",
+    "companyName": "stack",
+    "websiteUrl": "https://teck.io",
+    "contactEmail": "privacy@example.com",
+    "country": "United States",
+    "editToken": "bccc3f4ecab43f9ba0b4327b1add93d3c6196ec2e9994093",
+    "formData": {
+      "companyName": "stack",
+      "tradingName": "stack",
+      "websiteUrl": "https://teck.io",
+      "contactEmail": "privacy@example.com",
+      "dpoEmail": "",
+      "physicalAddress": "100 Innovation Way, Suite 400",
+      "country": "United States",
+      "stateProvince": "California",
+      "customSlug": "techstach",
+      "collectsPersonalInfo": "Yes",
+      "collectsPhone": "Yes",
+      "collectsAddress": "No",
+      "collectsLocation": "No",
+      "collectsPayment": "No",
+      "usesCookies": "Yes",
+      "usesAnalytics": "Yes",
+      "analyticsServices": [
+        "Google Analytics 4",
+        "PostHog"
+      ],
+      "usesSocialLogin": "No",
+      "authProviders": [
+        "Sign in with Google",
+        "Sign in with Apple"
+      ],
+      "collectsPaymentGateway": "Yes",
+      "paymentProcessors": [
+        "Stripe"
+      ],
+      "usesAI": "Yes",
+      "aiServices": [
+        "OpenAI API (ChatGPT)",
+        "Anthropic Claude API",
+        "Google Gemini API",
+        "Custom AI Model Processing"
+      ],
+      "aiTrainsOnData": "Yes",
+      "usesMarketing": "Yes",
+      "marketingServices": [
+        "Resend"
+      ],
+      "customClauses": [
+        {
+          "id": "clause-1791366187497",
+          "title": "test",
+          "content": "this is atest clause"
+        }
+      ]
+    },
+    "generatedPolicy": {
+      "companyName": "stack",
+      "tradingName": "stack",
+      "websiteUrl": "https://teck.io",
+      "contactEmail": "privacy@example.com",
+      "country": "United States",
+      "slug": "techstach",
+      "lastUpdated": "October 7, 2026",
+      "sections": [
+        {
+          "id": "introduction",
+          "number": 1,
+          "title": "Introduction",
+          "paragraphs": [
+            "Welcome to stack (operated by stack) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data you share with us.",
+            "This Privacy Policy governs your use of our website at https://teck.io and our related applications, products, and services (collectively, the \"Services\"). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States."
+          ]
+        },
+        {
+          "id": "information-we-collect",
+          "number": 2,
+          "title": "Information We Collect",
+          "paragraphs": [
+            "We collect information you directly provide to us, as well as technical information generated automatically when you use our Services:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Personal Identification Information",
+              "text": "Your name, email address (privacy@example.com), phone number, account credentials, and any messages or files you submit to us."
+            },
+            {
+              "title": "Automated Usage and Device Telemetry",
+              "text": "Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps."
+            }
+          ]
+        },
+        {
+          "id": "how-we-use-information",
+          "number": 3,
+          "title": "How We Use Information",
+          "paragraphs": [
+            "We process the collected data for legitimate commercial and operational purposes, including:"
+          ],
+          "bulletPoints": [
+            {
+              "text": "To provide, operate, maintain, and secure the stack Services at https://teck.io."
+            },
+            {
+              "text": "To handle customer service inquiries, provide technical support, and send administrative notices to privacy@example.com."
+            },
+            {
+              "text": "To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience."
+            },
+            {
+              "text": "To power intelligent features and process user-submitted prompts via machine learning models."
+            },
+            {
+              "text": "To deliver product announcements, feature updates, and promotional communications (which you may opt out of at any time)."
+            },
+            {
+              "text": "To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure."
+            },
+            {
+              "text": "To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States."
+            }
+          ]
+        },
+        {
+          "id": "cookies",
+          "number": 4,
+          "title": "Cookies and Tracking Technologies",
+          "paragraphs": [
+            "Cookies are small text records deposited on your device by our web server. They allow stack to recognize your browser, retain session state, and deliver a consistent user experience.",
+            "Cookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://teck.io."
+          ],
+          "bulletPoints": [
+            {
+              "title": "Essential / Security Cookies",
+              "text": "Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF)."
+            },
+            {
+              "title": "Analytics & Performance Cookies",
+              "text": "Used to aggregate anonymous usage counts and identify navigation paths across https://teck.io."
+            },
+            {
+              "title": "Functional / Preference Cookies",
+              "text": "Store your interface preferences, dark/light theme, and language choices across sessions."
+            }
+          ]
+        },
+        {
+          "id": "third-party-services",
+          "number": 5,
+          "title": "Third-Party Services & Integrations",
+          "paragraphs": [
+            "We may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Analytics Providers",
+              "text": "We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement."
+            },
+            {
+              "title": "Email & Communication Infrastructure",
+              "text": "We use transactional and marketing communication partners (Resend) to distribute emails and alerts."
+            }
+          ]
+        },
+        {
+          "id": "ai-processing",
+          "number": 6,
+          "title": "Artificial Intelligence & Automated Processing",
+          "paragraphs": [
+            "Certain features of stack utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API, Google Gemini API, Custom AI Model Processing).",
+            "Data submitted to our AI features may be used in an aggregated or de-identified format to fine-tune and improve machine learning models.",
+            "You retain ownership of your submitted prompts and generated outputs, subject to our service terms."
+          ]
+        },
+        {
+          "id": "data-security",
+          "number": 7,
+          "title": "Data Security",
+          "paragraphs": [
+            "We employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.",
+            "However, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials."
+          ]
+        },
+        {
+          "id": "data-retention",
+          "number": 8,
+          "title": "Data Retention",
+          "paragraphs": [
+            "We retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.",
+            "Upon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized."
+          ]
+        },
+        {
+          "id": "user-rights",
+          "number": 9,
+          "title": "Your Privacy Rights",
+          "paragraphs": [
+            "Depending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Right to Access & Portability",
+              "text": "Request a complete machine-readable copy of your personal data on record."
+            },
+            {
+              "title": "Right to Rectification",
+              "text": "Request corrections to any inaccurate, outdated, or incomplete information."
+            },
+            {
+              "title": "Right to Erasure ('Right to be Forgotten')",
+              "text": "Request the irreversible deletion of your personal records, subject to statutory retention exceptions."
+            },
+            {
+              "title": "Right to Restrict or Object",
+              "text": "Object to automated profiling, marketing processing, or request restricted handling."
+            },
+            {
+              "title": "Right to Non-Discrimination",
+              "text": "We will not deny services or degrade service quality for exercising your lawful privacy rights."
+            }
+          ]
+        },
+        {
+          "id": "childrens-privacy",
+          "number": 10,
+          "title": "Children's Privacy",
+          "paragraphs": [
+            "stack is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.",
+            "If you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@example.com so we can promptly expunge the data."
+          ]
+        },
+        {
+          "id": "test",
+          "number": 11,
+          "title": "test",
+          "paragraphs": [
+            "this is atest clause"
+          ]
+        },
+        {
+          "id": "changes-to-policy",
+          "number": 12,
+          "title": "Changes to This Privacy Policy",
+          "paragraphs": [
+            "We reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@example.com.",
+            "The \"Last Updated\" timestamp at the top of this document indicates the effective date of the current version."
+          ]
+        },
+        {
+          "id": "contact-us",
+          "number": 13,
+          "title": "Contact Us",
+          "paragraphs": [
+            "If you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Legal Entity",
+              "text": "stack"
+            },
+            {
+              "title": "Product / App Name",
+              "text": "stack"
+            },
+            {
+              "title": "Official Website",
+              "text": "https://teck.io"
+            },
+            {
+              "title": "Primary Privacy Contact",
+              "text": "privacy@example.com"
+            },
+            {
+              "title": "Registered Address",
+              "text": "100 Innovation Way, Suite 400"
+            },
+            {
+              "title": "Governing Jurisdiction",
+              "text": "California, United States"
+            }
+          ]
+        }
+      ],
+      "plainText": "PRIVACY POLICY FOR STACK\nWebsite: https://teck.io\nLast Updated: October 7, 2026\nJurisdiction: California, United States\n--------------------------------------------------\n\n1. INTRODUCTION\nWelcome to stack (operated by stack) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data you share with us.\n\nThis Privacy Policy governs your use of our website at https://teck.io and our related applications, products, and services (collectively, the \"Services\"). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.\n\n2. INFORMATION WE COLLECT\nWe collect information you directly provide to us, as well as technical information generated automatically when you use our Services:\n\n  * Personal Identification Information: Your name, email address (privacy@example.com), phone number, account credentials, and any messages or files you submit to us.\n  * Automated Usage and Device Telemetry: Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.\n\n3. HOW WE USE INFORMATION\nWe process the collected data for legitimate commercial and operational purposes, including:\n\n  * To provide, operate, maintain, and secure the stack Services at https://teck.io.\n  * To handle customer service inquiries, provide technical support, and send administrative notices to privacy@example.com.\n  * To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.\n  * To power intelligent features and process user-submitted prompts via machine learning models.\n  * To deliver product announcements, feature updates, and promotional communications (which you may opt out of at any time).\n  * To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.\n  * To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.\n\n4. COOKIES AND TRACKING TECHNOLOGIES\nCookies are small text records deposited on your device by our web server. They allow stack to recognize your browser, retain session state, and deliver a consistent user experience.\n\nCookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://teck.io.\n\n  * Essential / Security Cookies: Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).\n  * Analytics & Performance Cookies: Used to aggregate anonymous usage counts and identify navigation paths across https://teck.io.\n  * Functional / Preference Cookies: Store your interface preferences, dark/light theme, and language choices across sessions.\n\n5. THIRD-PARTY SERVICES & INTEGRATIONS\nWe may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:\n\n  * Analytics Providers: We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.\n  * Email & Communication Infrastructure: We use transactional and marketing communication partners (Resend) to distribute emails and alerts.\n\n6. ARTIFICIAL INTELLIGENCE & AUTOMATED PROCESSING\nCertain features of stack utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API, Google Gemini API, Custom AI Model Processing).\n\nData submitted to our AI features may be used in an aggregated or de-identified format to fine-tune and improve machine learning models.\n\nYou retain ownership of your submitted prompts and generated outputs, subject to our service terms.\n\n7. DATA SECURITY\nWe employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.\n\nHowever, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.\n\n8. DATA RETENTION\nWe retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.\n\nUpon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.\n\n9. YOUR PRIVACY RIGHTS\nDepending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:\n\n  * Right to Access & Portability: Request a complete machine-readable copy of your personal data on record.\n  * Right to Rectification: Request corrections to any inaccurate, outdated, or incomplete information.\n  * Right to Erasure ('Right to be Forgotten'): Request the irreversible deletion of your personal records, subject to statutory retention exceptions.\n  * Right to Restrict or Object: Object to automated profiling, marketing processing, or request restricted handling.\n  * Right to Non-Discrimination: We will not deny services or degrade service quality for exercising your lawful privacy rights.\n\n10. CHILDREN'S PRIVACY\nstack is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.\n\nIf you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@example.com so we can promptly expunge the data.\n\n11. TEST\nthis is atest clause\n\n12. CHANGES TO THIS PRIVACY POLICY\nWe reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@example.com.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current version.\n\n13. CONTACT US\nIf you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:\n\n  * Legal Entity: stack\n  * Product / App Name: stack\n  * Official Website: https://teck.io\n  * Primary Privacy Contact: privacy@example.com\n  * Registered Address: 100 Innovation Way, Suite 400\n  * Governing Jurisdiction: California, United States\n",
+      "markdown": "# Privacy Policy for stack\n\n**Website:** [https://teck.io](https://teck.io)  \n**Last Updated:** October 7, 2026  \n**Jurisdiction:** California, United States  \n\n---\n\n## 1. Introduction\n\nWelcome to stack (operated by stack) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data you share with us.\n\nThis Privacy Policy governs your use of our website at https://teck.io and our related applications, products, and services (collectively, the \"Services\"). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.\n\n## 2. Information We Collect\n\nWe collect information you directly provide to us, as well as technical information generated automatically when you use our Services:\n\n* **Personal Identification Information:** Your name, email address (privacy@example.com), phone number, account credentials, and any messages or files you submit to us.\n* **Automated Usage and Device Telemetry:** Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.\n\n## 3. How We Use Information\n\nWe process the collected data for legitimate commercial and operational purposes, including:\n\n* To provide, operate, maintain, and secure the stack Services at https://teck.io.\n* To handle customer service inquiries, provide technical support, and send administrative notices to privacy@example.com.\n* To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.\n* To power intelligent features and process user-submitted prompts via machine learning models.\n* To deliver product announcements, feature updates, and promotional communications (which you may opt out of at any time).\n* To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.\n* To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.\n\n## 4. Cookies and Tracking Technologies\n\nCookies are small text records deposited on your device by our web server. They allow stack to recognize your browser, retain session state, and deliver a consistent user experience.\n\nCookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://teck.io.\n\n* **Essential / Security Cookies:** Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).\n* **Analytics & Performance Cookies:** Used to aggregate anonymous usage counts and identify navigation paths across https://teck.io.\n* **Functional / Preference Cookies:** Store your interface preferences, dark/light theme, and language choices across sessions.\n\n## 5. Third-Party Services & Integrations\n\nWe may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:\n\n* **Analytics Providers:** We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.\n* **Email & Communication Infrastructure:** We use transactional and marketing communication partners (Resend) to distribute emails and alerts.\n\n## 6. Artificial Intelligence & Automated Processing\n\nCertain features of stack utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API, Google Gemini API, Custom AI Model Processing).\n\nData submitted to our AI features may be used in an aggregated or de-identified format to fine-tune and improve machine learning models.\n\nYou retain ownership of your submitted prompts and generated outputs, subject to our service terms.\n\n## 7. Data Security\n\nWe employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.\n\nHowever, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.\n\n## 8. Data Retention\n\nWe retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.\n\nUpon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.\n\n## 9. Your Privacy Rights\n\nDepending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:\n\n* **Right to Access & Portability:** Request a complete machine-readable copy of your personal data on record.\n* **Right to Rectification:** Request corrections to any inaccurate, outdated, or incomplete information.\n* **Right to Erasure ('Right to be Forgotten'):** Request the irreversible deletion of your personal records, subject to statutory retention exceptions.\n* **Right to Restrict or Object:** Object to automated profiling, marketing processing, or request restricted handling.\n* **Right to Non-Discrimination:** We will not deny services or degrade service quality for exercising your lawful privacy rights.\n\n## 10. Children's Privacy\n\nstack is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.\n\nIf you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@example.com so we can promptly expunge the data.\n\n## 11. test\n\nthis is atest clause\n\n## 12. Changes to This Privacy Policy\n\nWe reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@example.com.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current version.\n\n## 13. Contact Us\n\nIf you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:\n\n* **Legal Entity:** stack\n* **Product / App Name:** stack\n* **Official Website:** https://teck.io\n* **Primary Privacy Contact:** privacy@example.com\n* **Registered Address:** 100 Innovation Way, Suite 400\n* **Governing Jurisdiction:** California, United States\n",
+      "html": "<div class=\"privacy-policy\">\n  <h1>Privacy Policy for stack</h1>\n  <p class=\"meta\"><strong>Website:</strong> <a href=\"https://teck.io\" target=\"_blank\" rel=\"noopener noreferrer\">https://teck.io</a><br>\n  <strong>Last Updated:</strong> October 7, 2026<br>\n  <strong>Jurisdiction:</strong> California, United States</p>\n  <hr />\n  <section id=\"introduction\">\n    <h2>1. Introduction</h2>\n    <p>Welcome to stack (operated by stack) (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;). We respect your privacy and are committed to protecting any personal data you share with us.</p>\n    <p>This Privacy Policy governs your use of our website at https://teck.io and our related applications, products, and services (collectively, the &quot;Services&quot;). By accessing or utilizing our Services, you consent to the data collection and usage practices described in this Privacy Policy under the laws of California, United States.</p>\n  </section>\n  <section id=\"information-we-collect\">\n    <h2>2. Information We Collect</h2>\n    <p>We collect information you directly provide to us, as well as technical information generated automatically when you use our Services:</p>\n    <ul>\n      <li><strong>Personal Identification Information:</strong> Your name, email address (privacy@example.com), phone number, account credentials, and any messages or files you submit to us.</li>\n      <li><strong>Automated Usage and Device Telemetry:</strong> Technical connection data including Internet Protocol (IP) address, browser type and version, operating system, referrer URLs, device identifiers, pages viewed, clickstream data, and timestamps.</li>\n    </ul>\n  </section>\n  <section id=\"how-we-use-information\">\n    <h2>3. How We Use Information</h2>\n    <p>We process the collected data for legitimate commercial and operational purposes, including:</p>\n    <ul>\n      <li>To provide, operate, maintain, and secure the stack Services at https://teck.io.</li>\n      <li>To handle customer service inquiries, provide technical support, and send administrative notices to privacy@example.com.</li>\n      <li>To analyze user interactions, diagnose technical bottlenecks, and improve product ergonomics and user experience.</li>\n      <li>To power intelligent features and process user-submitted prompts via machine learning models.</li>\n      <li>To deliver product announcements, feature updates, and promotional communications (which you may opt out of at any time).</li>\n      <li>To enforce our terms, prevent unauthorized or malicious activity, and safeguard our infrastructure.</li>\n      <li>To satisfy regulatory, legal, and judicial compliance mandates under the jurisdiction of California, United States.</li>\n    </ul>\n  </section>\n  <section id=\"cookies\">\n    <h2>4. Cookies and Tracking Technologies</h2>\n    <p>Cookies are small text records deposited on your device by our web server. They allow stack to recognize your browser, retain session state, and deliver a consistent user experience.</p>\n    <p>Cookie Management: You may configure your web browser to reject or delete cookies. However, disabling essential cookies may degrade or prevent access to authenticated portions of https://teck.io.</p>\n    <ul>\n      <li><strong>Essential / Security Cookies:</strong> Necessary for authentication, session continuity, and preventing Cross-Site Request Forgery (CSRF).</li>\n      <li><strong>Analytics &amp; Performance Cookies:</strong> Used to aggregate anonymous usage counts and identify navigation paths across https://teck.io.</li>\n      <li><strong>Functional / Preference Cookies:</strong> Store your interface preferences, dark/light theme, and language choices across sessions.</li>\n    </ul>\n  </section>\n  <section id=\"third-party-services\">\n    <h2>5. Third-Party Services &amp; Integrations</h2>\n    <p>We may share limited data with specialized third-party vendors under strict data processing addendums (DPAs) solely to provide our Services:</p>\n    <ul>\n      <li><strong>Analytics Providers:</strong> We work with analytics partners (Google Analytics 4, PostHog) to evaluate traffic distribution and feature engagement.</li>\n      <li><strong>Email &amp; Communication Infrastructure:</strong> We use transactional and marketing communication partners (Resend) to distribute emails and alerts.</li>\n    </ul>\n  </section>\n  <section id=\"ai-processing\">\n    <h2>6. Artificial Intelligence &amp; Automated Processing</h2>\n    <p>Certain features of stack utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT), Anthropic Claude API, Google Gemini API, Custom AI Model Processing).</p>\n    <p>Data submitted to our AI features may be used in an aggregated or de-identified format to fine-tune and improve machine learning models.</p>\n    <p>You retain ownership of your submitted prompts and generated outputs, subject to our service terms.</p>\n  </section>\n  <section id=\"data-security\">\n    <h2>7. Data Security</h2>\n    <p>We employ industry-standard administrative, physical, and technical safeguards (including TLS/HTTPS encryption in transit, strict access control, and database encryption at rest) designed to shield your personal data from unauthorized access, breach, alteration, or disclosure.</p>\n    <p>However, no internet-connected infrastructure or electronic storage system can guarantee 100% invulnerability. Users are encouraged to maintain strong, unique credentials.</p>\n  </section>\n  <section id=\"data-retention\">\n    <h2>8. Data Retention</h2>\n    <p>We retain your personal records only for the duration required to accomplish the purposes outlined in this Privacy Policy, fulfill contractual obligations, resolve disputes, and comply with statutory retention regulations under California, United States.</p>\n    <p>Upon account termination or verified deletion request, personal data is permanently destroyed or irreversibly anonymized.</p>\n  </section>\n  <section id=\"user-rights\">\n    <h2>9. Your Privacy Rights</h2>\n    <p>Depending on your domicile and applicable regulations (including GDPR, UK GDPR, CCPA/CPRA, and state privacy acts in United States), you enjoy enforceable privacy rights:</p>\n    <ul>\n      <li><strong>Right to Access &amp; Portability:</strong> Request a complete machine-readable copy of your personal data on record.</li>\n      <li><strong>Right to Rectification:</strong> Request corrections to any inaccurate, outdated, or incomplete information.</li>\n      <li><strong>Right to Erasure (&#039;Right to be Forgotten&#039;):</strong> Request the irreversible deletion of your personal records, subject to statutory retention exceptions.</li>\n      <li><strong>Right to Restrict or Object:</strong> Object to automated profiling, marketing processing, or request restricted handling.</li>\n      <li><strong>Right to Non-Discrimination:</strong> We will not deny services or degrade service quality for exercising your lawful privacy rights.</li>\n    </ul>\n  </section>\n  <section id=\"childrens-privacy\">\n    <h2>10. Children&#039;s Privacy</h2>\n    <p>stack is not engineered for or knowingly marketed to children under 13 years of age (or under 16 in the European Union / UK). We do not deliberately gather personal identification data from minors.</p>\n    <p>If you suspect that a child has provided us with personal information without parental authorization, contact us immediately at privacy@example.com so we can promptly expunge the data.</p>\n  </section>\n  <section id=\"test\">\n    <h2>11. test</h2>\n    <p>this is atest clause</p>\n  </section>\n  <section id=\"changes-to-policy\">\n    <h2>12. Changes to This Privacy Policy</h2>\n    <p>We reserve the authority to amend this Privacy Policy periodically. Significant modifications will be announced via website notice or direct email communication to privacy@example.com.</p>\n    <p>The &quot;Last Updated&quot; timestamp at the top of this document indicates the effective date of the current version.</p>\n  </section>\n  <section id=\"contact-us\">\n    <h2>13. Contact Us</h2>\n    <p>If you have questions, complaints, or wish to exercise your data protection rights, please reach out to our privacy team:</p>\n    <ul>\n      <li><strong>Legal Entity:</strong> stack</li>\n      <li><strong>Product / App Name:</strong> stack</li>\n      <li><strong>Official Website:</strong> https://teck.io</li>\n      <li><strong>Primary Privacy Contact:</strong> privacy@example.com</li>\n      <li><strong>Registered Address:</strong> 100 Innovation Way, Suite 400</li>\n      <li><strong>Governing Jurisdiction:</strong> California, United States</li>\n    </ul>\n  </section>\n</div>"
+    },
+    "views": 6,
+    "createdAt": "2026-10-07T09:44:42.064Z",
+    "updatedAt": "2026-10-07T09:44:42.064Z"
+  },
+  {
+    "id": "6f4bb253-0b4b-43b0-aabb-90421b745ce9",
+    "slug": "novafit",
+    "companyName": "Nova Fitness Inc.",
+    "websiteUrl": "https://novafit.app",
+    "contactEmail": "privacy@novafit.app",
+    "country": "United States",
+    "editToken": "cbafe1dd9e281e2f278317768dab53db5d87eb7f8b6fdf23",
+    "formData": {
+      "companyName": "Nova Fitness Inc.",
+      "tradingName": "NovaFit iOS & Android",
+      "platform": "Web & Mobile (iOS + Android)",
+      "websiteUrl": "https://novafit.app",
+      "contactEmail": "privacy@novafit.app",
+      "dpoEmail": "dpo@novafit.app",
+      "physicalAddress": "500 Market St, Suite 200, Austin, TX 78701",
+      "country": "United States",
+      "stateProvince": "Texas",
+      "customSlug": "novafit",
+      "hasUserAccounts": "Yes",
+      "accountDeletionMethod": "In-App (Settings > Account > Delete Account) & Email",
+      "accountDeletionUrl": "https://novafit.app/delete-account",
+      "mobilePermissions": [
+        "Camera (e.g. barcode scanning and profile pictures)",
+        "Photo Library & Files (e.g. uploading meal photos)",
+        "Push Notifications (e.g. workout reminders)",
+        "Precise / Background Location (e.g. outdoor run tracking)"
+      ],
+      "usesAdTracking": "Yes",
+      "adNetworks": [
+        "Google AdMob",
+        "Unity Ads"
+      ],
+      "usesIDFA": "Yes",
+      "crashReportingServices": [
+        "Firebase Crashlytics",
+        "Sentry"
+      ],
+      "collectsPersonalInfo": "Yes",
+      "collectsPhone": "Yes",
+      "collectsLocation": "Yes",
+      "collectsPayment": "Yes",
+      "usesCookies": "Yes",
+      "usesAnalytics": "Yes",
+      "analyticsServices": [
+        "Google Analytics 4",
+        "Firebase Analytics"
+      ],
+      "usesSocialLogin": "Yes",
+      "authProviders": [
+        "Sign in with Apple",
+        "Sign in with Google"
+      ],
+      "paymentProcessors": [
+        "Apple In-App Purchases (StoreKit)",
+        "Google Play Billing",
+        "Stripe"
+      ],
+      "usesAI": "Yes",
+      "aiServices": [
+        "OpenAI API (ChatGPT)"
+      ],
+      "aiTrainsOnData": "No"
+    },
+    "generatedPolicy": {
+      "companyName": "Nova Fitness Inc.",
+      "tradingName": "NovaFit iOS & Android",
+      "platform": "Web & Mobile (iOS + Android)",
+      "websiteUrl": "https://novafit.app",
+      "contactEmail": "privacy@novafit.app",
+      "country": "United States",
+      "slug": "novafit",
+      "lastUpdated": "October 7, 2026",
+      "sections": [
+        {
+          "id": "introduction",
+          "number": 1,
+          "title": "Introduction & Scope",
+          "paragraphs": [
+            "Welcome to NovaFit iOS & Android (operated by Nova Fitness Inc.) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.",
+            "This Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://novafit.app, and associated cloud services (collectively, the \"Services\"). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of Texas, United States."
+          ]
+        },
+        {
+          "id": "information-we-collect",
+          "number": 2,
+          "title": "Information We Collect",
+          "paragraphs": [
+            "We collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Personal Identification & Account Data",
+              "text": "Your name, email address (privacy@novafit.app), telephone number, account credentials, user profiles, and communications you submit to our support desk."
+            },
+            {
+              "title": "Geolocation Data",
+              "text": "Precise or approximate location data derived from GPS coordinates, IP address, WiFi networks, and mobile cell towers to provide localized search, navigation, or region-specific features."
+            },
+            {
+              "title": "Payment, Subscription & In-App Purchase Data",
+              "text": "Transaction records, subscription status, purchase receipts, and billing verification details handled by PCI-DSS certified payment processors and native store billing (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe). Credit card numbers are never stored on our application servers."
+            },
+            {
+              "title": "Diagnostics & Crash Telemetry",
+              "text": "Application crash logs, stack traces, device model, operating system version, memory utilization, and launch metrics collected via diagnostics tools (Firebase Crashlytics, Sentry) to ensure application stability."
+            },
+            {
+              "title": "Automated Device Telemetry & Log Data",
+              "text": "IP address, device identifiers (IDFV / Android App Set ID), browser type, referring URLs, screen resolution, in-app navigation paths, and timestamped activity logs."
+            }
+          ]
+        },
+        {
+          "id": "mobile-permissions",
+          "number": 3,
+          "title": "Mobile Device Permissions & Hardware Access",
+          "paragraphs": [
+            "When accessing our Services via a mobile device (iOS or Android), our application may request explicit runtime permissions to access device sensors and hardware features. You may grant or revoke these permissions at any time in your device's Operating System Settings:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Camera",
+              "text": "e.g. barcode scanning and profile pictures"
+            },
+            {
+              "title": "Photo Library & Files",
+              "text": "e.g. uploading meal photos"
+            },
+            {
+              "title": "Push Notifications",
+              "text": "e.g. workout reminders"
+            },
+            {
+              "title": "Precise / Background Location",
+              "text": "e.g. outdoor run tracking"
+            }
+          ]
+        },
+        {
+          "id": "ad-tracking",
+          "number": 4,
+          "title": "Advertising Identifiers & Tracking Disclosures (Apple ATT & Google AAID)",
+          "paragraphs": [
+            "In compliance with Apple's App Tracking Transparency (ATT) framework and Google Play Advertising ID policies:",
+            "We may collect or receive advertising identifiers (such as Apple IDFA or Google Advertising ID) solely if you grant permission. These identifiers permit ad networks to deliver personalized advertisements and prevent fraudulent ad clicks.",
+            "Opt-Out: On iOS devices, you can manage or disable tracking via Settings > Privacy & Security > Tracking. On Android devices, you can reset or delete your Advertising ID via Settings > Google > Ads."
+          ],
+          "bulletPoints": [
+            {
+              "title": "Google AdMob",
+              "text": "Used to deliver relevant in-app advertisements and measure campaign attribution."
+            },
+            {
+              "title": "Unity Ads",
+              "text": "Used to deliver relevant in-app advertisements and measure campaign attribution."
+            }
+          ]
+        },
+        {
+          "id": "how-we-use-information",
+          "number": 5,
+          "title": "How We Use Information & Legal Bases (GDPR Article 6)",
+          "paragraphs": [
+            "Under European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:",
+            "1. Performance of a Contract: To deliver our mobile app and services to you.",
+            "2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.",
+            "3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.",
+            "4. Legal Obligation: For tax compliance and statutory data retention."
+          ],
+          "bulletPoints": [
+            {
+              "text": "To provide, operate, maintain, and enhance the Nova Fitness Inc. application and cloud infrastructure."
+            },
+            {
+              "text": "To authenticate user identity, prevent unauthorized access, and manage user accounts."
+            },
+            {
+              "text": "To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@novafit.app."
+            },
+            {
+              "text": "To analyze user interaction flows, diagnose bottlenecks, and optimize software performance."
+            },
+            {
+              "text": "To fulfill in-app purchases, process subscriptions, generate invoices, and prevent payment fraud."
+            },
+            {
+              "text": "To process prompts and deliver automated features using Machine Learning APIs."
+            },
+            {
+              "text": "To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity."
+            },
+            {
+              "text": "To comply with regulatory, legal, and judicial compliance mandates under Texas, United States."
+            }
+          ]
+        },
+        {
+          "id": "account-deletion",
+          "number": 6,
+          "title": "Account Deletion & Data Purge Policy (Apple & Google Play Compliance)",
+          "paragraphs": [
+            "In strict compliance with Apple App Store Review Guideline 5.1.1(v) and Google Play Data Safety requirements, all registered users have the unambiguous right to permanently delete their account and associated personal data:",
+            "How to Initiate Account Deletion:",
+            "1. In-App Deletion: Navigate to Settings > Account > Delete Account inside the mobile application to initiate an automated permanent purge.",
+            "2. Web / Online Request URL: You may submit an instant deletion request online at https://novafit.app/delete-account or by emailing our privacy desk at privacy@novafit.app.",
+            "Data Purge Timeline: Upon initiation, your account access is immediately suspended. All personal identification, account profiles, and uploaded media are permanently purged from our active databases Within 30 calendar days of verified request, excepting minimal financial transaction records required by statutory tax laws."
+          ]
+        },
+        {
+          "id": "cookies",
+          "number": 7,
+          "title": "Cookies and Local Cache Technologies",
+          "paragraphs": [
+            "We utilize cookies, session tokens, and local storage on https://novafit.app and inside our web views to maintain authentication sessions, remember user preferences, and safeguard against Cross-Site Request Forgery (CSRF).",
+            "Cookie Controls: You can modify your browser settings to reject or delete cookies. Note that rejecting essential cookies may degrade or block authenticated portions of our Services."
+          ]
+        },
+        {
+          "id": "third-party-services",
+          "number": 8,
+          "title": "Third-Party Service Providers & Subprocessors",
+          "paragraphs": [
+            "We share limited data with specialized third-party subprocessors operating under data processing agreements (DPAs) strictly to perform operational functions on our behalf:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Analytics & Telemetry Providers",
+              "text": "We utilize analytics partners (Google Analytics 4, Firebase Analytics) to evaluate in-app screen flows and performance telemetry."
+            },
+            {
+              "title": "Identity & Social Authentication",
+              "text": "When authenticating through (Sign in with Apple, Sign in with Google), basic identity credentials are exchanged under the privacy terms of the respective identity provider."
+            },
+            {
+              "title": "Payment Processors & App Stores",
+              "text": "Financial transactions are handled by certified payment partners and native app stores (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe)."
+            }
+          ]
+        },
+        {
+          "id": "ai-processing",
+          "number": 9,
+          "title": "Artificial Intelligence & Automated Processing",
+          "paragraphs": [
+            "Certain features utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT)).",
+            "We strictly mandate that user prompts, inputs, and uploaded files submitted to our AI integrations (OpenAI API (ChatGPT)) are NOT used by foundation model providers to train or improve public AI models.",
+            "You retain full ownership of your inputs and generated outputs, subject to our service terms."
+          ]
+        },
+        {
+          "id": "ccpa-notice",
+          "number": 10,
+          "title": "California Consumer Privacy Rights (CCPA / CPRA & CalOPPA)",
+          "paragraphs": [
+            "Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):",
+            "1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.",
+            "2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.",
+            "3. Right to Opt-Out & Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@novafit.app."
+          ]
+        },
+        {
+          "id": "international-transfers",
+          "number": 11,
+          "title": "Cross-Border Data Transfers (EU-US DPF & SCCs)",
+          "paragraphs": [
+            "Your information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.",
+            "When transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection."
+          ]
+        },
+        {
+          "id": "data-security",
+          "number": 12,
+          "title": "Data Security & Encryption",
+          "paragraphs": [
+            "We implement rigorous technical, administrative, and physical safeguards:",
+            "* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).",
+            "* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.",
+            "* Access Control: Principle of least privilege is enforced for all administrative server access."
+          ]
+        },
+        {
+          "id": "childrens-privacy",
+          "number": 13,
+          "title": "Children's Privacy (COPPA & Global Age Thresholds)",
+          "paragraphs": [
+            "Nova Fitness Inc. is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.",
+            "If a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@novafit.app so we can promptly delete the records."
+          ]
+        },
+        {
+          "id": "changes-to-policy",
+          "number": 14,
+          "title": "Changes to This Privacy Policy",
+          "paragraphs": [
+            "We reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@novafit.app.",
+            "The \"Last Updated\" timestamp at the top of this document indicates the effective date of the current revision."
+          ]
+        },
+        {
+          "id": "contact-us",
+          "number": 15,
+          "title": "Contact Us & Privacy Officer",
+          "paragraphs": [
+            "For inquiries, data access requests, or regulatory filings, contact our designated privacy department:"
+          ],
+          "bulletPoints": [
+            {
+              "title": "Legal Entity",
+              "text": "Nova Fitness Inc."
+            },
+            {
+              "title": "Product / App Name",
+              "text": "NovaFit iOS & Android"
+            },
+            {
+              "title": "Official Website",
+              "text": "https://novafit.app"
+            },
+            {
+              "title": "Primary Privacy Contact",
+              "text": "privacy@novafit.app"
+            },
+            {
+              "title": "Data Protection Officer (DPO)",
+              "text": "dpo@novafit.app"
+            },
+            {
+              "title": "Registered Address",
+              "text": "500 Market St, Suite 200, Austin, TX 78701"
+            },
+            {
+              "title": "Jurisdiction & Governing Law",
+              "text": "Texas, United States"
+            }
+          ]
+        }
+      ],
+      "plainText": "PRIVACY POLICY FOR NOVA FITNESS INC.\nWebsite: https://novafit.app\nPlatform: Web & Mobile (iOS + Android)\nLast Updated: October 7, 2026\nJurisdiction: Texas, United States\n--------------------------------------------------\n\n1. INTRODUCTION & SCOPE\nWelcome to NovaFit iOS & Android (operated by Nova Fitness Inc.) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.\n\nThis Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://novafit.app, and associated cloud services (collectively, the \"Services\"). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of Texas, United States.\n\n2. INFORMATION WE COLLECT\nWe collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:\n\n  * Personal Identification & Account Data: Your name, email address (privacy@novafit.app), telephone number, account credentials, user profiles, and communications you submit to our support desk.\n  * Geolocation Data: Precise or approximate location data derived from GPS coordinates, IP address, WiFi networks, and mobile cell towers to provide localized search, navigation, or region-specific features.\n  * Payment, Subscription & In-App Purchase Data: Transaction records, subscription status, purchase receipts, and billing verification details handled by PCI-DSS certified payment processors and native store billing (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe). Credit card numbers are never stored on our application servers.\n  * Diagnostics & Crash Telemetry: Application crash logs, stack traces, device model, operating system version, memory utilization, and launch metrics collected via diagnostics tools (Firebase Crashlytics, Sentry) to ensure application stability.\n  * Automated Device Telemetry & Log Data: IP address, device identifiers (IDFV / Android App Set ID), browser type, referring URLs, screen resolution, in-app navigation paths, and timestamped activity logs.\n\n3. MOBILE DEVICE PERMISSIONS & HARDWARE ACCESS\nWhen accessing our Services via a mobile device (iOS or Android), our application may request explicit runtime permissions to access device sensors and hardware features. You may grant or revoke these permissions at any time in your device's Operating System Settings:\n\n  * Camera: e.g. barcode scanning and profile pictures\n  * Photo Library & Files: e.g. uploading meal photos\n  * Push Notifications: e.g. workout reminders\n  * Precise / Background Location: e.g. outdoor run tracking\n\n4. ADVERTISING IDENTIFIERS & TRACKING DISCLOSURES (APPLE ATT & GOOGLE AAID)\nIn compliance with Apple's App Tracking Transparency (ATT) framework and Google Play Advertising ID policies:\n\nWe may collect or receive advertising identifiers (such as Apple IDFA or Google Advertising ID) solely if you grant permission. These identifiers permit ad networks to deliver personalized advertisements and prevent fraudulent ad clicks.\n\nOpt-Out: On iOS devices, you can manage or disable tracking via Settings > Privacy & Security > Tracking. On Android devices, you can reset or delete your Advertising ID via Settings > Google > Ads.\n\n  * Google AdMob: Used to deliver relevant in-app advertisements and measure campaign attribution.\n  * Unity Ads: Used to deliver relevant in-app advertisements and measure campaign attribution.\n\n5. HOW WE USE INFORMATION & LEGAL BASES (GDPR ARTICLE 6)\nUnder European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:\n\n1. Performance of a Contract: To deliver our mobile app and services to you.\n\n2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.\n\n3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.\n\n4. Legal Obligation: For tax compliance and statutory data retention.\n\n  * To provide, operate, maintain, and enhance the Nova Fitness Inc. application and cloud infrastructure.\n  * To authenticate user identity, prevent unauthorized access, and manage user accounts.\n  * To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@novafit.app.\n  * To analyze user interaction flows, diagnose bottlenecks, and optimize software performance.\n  * To fulfill in-app purchases, process subscriptions, generate invoices, and prevent payment fraud.\n  * To process prompts and deliver automated features using Machine Learning APIs.\n  * To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity.\n  * To comply with regulatory, legal, and judicial compliance mandates under Texas, United States.\n\n6. ACCOUNT DELETION & DATA PURGE POLICY (APPLE & GOOGLE PLAY COMPLIANCE)\nIn strict compliance with Apple App Store Review Guideline 5.1.1(v) and Google Play Data Safety requirements, all registered users have the unambiguous right to permanently delete their account and associated personal data:\n\nHow to Initiate Account Deletion:\n\n1. In-App Deletion: Navigate to Settings > Account > Delete Account inside the mobile application to initiate an automated permanent purge.\n\n2. Web / Online Request URL: You may submit an instant deletion request online at https://novafit.app/delete-account or by emailing our privacy desk at privacy@novafit.app.\n\nData Purge Timeline: Upon initiation, your account access is immediately suspended. All personal identification, account profiles, and uploaded media are permanently purged from our active databases Within 30 calendar days of verified request, excepting minimal financial transaction records required by statutory tax laws.\n\n7. COOKIES AND LOCAL CACHE TECHNOLOGIES\nWe utilize cookies, session tokens, and local storage on https://novafit.app and inside our web views to maintain authentication sessions, remember user preferences, and safeguard against Cross-Site Request Forgery (CSRF).\n\nCookie Controls: You can modify your browser settings to reject or delete cookies. Note that rejecting essential cookies may degrade or block authenticated portions of our Services.\n\n8. THIRD-PARTY SERVICE PROVIDERS & SUBPROCESSORS\nWe share limited data with specialized third-party subprocessors operating under data processing agreements (DPAs) strictly to perform operational functions on our behalf:\n\n  * Analytics & Telemetry Providers: We utilize analytics partners (Google Analytics 4, Firebase Analytics) to evaluate in-app screen flows and performance telemetry.\n  * Identity & Social Authentication: When authenticating through (Sign in with Apple, Sign in with Google), basic identity credentials are exchanged under the privacy terms of the respective identity provider.\n  * Payment Processors & App Stores: Financial transactions are handled by certified payment partners and native app stores (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe).\n\n9. ARTIFICIAL INTELLIGENCE & AUTOMATED PROCESSING\nCertain features utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT)).\n\nWe strictly mandate that user prompts, inputs, and uploaded files submitted to our AI integrations (OpenAI API (ChatGPT)) are NOT used by foundation model providers to train or improve public AI models.\n\nYou retain full ownership of your inputs and generated outputs, subject to our service terms.\n\n10. CALIFORNIA CONSUMER PRIVACY RIGHTS (CCPA / CPRA & CALOPPA)\nUnder the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):\n\n1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.\n\n2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.\n\n3. Right to Opt-Out & Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@novafit.app.\n\n11. CROSS-BORDER DATA TRANSFERS (EU-US DPF & SCCS)\nYour information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.\n\nWhen transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection.\n\n12. DATA SECURITY & ENCRYPTION\nWe implement rigorous technical, administrative, and physical safeguards:\n\n* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).\n\n* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.\n\n* Access Control: Principle of least privilege is enforced for all administrative server access.\n\n13. CHILDREN'S PRIVACY (COPPA & GLOBAL AGE THRESHOLDS)\nNova Fitness Inc. is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.\n\nIf a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@novafit.app so we can promptly delete the records.\n\n14. CHANGES TO THIS PRIVACY POLICY\nWe reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@novafit.app.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current revision.\n\n15. CONTACT US & PRIVACY OFFICER\nFor inquiries, data access requests, or regulatory filings, contact our designated privacy department:\n\n  * Legal Entity: Nova Fitness Inc.\n  * Product / App Name: NovaFit iOS & Android\n  * Official Website: https://novafit.app\n  * Primary Privacy Contact: privacy@novafit.app\n  * Data Protection Officer (DPO): dpo@novafit.app\n  * Registered Address: 500 Market St, Suite 200, Austin, TX 78701\n  * Jurisdiction & Governing Law: Texas, United States\n",
+      "markdown": "# Privacy Policy for Nova Fitness Inc.\n\n**Platform:** Web & Mobile (iOS + Android)  \n**Website:** [https://novafit.app](https://novafit.app)  \n**Last Updated:** October 7, 2026  \n**Jurisdiction:** Texas, United States  \n\n---\n\n## 1. Introduction & Scope\n\nWelcome to NovaFit iOS & Android (operated by Nova Fitness Inc.) (\"we\", \"our\", or \"us\"). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.\n\nThis Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://novafit.app, and associated cloud services (collectively, the \"Services\"). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of Texas, United States.\n\n## 2. Information We Collect\n\nWe collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:\n\n* **Personal Identification & Account Data:** Your name, email address (privacy@novafit.app), telephone number, account credentials, user profiles, and communications you submit to our support desk.\n* **Geolocation Data:** Precise or approximate location data derived from GPS coordinates, IP address, WiFi networks, and mobile cell towers to provide localized search, navigation, or region-specific features.\n* **Payment, Subscription & In-App Purchase Data:** Transaction records, subscription status, purchase receipts, and billing verification details handled by PCI-DSS certified payment processors and native store billing (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe). Credit card numbers are never stored on our application servers.\n* **Diagnostics & Crash Telemetry:** Application crash logs, stack traces, device model, operating system version, memory utilization, and launch metrics collected via diagnostics tools (Firebase Crashlytics, Sentry) to ensure application stability.\n* **Automated Device Telemetry & Log Data:** IP address, device identifiers (IDFV / Android App Set ID), browser type, referring URLs, screen resolution, in-app navigation paths, and timestamped activity logs.\n\n## 3. Mobile Device Permissions & Hardware Access\n\nWhen accessing our Services via a mobile device (iOS or Android), our application may request explicit runtime permissions to access device sensors and hardware features. You may grant or revoke these permissions at any time in your device's Operating System Settings:\n\n* **Camera:** e.g. barcode scanning and profile pictures\n* **Photo Library & Files:** e.g. uploading meal photos\n* **Push Notifications:** e.g. workout reminders\n* **Precise / Background Location:** e.g. outdoor run tracking\n\n## 4. Advertising Identifiers & Tracking Disclosures (Apple ATT & Google AAID)\n\nIn compliance with Apple's App Tracking Transparency (ATT) framework and Google Play Advertising ID policies:\n\nWe may collect or receive advertising identifiers (such as Apple IDFA or Google Advertising ID) solely if you grant permission. These identifiers permit ad networks to deliver personalized advertisements and prevent fraudulent ad clicks.\n\nOpt-Out: On iOS devices, you can manage or disable tracking via Settings > Privacy & Security > Tracking. On Android devices, you can reset or delete your Advertising ID via Settings > Google > Ads.\n\n* **Google AdMob:** Used to deliver relevant in-app advertisements and measure campaign attribution.\n* **Unity Ads:** Used to deliver relevant in-app advertisements and measure campaign attribution.\n\n## 5. How We Use Information & Legal Bases (GDPR Article 6)\n\nUnder European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:\n\n1. Performance of a Contract: To deliver our mobile app and services to you.\n\n2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.\n\n3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.\n\n4. Legal Obligation: For tax compliance and statutory data retention.\n\n* To provide, operate, maintain, and enhance the Nova Fitness Inc. application and cloud infrastructure.\n* To authenticate user identity, prevent unauthorized access, and manage user accounts.\n* To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@novafit.app.\n* To analyze user interaction flows, diagnose bottlenecks, and optimize software performance.\n* To fulfill in-app purchases, process subscriptions, generate invoices, and prevent payment fraud.\n* To process prompts and deliver automated features using Machine Learning APIs.\n* To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity.\n* To comply with regulatory, legal, and judicial compliance mandates under Texas, United States.\n\n## 6. Account Deletion & Data Purge Policy (Apple & Google Play Compliance)\n\nIn strict compliance with Apple App Store Review Guideline 5.1.1(v) and Google Play Data Safety requirements, all registered users have the unambiguous right to permanently delete their account and associated personal data:\n\nHow to Initiate Account Deletion:\n\n1. In-App Deletion: Navigate to Settings > Account > Delete Account inside the mobile application to initiate an automated permanent purge.\n\n2. Web / Online Request URL: You may submit an instant deletion request online at https://novafit.app/delete-account or by emailing our privacy desk at privacy@novafit.app.\n\nData Purge Timeline: Upon initiation, your account access is immediately suspended. All personal identification, account profiles, and uploaded media are permanently purged from our active databases Within 30 calendar days of verified request, excepting minimal financial transaction records required by statutory tax laws.\n\n## 7. Cookies and Local Cache Technologies\n\nWe utilize cookies, session tokens, and local storage on https://novafit.app and inside our web views to maintain authentication sessions, remember user preferences, and safeguard against Cross-Site Request Forgery (CSRF).\n\nCookie Controls: You can modify your browser settings to reject or delete cookies. Note that rejecting essential cookies may degrade or block authenticated portions of our Services.\n\n## 8. Third-Party Service Providers & Subprocessors\n\nWe share limited data with specialized third-party subprocessors operating under data processing agreements (DPAs) strictly to perform operational functions on our behalf:\n\n* **Analytics & Telemetry Providers:** We utilize analytics partners (Google Analytics 4, Firebase Analytics) to evaluate in-app screen flows and performance telemetry.\n* **Identity & Social Authentication:** When authenticating through (Sign in with Apple, Sign in with Google), basic identity credentials are exchanged under the privacy terms of the respective identity provider.\n* **Payment Processors & App Stores:** Financial transactions are handled by certified payment partners and native app stores (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe).\n\n## 9. Artificial Intelligence & Automated Processing\n\nCertain features utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT)).\n\nWe strictly mandate that user prompts, inputs, and uploaded files submitted to our AI integrations (OpenAI API (ChatGPT)) are NOT used by foundation model providers to train or improve public AI models.\n\nYou retain full ownership of your inputs and generated outputs, subject to our service terms.\n\n## 10. California Consumer Privacy Rights (CCPA / CPRA & CalOPPA)\n\nUnder the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):\n\n1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.\n\n2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.\n\n3. Right to Opt-Out & Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@novafit.app.\n\n## 11. Cross-Border Data Transfers (EU-US DPF & SCCs)\n\nYour information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.\n\nWhen transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection.\n\n## 12. Data Security & Encryption\n\nWe implement rigorous technical, administrative, and physical safeguards:\n\n* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).\n\n* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.\n\n* Access Control: Principle of least privilege is enforced for all administrative server access.\n\n## 13. Children's Privacy (COPPA & Global Age Thresholds)\n\nNova Fitness Inc. is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.\n\nIf a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@novafit.app so we can promptly delete the records.\n\n## 14. Changes to This Privacy Policy\n\nWe reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@novafit.app.\n\nThe \"Last Updated\" timestamp at the top of this document indicates the effective date of the current revision.\n\n## 15. Contact Us & Privacy Officer\n\nFor inquiries, data access requests, or regulatory filings, contact our designated privacy department:\n\n* **Legal Entity:** Nova Fitness Inc.\n* **Product / App Name:** NovaFit iOS & Android\n* **Official Website:** https://novafit.app\n* **Primary Privacy Contact:** privacy@novafit.app\n* **Data Protection Officer (DPO):** dpo@novafit.app\n* **Registered Address:** 500 Market St, Suite 200, Austin, TX 78701\n* **Jurisdiction & Governing Law:** Texas, United States\n",
+      "html": "<div class=\"privacy-policy\">\n  <h1>Privacy Policy for Nova Fitness Inc.</h1>\n  <p class=\"meta\"><strong>Platform:</strong> Web &amp; Mobile (iOS + Android)<br>\n  <strong>Website:</strong> <a href=\"https://novafit.app\" target=\"_blank\" rel=\"noopener noreferrer\">https://novafit.app</a><br>\n  <strong>Last Updated:</strong> October 7, 2026<br>\n  <strong>Jurisdiction:</strong> Texas, United States</p>\n  <hr />\n  <section id=\"introduction\">\n    <h2>1. Introduction &amp; Scope</h2>\n    <p>Welcome to NovaFit iOS &amp; Android (operated by Nova Fitness Inc.) (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;). We respect your privacy and are committed to protecting any personal data and mobile telemetry that you share with us.</p>\n    <p>This Privacy Policy governs your use of our application, mobile software (iOS and Android), website at https://novafit.app, and associated cloud services (collectively, the &quot;Services&quot;). By downloading, accessing, or utilizing our Services, you consent to the data practices described in this Privacy Policy under the applicable laws of Texas, United States.</p>\n  </section>\n  <section id=\"information-we-collect\">\n    <h2>2. Information We Collect</h2>\n    <p>We collect information you directly provide to us, as well as technical, sensor, and telemetry data automatically transmitted when you install or interact with our Services:</p>\n    <ul>\n      <li><strong>Personal Identification &amp; Account Data:</strong> Your name, email address (privacy@novafit.app), telephone number, account credentials, user profiles, and communications you submit to our support desk.</li>\n      <li><strong>Geolocation Data:</strong> Precise or approximate location data derived from GPS coordinates, IP address, WiFi networks, and mobile cell towers to provide localized search, navigation, or region-specific features.</li>\n      <li><strong>Payment, Subscription &amp; In-App Purchase Data:</strong> Transaction records, subscription status, purchase receipts, and billing verification details handled by PCI-DSS certified payment processors and native store billing (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe). Credit card numbers are never stored on our application servers.</li>\n      <li><strong>Diagnostics &amp; Crash Telemetry:</strong> Application crash logs, stack traces, device model, operating system version, memory utilization, and launch metrics collected via diagnostics tools (Firebase Crashlytics, Sentry) to ensure application stability.</li>\n      <li><strong>Automated Device Telemetry &amp; Log Data:</strong> IP address, device identifiers (IDFV / Android App Set ID), browser type, referring URLs, screen resolution, in-app navigation paths, and timestamped activity logs.</li>\n    </ul>\n  </section>\n  <section id=\"mobile-permissions\">\n    <h2>3. Mobile Device Permissions &amp; Hardware Access</h2>\n    <p>When accessing our Services via a mobile device (iOS or Android), our application may request explicit runtime permissions to access device sensors and hardware features. You may grant or revoke these permissions at any time in your device&#039;s Operating System Settings:</p>\n    <ul>\n      <li><strong>Camera:</strong> e.g. barcode scanning and profile pictures</li>\n      <li><strong>Photo Library &amp; Files:</strong> e.g. uploading meal photos</li>\n      <li><strong>Push Notifications:</strong> e.g. workout reminders</li>\n      <li><strong>Precise / Background Location:</strong> e.g. outdoor run tracking</li>\n    </ul>\n  </section>\n  <section id=\"ad-tracking\">\n    <h2>4. Advertising Identifiers &amp; Tracking Disclosures (Apple ATT &amp; Google AAID)</h2>\n    <p>In compliance with Apple&#039;s App Tracking Transparency (ATT) framework and Google Play Advertising ID policies:</p>\n    <p>We may collect or receive advertising identifiers (such as Apple IDFA or Google Advertising ID) solely if you grant permission. These identifiers permit ad networks to deliver personalized advertisements and prevent fraudulent ad clicks.</p>\n    <p>Opt-Out: On iOS devices, you can manage or disable tracking via Settings &gt; Privacy &amp; Security &gt; Tracking. On Android devices, you can reset or delete your Advertising ID via Settings &gt; Google &gt; Ads.</p>\n    <ul>\n      <li><strong>Google AdMob:</strong> Used to deliver relevant in-app advertisements and measure campaign attribution.</li>\n      <li><strong>Unity Ads:</strong> Used to deliver relevant in-app advertisements and measure campaign attribution.</li>\n    </ul>\n  </section>\n  <section id=\"how-we-use-information\">\n    <h2>5. How We Use Information &amp; Legal Bases (GDPR Article 6)</h2>\n    <p>Under European and international privacy frameworks (such as GDPR Art. 6), we process your data on specific lawful bases:</p>\n    <p>1. Performance of a Contract: To deliver our mobile app and services to you.</p>\n    <p>2. Legitimate Interests: To improve software stability, prevent fraud, and secure infrastructure.</p>\n    <p>3. Consent: For mobile hardware permissions (camera, location, microphone) and marketing.</p>\n    <p>4. Legal Obligation: For tax compliance and statutory data retention.</p>\n    <ul>\n      <li>To provide, operate, maintain, and enhance the Nova Fitness Inc. application and cloud infrastructure.</li>\n      <li>To authenticate user identity, prevent unauthorized access, and manage user accounts.</li>\n      <li>To handle customer service inquiries, respond to tickets, and provide technical troubleshooting at privacy@novafit.app.</li>\n      <li>To analyze user interaction flows, diagnose bottlenecks, and optimize software performance.</li>\n      <li>To fulfill in-app purchases, process subscriptions, generate invoices, and prevent payment fraud.</li>\n      <li>To process prompts and deliver automated features using Machine Learning APIs.</li>\n      <li>To enforce our terms, prevent malicious or fraudulent exploitation, and maintain network integrity.</li>\n      <li>To comply with regulatory, legal, and judicial compliance mandates under Texas, United States.</li>\n    </ul>\n  </section>\n  <section id=\"account-deletion\">\n    <h2>6. Account Deletion &amp; Data Purge Policy (Apple &amp; Google Play Compliance)</h2>\n    <p>In strict compliance with Apple App Store Review Guideline 5.1.1(v) and Google Play Data Safety requirements, all registered users have the unambiguous right to permanently delete their account and associated personal data:</p>\n    <p>How to Initiate Account Deletion:</p>\n    <p>1. In-App Deletion: Navigate to Settings &gt; Account &gt; Delete Account inside the mobile application to initiate an automated permanent purge.</p>\n    <p>2. Web / Online Request URL: You may submit an instant deletion request online at https://novafit.app/delete-account or by emailing our privacy desk at privacy@novafit.app.</p>\n    <p>Data Purge Timeline: Upon initiation, your account access is immediately suspended. All personal identification, account profiles, and uploaded media are permanently purged from our active databases Within 30 calendar days of verified request, excepting minimal financial transaction records required by statutory tax laws.</p>\n  </section>\n  <section id=\"cookies\">\n    <h2>7. Cookies and Local Cache Technologies</h2>\n    <p>We utilize cookies, session tokens, and local storage on https://novafit.app and inside our web views to maintain authentication sessions, remember user preferences, and safeguard against Cross-Site Request Forgery (CSRF).</p>\n    <p>Cookie Controls: You can modify your browser settings to reject or delete cookies. Note that rejecting essential cookies may degrade or block authenticated portions of our Services.</p>\n  </section>\n  <section id=\"third-party-services\">\n    <h2>8. Third-Party Service Providers &amp; Subprocessors</h2>\n    <p>We share limited data with specialized third-party subprocessors operating under data processing agreements (DPAs) strictly to perform operational functions on our behalf:</p>\n    <ul>\n      <li><strong>Analytics &amp; Telemetry Providers:</strong> We utilize analytics partners (Google Analytics 4, Firebase Analytics) to evaluate in-app screen flows and performance telemetry.</li>\n      <li><strong>Identity &amp; Social Authentication:</strong> When authenticating through (Sign in with Apple, Sign in with Google), basic identity credentials are exchanged under the privacy terms of the respective identity provider.</li>\n      <li><strong>Payment Processors &amp; App Stores:</strong> Financial transactions are handled by certified payment partners and native app stores (Apple In-App Purchases (StoreKit), Google Play Billing, Stripe).</li>\n    </ul>\n  </section>\n  <section id=\"ai-processing\">\n    <h2>9. Artificial Intelligence &amp; Automated Processing</h2>\n    <p>Certain features utilize third-party Artificial Intelligence (AI) and Large Language Model (LLM) APIs (OpenAI API (ChatGPT)).</p>\n    <p>We strictly mandate that user prompts, inputs, and uploaded files submitted to our AI integrations (OpenAI API (ChatGPT)) are NOT used by foundation model providers to train or improve public AI models.</p>\n    <p>You retain full ownership of your inputs and generated outputs, subject to our service terms.</p>\n  </section>\n  <section id=\"ccpa-notice\">\n    <h2>10. California Consumer Privacy Rights (CCPA / CPRA &amp; CalOPPA)</h2>\n    <p>Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):</p>\n    <p>1. We Do NOT Sell Your Personal Information: We have not sold, rented, or monetized personal information to third parties in the preceding 12 months.</p>\n    <p>2. We Do NOT Share Personal Information for Cross-Context Behavioral Advertising: We do not share personal data with data brokers.</p>\n    <p>3. Right to Opt-Out &amp; Non-Discrimination: California residents may exercise their rights without facing price or service discrimination by contacting us at privacy@novafit.app.</p>\n  </section>\n  <section id=\"international-transfers\">\n    <h2>11. Cross-Border Data Transfers (EU-US DPF &amp; SCCs)</h2>\n    <p>Your information may be transferred to, stored, and processed in countries outside your residence where our cloud servers are located.</p>\n    <p>When transferring personal data from the European Economic Area (EEA), United Kingdom, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses (SCCs) approved by the European Commission or equivalent adequacy frameworks to ensure continuous data protection.</p>\n  </section>\n  <section id=\"data-security\">\n    <h2>12. Data Security &amp; Encryption</h2>\n    <p>We implement rigorous technical, administrative, and physical safeguards:</p>\n    <p>* Encryption in Transit: All client-server communications are encrypted using Transport Layer Security (TLS 1.3 / HTTPS).</p>\n    <p>* Encryption at Rest: Sensitive database storage is encrypted using industry-standard AES-256 protocols.</p>\n    <p>* Access Control: Principle of least privilege is enforced for all administrative server access.</p>\n  </section>\n  <section id=\"childrens-privacy\">\n    <h2>13. Children&#039;s Privacy (COPPA &amp; Global Age Thresholds)</h2>\n    <p>Nova Fitness Inc. is not directed to children under 13 years of age (or under 16 in the EEA / UK). We do not knowingly collect or solicit personal data from children.</p>\n    <p>If a parent or guardian discovers that a child has provided us with personal information, please contact us immediately at privacy@novafit.app so we can promptly delete the records.</p>\n  </section>\n  <section id=\"changes-to-policy\">\n    <h2>14. Changes to This Privacy Policy</h2>\n    <p>We reserve the authority to update this Privacy Policy to reflect modifications in software features, store guidelines, or privacy legislation. Material amendments will be notified via in-app banner or email notice to privacy@novafit.app.</p>\n    <p>The &quot;Last Updated&quot; timestamp at the top of this document indicates the effective date of the current revision.</p>\n  </section>\n  <section id=\"contact-us\">\n    <h2>15. Contact Us &amp; Privacy Officer</h2>\n    <p>For inquiries, data access requests, or regulatory filings, contact our designated privacy department:</p>\n    <ul>\n      <li><strong>Legal Entity:</strong> Nova Fitness Inc.</li>\n      <li><strong>Product / App Name:</strong> NovaFit iOS &amp; Android</li>\n      <li><strong>Official Website:</strong> https://novafit.app</li>\n      <li><strong>Primary Privacy Contact:</strong> privacy@novafit.app</li>\n      <li><strong>Data Protection Officer (DPO):</strong> dpo@novafit.app</li>\n      <li><strong>Registered Address:</strong> 500 Market St, Suite 200, Austin, TX 78701</li>\n      <li><strong>Jurisdiction &amp; Governing Law:</strong> Texas, United States</li>\n    </ul>\n  </section>\n</div>",
+      "appleNutritionLabels": [
+        {
+          "category": "Contact Info",
+          "dataTypes": [
+            "Name",
+            "Email Address",
+            "Phone Number"
+          ],
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purpose": "App Functionality & Account Management"
+        },
+        {
+          "category": "User Content",
+          "dataTypes": [
+            "Photos or Videos",
+            "Customer Support Messages"
+          ],
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purpose": "App Functionality"
+        },
+        {
+          "category": "Identifiers",
+          "dataTypes": [
+            "User ID",
+            "Device ID",
+            "IDFA"
+          ],
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": true,
+          "purpose": "Third-Party Advertising & Analytics"
+        },
+        {
+          "category": "Usage Data",
+          "dataTypes": [
+            "Product Interaction",
+            "Advertising Data"
+          ],
+          "collected": true,
+          "linkedToUser": false,
+          "usedForTracking": false,
+          "purpose": "Analytics & Product Improvement"
+        },
+        {
+          "category": "Diagnostics",
+          "dataTypes": [
+            "Crash Data",
+            "Performance Diagnostics"
+          ],
+          "collected": true,
+          "linkedToUser": false,
+          "usedForTracking": false,
+          "purpose": "App Stability & Diagnostics"
+        },
+        {
+          "category": "Location",
+          "dataTypes": [
+            "Coarse / Precise Location"
+          ],
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purpose": "App Functionality"
+        }
+      ],
+      "googlePlayDataSafety": {
+        "collectedData": [
+          "Personal Info (Name, Email)",
+          "Location (Approximate / Precise)",
+          "Financial Info (Purchase history)",
+          "Photos and Videos",
+          "App Info and Performance (Crash logs, Diagnostics)",
+          "Device or other IDs"
+        ],
+        "sharedData": [
+          "Analytics Subprocessors",
+          "Payment Processors",
+          "Advertising Networks"
+        ],
+        "encryptedInTransit": true,
+        "deletionMechanism": "In-App (Settings > Account > Delete Account) & Email",
+        "deletionUrl": "https://novafit.app/delete-account"
+      }
+    },
+    "views": 1,
+    "createdAt": "2026-10-07T09:54:28.781Z",
+    "updatedAt": "2026-10-07T09:54:28.781Z"
+  }
+]
