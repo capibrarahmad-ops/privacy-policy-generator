@@ -829,3 +829,625 @@ function escapeHtml(str: string): string {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
+export interface DescriptionGeneratorOptions {
+  customSlug?: string;
+  lastUpdated?: string;
+  appName?: string;
+  websiteUrl?: string;
+  contactEmail?: string;
+}
+
+export function generatePolicyFromDescription(
+  rawDescription: string,
+  options?: DescriptionGeneratorOptions
+): GeneratedPolicy {
+  const text = (rawDescription || "").trim();
+
+  // Helper for case-insensitive matching
+  const has = (pattern: RegExp | string): boolean => {
+    if (typeof pattern === "string") {
+      return text.toLowerCase().includes(pattern.toLowerCase());
+    }
+    return pattern.test(text);
+  };
+
+  // 1. Entity Extraction
+  let appName = options?.appName?.trim() || "";
+  if (!appName) {
+    const nameMatch =
+      text.match(/(?:app|website|site|platform|service|tool|product)\s+(?:named|called|is\s+called|is\s+named)\s+["']?([A-Za-z0-9\s._-]{2,40}?)["']?(?:[\.,\n]|\s+that|\s+which|\s+is)/i) ||
+      text.match(/\bcalled\s+["']?([A-Za-z0-9\s._-]{2,40}?)["']?(?:[\.,\n]|\s+that|\s+which|\s+for)/i) ||
+      text.match(/\bnamed\s+["']?([A-Za-z0-9\s._-]{2,40}?)["']?(?:[\.,\n]|\s+that|\s+which|\s+for)/i) ||
+      text.match(/for\s+["']?([A-Za-z0-9\s._-]{2,40}?)["']?,\s+(?:a|an)\s+(?:mobile|web|ios|android|saas|app|website)/i) ||
+      text.match(/^([A-Za-z0-9_-]{2,30}(?:\s+[A-Za-z0-9_-]{1,20}){0,2})\s+is\s+(?:an?|the)\s+(?:[A-Za-z0-9_-]+\s+){0,3}(?:app|application|website|platform|service|tool|saas|software)/i);
+    if (nameMatch && nameMatch[1]) {
+      appName = nameMatch[1].trim();
+    }
+  }
+
+  const companyDisplay = appName || "[App / Company Name: Needs Confirmation]";
+
+  // 2. Email Extraction
+  let email = options?.contactEmail?.trim() || "";
+  if (!email) {
+    const emailMatch = text.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/);
+    if (emailMatch) {
+      email = emailMatch[0];
+    }
+  }
+  const emailDisplay = email || "[Contact Email: Needs Confirmation]";
+
+  // 3. Website Extraction
+  let website = options?.websiteUrl?.trim() || "";
+  if (!website) {
+    const urlMatch = text.match(/\bhttps?:\/\/[^\s,;)"']+/i);
+    if (urlMatch) {
+      website = urlMatch[0];
+    }
+  }
+  const websiteDisplay = website || "[Website / App URL: Needs Confirmation]";
+
+  // 4. Platform Extraction
+  const hasMobile = has(/\b(ios|android|iphone|ipad|mobile app|app store|play store)\b/i);
+  const hasWeb = has(/\b(website|web app|web application|saas|browser|chrome extension)\b/i);
+  let platform = "[Platform: Needs Confirmation]";
+  if (hasMobile && hasWeb) {
+    platform = "Web & Mobile Application";
+  } else if (hasMobile) {
+    platform = "Mobile Application (iOS / Android)";
+  } else if (hasWeb) {
+    platform = "Web Application";
+  }
+
+  // 5. Country / Jurisdiction Extraction
+  let jurisdiction = "[Jurisdiction / Governing Law: Needs Confirmation]";
+  const countryList = [
+    "United States",
+    "California",
+    "United Kingdom",
+    "Canada",
+    "Australia",
+    "Germany",
+    "France",
+    "European Union",
+    "India",
+    "Singapore",
+    "Japan",
+    "Ireland",
+    "Brazil",
+  ];
+  for (const c of countryList) {
+    if (new RegExp(`\\b${c}\\b`, "i").test(text)) {
+      jurisdiction = c;
+      break;
+    }
+  }
+
+  // 6. Data Practices Analysis
+  const explicitNoPersonalData = has(
+    /\b(does not collect (?:any|personal)|no personal (?:information|data|info)|no user data|anonymous app|does not gather personal)\b/i
+  );
+  const explicitNoCookies = has(
+    /\b(no cookies|does not use cookies|without cookies|no tracking cookies)\b/i
+  );
+  const explicitNoSell = has(
+    /\b(do not sell|never sell|we don't sell|not sold to third parties|no selling of data)\b/i
+  );
+
+  // Specific data items mentioned
+  const collectedDataItems: { title: string; text: string }[] = [];
+
+  const mentionsEmail = has(/\b(email|email address)\b/i);
+  const mentionsName = has(/\b(name|full name|username|user name)\b/i);
+  const mentionsPhone = has(/\b(phone|telephone|mobile number|phone number)\b/i);
+  const mentionsAddress = has(/\b(physical address|mailing address|postal address|billing address)\b/i);
+  const mentionsAccount = has(/\b(account|accounts|profile|sign up|sign in|login|credentials|password)\b/i);
+
+  if (mentionsEmail || mentionsName || mentionsPhone || mentionsAddress || mentionsAccount) {
+    const list: string[] = [];
+    if (mentionsName) list.push("names / usernames");
+    if (mentionsEmail) list.push("email addresses");
+    if (mentionsPhone) list.push("phone numbers");
+    if (mentionsAddress) list.push("addresses");
+    if (mentionsAccount) list.push("account credentials / profile details");
+    collectedDataItems.push({
+      title: "Personal & Account Information",
+      text: `Information directly provided by users, including: ${list.join(", ")}.`,
+    });
+  }
+
+  const mentionsPhotosMedia = has(/\b(photo|photos|image|images|video|videos|audio|voice|camera|files|uploads)\b/i);
+  if (mentionsPhotosMedia) {
+    collectedDataItems.push({
+      title: "User-Generated Media & Files",
+      text: "Photos, images, audio, or files uploaded or generated within the application.",
+    });
+  }
+
+  const mentionsLocation = has(/\b(location|geolocation|gps|coordinates|precise location)\b/i);
+  if (mentionsLocation) {
+    collectedDataItems.push({
+      title: "Location Information",
+      text: "Location and geolocation data used for local services, navigation, or region-based features.",
+    });
+  }
+
+  const mentionsPayment = has(/\b(payment|payments|credit card|billing|subscription|purchases|transactions?|stripe|paypal)\b/i);
+  if (mentionsPayment) {
+    collectedDataItems.push({
+      title: "Payment & Transaction Records",
+      text: "Billing details, subscription records, and transaction receipts processed via payment providers.",
+    });
+  }
+
+  const mentionsDeviceLogs = has(/\b(device|ip address|log|logs|diagnostics|telemetry|crash|browser)\b/i);
+  if (mentionsDeviceLogs) {
+    collectedDataItems.push({
+      title: "Device & Technical Telemetry",
+      text: "Device identifiers, operating system version, IP address, and crash/diagnostic logs.",
+    });
+  }
+
+  // Third-party service detection
+  const detectedThirdParties: { name: string; purpose: string }[] = [];
+  const thirdPartyMap: Record<string, string> = {
+    "google analytics": "Web and application analytics telemetry",
+    posthog: "Product analytics and user event tracking",
+    mixpanel: "Event tracking and product metrics",
+    firebase: "Authentication, database, and telemetry services",
+    supabase: "Database and authentication infrastructure",
+    stripe: "Payment processing and subscription billing",
+    paypal: "Payment and checkout processing",
+    sentry: "Application crash reporting and error diagnostics",
+    datadog: "Infrastructure and performance monitoring",
+    openai: "Artificial intelligence / machine learning models",
+    chatgpt: "AI conversational interface integrations",
+    claude: "AI model integrations",
+    anthropic: "AI model processing",
+    aws: "Cloud hosting and storage infrastructure",
+    vercel: "Application deployment and hosting",
+    resend: "Transactional email delivery",
+    sendgrid: "Email notifications and messaging",
+    twilio: "SMS and communication delivery",
+    meta: "Social authentication and advertising APIs",
+    facebook: "Social login and analytics",
+    apple: "Sign in with Apple and App Store billing",
+  };
+
+  for (const [key, purpose] of Object.entries(thirdPartyMap)) {
+    if (has(new RegExp(`\\b${key}\\b`, "i"))) {
+      const formatted = key.charAt(0).toUpperCase() + key.slice(1);
+      detectedThirdParties.push({ name: formatted, purpose });
+    }
+  }
+
+  // Analytics detection
+  const mentionsAnalytics = has(/\b(analytics|google analytics|posthog|mixpanel|telemetry|track usage|tracking)\b/i);
+  const mentionsCookies = has(/\b(cookie|cookies|local storage|session|sessions)\b/i);
+
+  // Retention detection
+  let retentionText = "";
+  const retentionMatch = text.match(/\b(retained (?:for )?[^\.,\n]+|stored (?:for )?[^\.,\n]+|\d+\s+(?:days|months|years)|until account deletion|until deleted)\b/i);
+  if (retentionMatch) {
+    retentionText = retentionMatch[0];
+  }
+
+  // Account deletion detection
+  let deletionMethodText = "";
+  const deletionMatch = text.match(/\b(?:delete (?:account|data) [^\.,\n]+|settings [^\.,\n]+|email [^\.,\n]+ to delete)\b/i);
+  if (deletionMatch) {
+    deletionMethodText = deletionMatch[0];
+  }
+
+  const lastUpdated =
+    options?.lastUpdated ||
+    new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+  const slug =
+    options?.customSlug?.trim() ||
+    (appName ? slugify(appName) : "my-app-policy");
+
+  const sections: PolicySection[] = [];
+  let secNum = 1;
+
+  // 1. Introduction
+  const introParagraphs = [
+    `Welcome to the Privacy Policy for ${companyDisplay} ("we", "our", or "us"). This policy explains what information is collected, how it is used, and how your privacy is protected when using our ${platform.includes("Needs Confirmation") ? "services" : platform.toLowerCase()}.`,
+  ];
+  if (text) {
+    introParagraphs.push(
+      `Service Summary (Provided by User): "${text.length > 280 ? text.substring(0, 280) + "..." : text}"`
+    );
+  }
+  introParagraphs.push(
+    `Please review this document carefully. Where details were not provided in your app description, they are explicitly designated with [Needs Confirmation] so they can be confirmed prior to official deployment.`
+  );
+  sections.push({
+    id: "introduction",
+    number: secNum++,
+    title: "Introduction",
+    paragraphs: introParagraphs,
+    bulletPoints: [
+      { title: "Application / Service Name", text: companyDisplay },
+      { title: "Platform / Scope", text: platform },
+      { title: "Official Website", text: websiteDisplay },
+    ],
+  });
+
+  // 2. Information Collected
+  const infoParagraphs: string[] = [];
+  const infoBullets: { title?: string; text: string }[] = [];
+
+  if (explicitNoPersonalData) {
+    infoParagraphs.push(
+      "As described in your product specifications, this application does not collect, record, or transmit personal data from its users."
+    );
+    infoBullets.push({
+      title: "No Personal Data Collection",
+      text: "The service operates without storing user accounts, identity records, or private personal information.",
+    });
+  } else if (collectedDataItems.length > 0) {
+    infoParagraphs.push(
+      "Based on the information you provided, the application collects and processes the following categories of data:"
+    );
+    collectedDataItems.forEach((item) => {
+      infoBullets.push({ title: item.title, text: item.text });
+    });
+  } else {
+    infoParagraphs.push(
+      "The submitted description did not specify the exact categories of data gathered by your application."
+    );
+    infoBullets.push({
+      title: "[Data Collection Details: Needs Confirmation]",
+      text: "Specify what user information (e.g., email address, account details, uploaded files, device data) is collected by your app, or confirm if no personal data is gathered.",
+    });
+  }
+  sections.push({
+    id: "information-collected",
+    number: secNum++,
+    title: "Information Collected",
+    paragraphs: infoParagraphs,
+    bulletPoints: infoBullets,
+  });
+
+  // 3. How Information Is Used
+  const usageParagraphs: string[] = [
+    "Information collected by the application is utilized solely to deliver and maintain the functionality described in your submission:",
+  ];
+  const usageBullets: { title?: string; text: string }[] = [];
+
+  usageBullets.push({
+    title: "Core Service Delivery",
+    text: `Operating and maintaining the primary functionality of ${companyDisplay}.`,
+  });
+
+  if (mentionsAccount || mentionsEmail) {
+    usageBullets.push({
+      title: "Account Administration & Communications",
+      text: "Managing authentication, responding to user inquiries, and sending essential operational notices.",
+    });
+  }
+
+  if (mentionsPayment) {
+    usageBullets.push({
+      title: "Order & Subscription Fulfillment",
+      text: "Facilitating customer billing, payment verification, and order records.",
+    });
+  }
+
+  if (mentionsAnalytics || mentionsDeviceLogs) {
+    usageBullets.push({
+      title: "Performance & Diagnostic Improvements",
+      text: "Analyzing stability, diagnosing technical faults, and refining application features.",
+    });
+  }
+
+  if (collectedDataItems.length === 0 && !mentionsAccount && !mentionsPayment) {
+    usageBullets.push({
+      title: "[Data Usage Purposes: Needs Confirmation]",
+      text: "Clarify any secondary purposes for processing user data, such as product research, customer support, or security monitoring.",
+    });
+  }
+
+  sections.push({
+    id: "how-information-is-used",
+    number: secNum++,
+    title: "How Information Is Used",
+    paragraphs: usageParagraphs,
+    bulletPoints: usageBullets,
+  });
+
+  // 4. Data Sharing & Third-Party Services
+  const sharingParagraphs: string[] = [];
+  const sharingBullets: { title?: string; text: string }[] = [];
+
+  if (explicitNoSell) {
+    sharingParagraphs.push(
+      "We do not sell, rent, trade, or monetize your personal information to third parties or commercial data brokers under any circumstances."
+    );
+  } else {
+    sharingParagraphs.push(
+      "Personal data is not sold or rented to third-party advertisers."
+    );
+  }
+
+  if (detectedThirdParties.length > 0) {
+    sharingParagraphs.push(
+      "We share information only with third-party service providers necessary to operate the application services described in your submission:"
+    );
+    detectedThirdParties.forEach((tp) => {
+      sharingBullets.push({ title: tp.name, text: tp.purpose });
+    });
+  } else {
+    sharingParagraphs.push(
+      "No external third-party integrations, cloud databases, or sub-processors were specified in your app description."
+    );
+    sharingBullets.push({
+      title: "[Third-Party Integrations: Needs Confirmation]",
+      text: "Confirm whether external cloud hosts, analytics platforms, or API partners receive user data.",
+    });
+  }
+  sections.push({
+    id: "data-sharing",
+    number: secNum++,
+    title: "Data Sharing & Third-Party Disclosures",
+    paragraphs: sharingParagraphs,
+    bulletPoints: sharingBullets,
+  });
+
+  // 5. Cookies and Analytics
+  const cookieParagraphs: string[] = [];
+  const cookieBullets: { title?: string; text: string }[] = [];
+
+  if (explicitNoCookies) {
+    cookieParagraphs.push(
+      "The application does not use cookies, web beacons, or third-party tracking identifiers."
+    );
+    cookieBullets.push({
+      title: "No Tracking Cookies",
+      text: "No browser tracking cookies or cross-site tracking scripts are deployed.",
+    });
+  } else if (mentionsCookies || mentionsAnalytics) {
+    cookieParagraphs.push(
+      "The service uses cookies, local storage, or analytics tracking to support essential operations and understand usage patterns:"
+    );
+    if (mentionsCookies) {
+      cookieBullets.push({
+        title: "Session & Functional Cookies",
+        text: "Temporary cookies or local storage keys used to maintain state and user preferences.",
+      });
+    }
+    if (mentionsAnalytics) {
+      cookieBullets.push({
+        title: "Analytics Measurement",
+        text: "Aggregated usage telemetry to analyze app traffic and feature engagement.",
+      });
+    }
+  } else {
+    cookieParagraphs.push(
+      "Cookie and analytics tracking practices were not explicitly outlined in your description."
+    );
+    cookieBullets.push({
+      title: "[Cookies & Tracking: Needs Confirmation]",
+      text: "Indicate whether your app or website uses cookies, local storage, or third-party analytics telemetry.",
+    });
+  }
+  sections.push({
+    id: "cookies-and-analytics",
+    number: secNum++,
+    title: "Cookies and Analytics",
+    paragraphs: cookieParagraphs,
+    bulletPoints: cookieBullets,
+  });
+
+  // 6. Data Security
+  sections.push({
+    id: "data-security",
+    number: secNum++,
+    title: "Data Security",
+    paragraphs: [
+      `We implement reasonable administrative, technical, and physical security measures to protect information handled by ${companyDisplay} against unauthorized access, loss, misuse, or alteration.`,
+      `While we take diligent steps to safeguard data, no transmission over the Internet or wireless network can be guaranteed 100% secure.`,
+    ],
+    bulletPoints: [
+      {
+        title: "[Security Standards: Needs Confirmation]",
+        text: "Confirm if specific security protocols (e.g., TLS encryption in transit, AES-256 encryption at rest) are employed for your data architecture.",
+      },
+    ],
+  });
+
+  // 7. Data Retention
+  const retentionParagraphs: string[] = [];
+  const retentionBullets: { title?: string; text: string }[] = [];
+
+  if (retentionText) {
+    retentionParagraphs.push(
+      `Information is retained according to your specified policy: ${retentionText}.`
+    );
+    retentionBullets.push({
+      title: "Retention Schedule",
+      text: retentionText,
+    });
+  } else {
+    retentionParagraphs.push(
+      "Personal information is retained only for as long as necessary to fulfill the purposes for which it was gathered, satisfy operational requirements, or comply with applicable legal obligations."
+    );
+    retentionBullets.push({
+      title: "[Retention Period: Needs Confirmation]",
+      text: "Specify how long user records, transaction logs, or backups are stored before permanent deletion.",
+    });
+  }
+  sections.push({
+    id: "data-retention",
+    number: secNum++,
+    title: "Data Retention",
+    paragraphs: retentionParagraphs,
+    bulletPoints: retentionBullets,
+  });
+
+  // 8. User Rights
+  const rightsParagraphs: string[] = [
+    "Depending on your location and relevant privacy laws, users have important rights regarding their personal data, including the right to:",
+  ];
+  const rightsBullets: { title?: string; text: string }[] = [
+    { title: "Access & Portability", text: "Request a copy of the personal information stored about you." },
+    { title: "Correction", text: "Request correction of inaccurate or incomplete records." },
+    { title: "Deletion / Erasure", text: "Request deletion of your personal information or account closure." },
+    { title: "Withdraw Consent", text: "Revoke consent for optional data processing at any time." },
+  ];
+
+  if (deletionMethodText) {
+    rightsBullets.push({
+      title: "Account Deletion Procedure",
+      text: deletionMethodText,
+    });
+  } else {
+    rightsBullets.push({
+      title: "[Account Deletion Method: Needs Confirmation]",
+      text: "Provide instructions on how users can delete their accounts or request data erasure (e.g., via in-app button or dedicated email).",
+    });
+  }
+
+  sections.push({
+    id: "user-rights",
+    number: secNum++,
+    title: "User Rights & Account Deletion",
+    paragraphs: rightsParagraphs,
+    bulletPoints: rightsBullets,
+  });
+
+  // 9. Contact Information
+  const contactBullets: { title?: string; text: string }[] = [
+    { title: "Application / Entity Name", text: companyDisplay },
+    { title: "Website URL", text: websiteDisplay },
+    { title: "Designated Privacy Email", text: emailDisplay },
+    { title: "Jurisdiction / Governing Law", text: jurisdiction },
+  ];
+  if (!email || !appName || !website) {
+    contactBullets.push({
+      title: "[Missing Contact Fields: Needs Confirmation]",
+      text: "Please provide the official registered company address and verified contact email for privacy correspondence.",
+    });
+  }
+  sections.push({
+    id: "contact-information",
+    number: secNum++,
+    title: "Contact Information",
+    paragraphs: [
+      `For inquiries, questions regarding this Privacy Policy, or to exercise your privacy rights, please contact our designated representative:`,
+    ],
+    bulletPoints: contactBullets,
+  });
+
+  // Build Plain Text
+  const plainTextLines: string[] = [
+    `PRIVACY POLICY FOR ${companyDisplay.toUpperCase()}`,
+    `Platform: ${platform}`,
+    `Website: ${websiteDisplay}`,
+    `Last Updated: ${lastUpdated}`,
+    `Jurisdiction: ${jurisdiction}`,
+    `--------------------------------------------------`,
+    "",
+  ];
+
+  // Build Markdown
+  const markdownLines: string[] = [
+    `# Privacy Policy for ${companyDisplay}`,
+    "",
+    `**Platform:** ${platform}  `,
+    `**Website:** ${website.startsWith("http") ? `[${website}](${website})` : websiteDisplay}  `,
+    `**Last Updated:** ${lastUpdated}  `,
+    `**Jurisdiction:** ${jurisdiction}  `,
+    "",
+    "---",
+    "",
+  ];
+
+  // Build HTML
+  let htmlContent = `<div class="privacy-policy">
+  <h1>Privacy Policy for ${escapeHtml(companyDisplay)}</h1>
+  <p class="meta"><strong>Platform:</strong> ${escapeHtml(platform)}<br>
+  <strong>Website:</strong> ${website.startsWith("http") ? `<a href="${escapeHtml(website)}" target="_blank" rel="noopener noreferrer">${escapeHtml(website)}</a>` : escapeHtml(websiteDisplay)}<br>
+  <strong>Last Updated:</strong> ${escapeHtml(lastUpdated)}<br>
+  <strong>Jurisdiction:</strong> ${escapeHtml(jurisdiction)}</p>
+  <hr />
+`;
+
+  sections.forEach((sec) => {
+    plainTextLines.push(`${sec.number}. ${sec.title.toUpperCase()}`);
+    sec.paragraphs.forEach((p) => plainTextLines.push(p, ""));
+    if (sec.bulletPoints) {
+      sec.bulletPoints.forEach((b) => {
+        plainTextLines.push(`  * ${b.title ? b.title + ": " : ""}${b.text}`);
+      });
+      plainTextLines.push("");
+    }
+
+    markdownLines.push(`## ${sec.number}. ${sec.title}`);
+    markdownLines.push("");
+    sec.paragraphs.forEach((p) => {
+      markdownLines.push(p);
+      markdownLines.push("");
+    });
+    if (sec.bulletPoints) {
+      sec.bulletPoints.forEach((b) => {
+        markdownLines.push(`* ${b.title ? `**${b.title}:** ` : ""}${b.text}`);
+      });
+      markdownLines.push("");
+    }
+
+    htmlContent += `  <section id="${escapeHtml(sec.id)}">\n`;
+    htmlContent += `    <h2>${sec.number}. ${escapeHtml(sec.title)}</h2>\n`;
+    sec.paragraphs.forEach((p) => {
+      htmlContent += `    <p>${escapeHtml(p)}</p>\n`;
+    });
+    if (sec.bulletPoints && sec.bulletPoints.length > 0) {
+      htmlContent += `    <ul>\n`;
+      sec.bulletPoints.forEach((b) => {
+        htmlContent += `      <li>${b.title ? `<strong>${escapeHtml(b.title)}:</strong> ` : ""}${escapeHtml(b.text)}</li>\n`;
+      });
+      htmlContent += `    </ul>\n`;
+    }
+    htmlContent += `  </section>\n`;
+  });
+
+  htmlContent += `</div>`;
+
+  return {
+    companyName: appName || "My Application",
+    tradingName: appName || undefined,
+    platform,
+    websiteUrl: website || "",
+    contactEmail: email || "",
+    country: jurisdiction.includes("Needs Confirmation") ? "Unspecified" : jurisdiction,
+    slug,
+    lastUpdated,
+    sections,
+    plainText: plainTextLines.join("\n"),
+    markdown: markdownLines.join("\n"),
+    html: htmlContent,
+    appleNutritionLabels: [
+      {
+        category: "Contact Info",
+        dataTypes: ["Email Address"],
+        collected: Boolean(email),
+        linkedToUser: Boolean(email),
+        usedForTracking: false,
+        purpose: "App Functionality",
+      },
+    ],
+    googlePlayDataSafety: {
+      collectedData: collectedDataItems.map((c) => c.title),
+      sharedData: detectedThirdParties.map((t) => t.name),
+      encryptedInTransit: true,
+      deletionMechanism: deletionMethodText || "Email Request or In-App Settings",
+      deletionUrl: website ? `${website}/delete-account` : "",
+    },
+  };
+}

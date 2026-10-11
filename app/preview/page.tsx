@@ -6,6 +6,7 @@ import {
   PolicyFormData,
   DEFAULT_FORM_DATA,
   generatePrivacyPolicy,
+  generatePolicyFromDescription,
   GeneratedPolicy,
 } from "@/lib/generatePrivacyPolicy";
 
@@ -19,6 +20,8 @@ interface DeploymentResult {
 
 export default function PreviewPage() {
   const [formData, setFormData] = useState<PolicyFormData>(DEFAULT_FORM_DATA);
+  const [description, setDescription] = useState("");
+  const [customPolicy, setCustomPolicy] = useState<GeneratedPolicy | null>(null);
   const [isSampleData, setIsSampleData] = useState(false);
   const [activeTab, setActiveTab] = useState<"preview" | "compliance" | "markdown" | "html">("preview");
   const [copied, setCopied] = useState(false);
@@ -36,9 +39,18 @@ export default function PreviewPage() {
       const saved = localStorage.getItem("privacyPolicyData");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed && typeof parsed === "object" && parsed.companyName) {
-          setFormData(parsed);
-          setIsSampleData(false);
+        if (parsed && typeof parsed === "object") {
+          if (parsed.description && typeof parsed.description === "string") {
+            setDescription(parsed.description);
+            const policy = generatePolicyFromDescription(parsed.description);
+            setCustomPolicy(policy);
+            setIsSampleData(false);
+          } else if (parsed.companyName) {
+            setFormData(parsed);
+            setIsSampleData(false);
+          } else {
+            setIsSampleData(true);
+          }
         } else {
           setIsSampleData(true);
         }
@@ -51,7 +63,8 @@ export default function PreviewPage() {
     }
   }, []);
 
-  const policy: GeneratedPolicy = generatePrivacyPolicy(formData);
+  const policy: GeneratedPolicy =
+    customPolicy || generatePrivacyPolicy(formData);
 
   const handleCopy = async () => {
     let contentToCopy = policy.plainText;
@@ -97,20 +110,28 @@ export default function PreviewPage() {
 
   const handleDeploy = async () => {
     setIsDeploying(true);
-    setShowDeployModal(true);
 
     try {
       const res = await fetch("/api/deploy", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          formData,
-          requestedSlug: formData.customSlug,
+          description: description || undefined,
+          generatedPolicy: policy,
+          requestedSlug: policy.slug || formData.customSlug,
         }),
       });
 
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
+        // Verify public link
+        try {
+          const verify = await fetch(data.liveUrl);
+          if (!verify.ok) {
+            alert("Deployment verification warning: the public policy could not be confirmed in storage.");
+          }
+        } catch {}
+
         setDeploymentResult({
           slug: data.slug,
           editToken: data.editToken,
@@ -118,14 +139,13 @@ export default function PreviewPage() {
           fullLiveUrl: data.fullLiveUrl,
           isNew: data.isNew,
         });
+        setShowDeployModal(true);
       } else {
         alert(data.error || "Deployment failed. Please try again.");
-        setShowDeployModal(false);
       }
     } catch (err) {
       console.error("Deploy error:", err);
       alert("Error deploying policy. Check network connection.");
-      setShowDeployModal(false);
     } finally {
       setIsDeploying(false);
     }

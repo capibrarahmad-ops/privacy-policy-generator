@@ -1,23 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
-import { deployPolicy, getPolicyByEditToken, isSlugAvailable } from "@/lib/db";
-import { PolicyFormData } from "@/lib/generatePrivacyPolicy";
+import { deployPolicy, getPolicyByEditToken, getPolicyBySlug, isSlugAvailable } from "@/lib/db";
+import { PolicyFormData, GeneratedPolicy } from "@/lib/generatePrivacyPolicy";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { formData, requestedSlug, editToken } = body as {
-      formData: PolicyFormData;
+    const { formData, generatedPolicy, description, requestedSlug, editToken } = body as {
+      formData?: PolicyFormData | any;
+      generatedPolicy?: GeneratedPolicy;
+      description?: string;
       requestedSlug?: string;
       editToken?: string;
     };
 
-    if (!formData || !formData.companyName || !formData.websiteUrl || !formData.contactEmail) {
+    if (!formData && !generatedPolicy && !description) {
       return NextResponse.json(
         {
           success: false,
-          error: "Missing required company information (Company name, Website URL, and Contact email are required).",
+          error: "Missing policy content. Please enter your app description or provide policy data to deploy.",
         },
         { status: 400 }
       );
@@ -25,9 +27,23 @@ export async function POST(request: NextRequest) {
 
     const { policy, isNew } = await deployPolicy({
       formData,
+      generatedPolicy,
+      description,
       requestedSlug,
       editToken,
     });
+
+    // Verify policy actually exists and is retrievable
+    const verifyRecord = await getPolicyBySlug(policy.slug);
+    if (!verifyRecord) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Deployment verification failed: policy could not be confirmed in storage.",
+        },
+        { status: 500 }
+      );
+    }
 
     const host =
       request.headers.get("x-forwarded-host") ||

@@ -1,983 +1,450 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
-import {
-  PolicyFormData,
-  DEFAULT_FORM_DATA,
-  CustomClause,
-  MOBILE_PERMISSIONS_LIST,
-  POPULAR_AD_NETWORKS,
-  POPULAR_CRASH_REPORTING,
-  POPULAR_ANALYTICS,
-  POPULAR_AUTH,
-  POPULAR_PAYMENTS,
-  POPULAR_AI,
-  slugify,
-} from "@/lib/generatePrivacyPolicy";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
 
-interface FormErrors {
-  companyName?: string;
-  websiteUrl?: string;
-  contactEmail?: string;
-  country?: string;
+interface RecentPolicySummary {
+  id: string;
+  slug: string;
+  companyName: string;
+  isPublished?: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
-const COUNTRIES = [
-  "United States",
-  "United Kingdom",
-  "Canada",
-  "Australia",
-  "Germany",
-  "France",
-  "India",
-  "Netherlands",
-  "Spain",
-  "Italy",
-  "Brazil",
-  "Japan",
-  "Singapore",
-  "Sweden",
-  "Switzerland",
-  "United Arab Emirates",
-  "South Africa",
-  "New Zealand",
-  "Ireland",
-  "Mexico",
-  "Other",
+const SAMPLE_TEMPLATES = [
+  {
+    title: "Mobile App (iOS & Android)",
+    desc: "Photo & social sharing with user accounts",
+    text: "PhotoSnap is a mobile photo editing and sharing app for iOS and Android. Users create an account with their email and username, and upload photos. We collect device information and crash diagnostics using Firebase. We use Stripe for in-app photo filter purchases. We use cookies on our web portal for authentication. We do not sell user data. Users can delete their account in settings. For inquiries, email support@photosnap.app.",
+  },
+  {
+    title: "SaaS Platform",
+    desc: "Web app with billing and team management",
+    text: "TaskFlow is a web application and SaaS platform for project management. We collect user full name, email address, and billing information for paid team subscriptions. We use Google Analytics for website traffic, Stripe for subscription payments, and AWS for hosting. Users can access, export, or delete their tasks at any time. Privacy contact: privacy@taskflow.io.",
+  },
+  {
+    title: "Content & Blog Website",
+    desc: "Public blog with analytics and cookies",
+    text: "DevNotes is a personal blog and web development tutorial website. We do not require accounts and do not collect personal information. We use basic Google Analytics to track page views and standard session cookies. We do not sell or share any user data. Contact: hello@devnotes.com.",
+  },
 ];
 
-const PLATFORMS = [
-  "Web & Mobile (iOS + Android)",
-  "Mobile App Only (iOS / Android)",
-  "Web Application / SaaS",
-  "Shopify / E-Commerce Store",
-];
-
-function CreatePolicyForm() {
+function PolicyGeneratorContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const editToken = searchParams.get("edit");
+  const { user, isLoading, signOut } = useAuth();
 
-  const [formData, setFormData] = useState<PolicyFormData>(DEFAULT_FORM_DATA);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [newCustomTitle, setNewCustomTitle] = useState("");
-  const [newCustomContent, setNewCustomContent] = useState("");
-  const [showAddClause, setShowAddClause] = useState(false);
-
+  // Route Protection: redirect unauthenticated users to login
   useEffect(() => {
-    async function loadData() {
-      if (editToken) {
-        try {
-          const res = await fetch(`/api/deploy?editToken=${encodeURIComponent(editToken)}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.success && data.formData) {
-              setFormData(data.formData);
-              return;
-            }
-          }
-        } catch (e) {
-          console.error("Failed to load policy by edit token:", e);
-        }
-      }
+    if (!isLoading && !user) {
+      router.replace("/?redirect=/create");
+    }
+  }, [user, isLoading, router]);
 
+  const [description, setDescription] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [recentPolicies, setRecentPolicies] = useState<RecentPolicySummary[]>([]);
+  const [loadingRecent, setLoadingRecent] = useState(false);
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Load user's previously generated policies if logged in
+  useEffect(() => {
+    if (!user?.id) return;
+    let isCurrent = true;
+
+    async function fetchUserPolicies() {
+      setLoadingRecent(true);
       try {
-        const saved = localStorage.getItem("privacyPolicyData");
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (parsed && typeof parsed === "object") {
-            setFormData((prev) => ({
-              ...prev,
-              ...parsed,
-            }));
+        const res = await fetch(`/api/policy/user?userId=${encodeURIComponent(user!.id)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && isCurrent) {
+            setRecentPolicies(data.policies || []);
           }
         }
-      } catch (e) {
-        console.error("Could not load stored policy form data:", e);
-      }
-    }
-
-    loadData();
-  }, [editToken]);
-
-  const validate = (): boolean => {
-    const newErrors: FormErrors = {};
-
-    if (!formData.companyName.trim()) {
-      newErrors.companyName = "App or Company Name is required";
-    }
-
-    if (!formData.websiteUrl.trim()) {
-      newErrors.websiteUrl = "Website / App URL is required";
-    } else {
-      const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/i;
-      if (!urlPattern.test(formData.websiteUrl.trim())) {
-        newErrors.websiteUrl = "Please enter a valid URL (e.g. https://example.com)";
-      }
-    }
-
-    if (!formData.contactEmail.trim()) {
-      newErrors.contactEmail = "Contact email is required";
-    } else {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(formData.contactEmail.trim())) {
-        newErrors.contactEmail = "Please enter a valid email address";
-      }
-    }
-
-    if (!formData.country.trim()) {
-      newErrors.country = "Please select a country";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-      ...(name === "companyName" && !prev.customSlug ? { customSlug: slugify(value) } : {}),
-    }));
-
-    if (errors[name as keyof FormErrors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: undefined,
-      }));
-    }
-  };
-
-  const handleRadioChange = (key: keyof PolicyFormData, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  const toggleArrayItem = (key: keyof PolicyFormData, item: string) => {
-    setFormData((prev) => {
-      const currentList = ((prev[key] as string[]) || []);
-      const exists = currentList.includes(item);
-      const updated = exists ? currentList.filter((i) => i !== item) : [...currentList, item];
-      return {
-        ...prev,
-        [key]: updated,
-      };
-    });
-  };
-
-  const handleAddCustomClause = () => {
-    if (!newCustomTitle.trim() || !newCustomContent.trim()) return;
-
-    const newClause: CustomClause = {
-      id: "clause-" + Date.now(),
-      title: newCustomTitle.trim(),
-      content: newCustomContent.trim(),
-    };
-
-    setFormData((prev) => ({
-      ...prev,
-      customClauses: [...(prev.customClauses || []), newClause],
-    }));
-
-    setNewCustomTitle("");
-    setNewCustomContent("");
-    setShowAddClause(false);
-  };
-
-  const handleDeleteCustomClause = (id: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      customClauses: (prev.customClauses || []).filter((c) => c.id !== id),
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validate()) {
-      setIsSubmitting(true);
-      try {
-        const payload = {
-          ...formData,
-          customSlug: formData.customSlug?.trim() ? slugify(formData.customSlug) : slugify(formData.tradingName || formData.companyName),
-        };
-        localStorage.setItem("privacyPolicyData", JSON.stringify(payload));
-        router.push("/preview");
       } catch (err) {
-        console.error("Error saving form data:", err);
-        setIsSubmitting(false);
+        console.warn("Could not load recent policies:", err);
+      } finally {
+        if (isCurrent) setLoadingRecent(false);
       }
+    }
+
+    fetchUserPolicies();
+    return () => {
+      isCurrent = false;
+    };
+  }, [user?.id]);
+
+  const handleApplySample = (text: string) => {
+    setDescription(text);
+    setErrorMessage(null);
+    if (textareaRef.current) {
+      textareaRef.current.focus();
     }
   };
 
-  const previewSlug = slugify(formData.customSlug || formData.tradingName || formData.companyName || "my-app");
+  const handleGenerate = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (isGenerating) return; // Prevent duplicate submissions
+
+    const trimmed = description.trim();
+
+    if (!trimmed) {
+      setErrorMessage("Please enter a description of your app or website.");
+      textareaRef.current?.focus();
+      return;
+    }
+
+    if (trimmed.length < 15) {
+      setErrorMessage("Please provide a slightly more descriptive summary (at least 15 characters).");
+      textareaRef.current?.focus();
+      return;
+    }
+
+    setErrorMessage(null);
+    setIsGenerating(true);
+
+    try {
+      const response = await fetch("/api/policy/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          description: trimmed,
+          userId: user?.id,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to generate policy. Please try again.");
+      }
+
+      // Persisted successfully in Supabase / DB! Navigate to the dynamic policy details page
+      router.push(`/policy/${data.policyId}`);
+    } catch (err: any) {
+      console.error("Policy generation error:", err);
+      setErrorMessage(err?.message || "An unexpected error occurred while generating the policy.");
+      setIsGenerating(false);
+    }
+  };
+
+  const charCount = description.length;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="flex flex-col items-center gap-3 text-slate-500">
+          <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-sm font-medium">Verifying authentication session...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold uppercase tracking-wider mb-2.5 shadow-xs">
-          {editToken ? "Editing Deployed Policy" : "Production SaaS & App Store Compliance"}
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mb-2">
-          {editToken ? "Update Your Privacy Policy" : "Create Production Privacy Policy"}
-        </h1>
-        <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto">
-          Tailored for Web, SaaS, iOS App Store, and Google Play Store compliance. Includes account deletion disclosures and nutrition label mapping.
-        </p>
-      </div>
-
-      {/* Live Hosted Link Preview */}
-      <div className="mb-6 p-4 rounded-xl bg-blue-50/90 border border-blue-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
-        <div className="flex items-center gap-2 text-slate-700">
-          <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-          <span>Permanent Hosted Public Link:</span>
-          <code className="font-mono bg-white px-2.5 py-1 rounded-md border border-blue-200 text-blue-700 font-semibold">
-            /p/{previewSlug}
-          </code>
-        </div>
-        <span className="text-xs text-blue-700 font-semibold">Ready for App Store &amp; Play Store URLs</span>
-      </div>
-
-      {/* Form Container */}
-      <form onSubmit={handleSubmit} noValidate className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
-        {/* Section 1: Entity & Platform Information */}
-        <div className="p-6 sm:p-8 border-b border-slate-100">
-          <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center">
-              1
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-900">App &amp; Legal Entity Information</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Basic identity, platform scope, and jurisdiction</p>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Platform Selector */}
-              <div>
-                <label htmlFor="platform" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Target Platform <span className="text-rose-500">*</span>
-                </label>
-                <select
-                  id="platform"
-                  name="platform"
-                  value={formData.platform || "Web & Mobile"}
-                  onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-900 transition focus:outline-none focus:ring-2 focus:ring-blue-100 focus:bg-white"
-                >
-                  {PLATFORMS.map((p) => (
-                    <option key={p} value={p}>
-                      {p}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Legal Company Name */}
-              <div>
-                <label htmlFor="companyName" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Legal Entity / Developer Name <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="companyName"
-                  name="companyName"
-                  value={formData.companyName}
-                  onChange={handleChange}
-                  placeholder="e.g. Acme Technologies Inc."
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm text-slate-900 transition focus:outline-none focus:ring-2 ${
-                    errors.companyName ? "border-rose-300 bg-rose-50/30 focus:ring-rose-200" : "border-slate-200 bg-slate-50/50 focus:ring-blue-100 focus:bg-white"
-                  }`}
-                />
-                {errors.companyName && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.companyName}</p>}
-              </div>
-
-              {/* Trading / App Name */}
-              <div>
-                <label htmlFor="tradingName" className="block text-xs font-semibold text-slate-800 mb-1">
-                  App Name in Stores <span className="text-slate-400 font-normal">(if different)</span>
-                </label>
-                <input
-                  type="text"
-                  id="tradingName"
-                  name="tradingName"
-                  value={formData.tradingName || ""}
-                  onChange={handleChange}
-                  placeholder="e.g. Acme Task Manager"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-900 transition focus:outline-none focus:ring-2 focus:ring-blue-100 focus:bg-white"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Website URL */}
-              <div>
-                <label htmlFor="websiteUrl" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Website / App Landing URL <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="websiteUrl"
-                  name="websiteUrl"
-                  value={formData.websiteUrl}
-                  onChange={handleChange}
-                  placeholder="https://example.com"
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm text-slate-900 transition focus:outline-none focus:ring-2 ${
-                    errors.websiteUrl ? "border-rose-300 bg-rose-50/30 focus:ring-rose-200" : "border-slate-200 bg-slate-50/50 focus:ring-blue-100 focus:bg-white"
-                  }`}
-                />
-                {errors.websiteUrl && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.websiteUrl}</p>}
-              </div>
-
-              {/* Custom URL Slug */}
-              <div>
-                <label htmlFor="customSlug" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Custom Hosted URL Slug
-                </label>
-                <div className="relative flex items-center">
-                  <span className="absolute left-3.5 text-xs text-slate-400 font-mono">/p/</span>
-                  <input
-                    type="text"
-                    id="customSlug"
-                    name="customSlug"
-                    value={formData.customSlug || ""}
-                    onChange={handleChange}
-                    placeholder={slugify(formData.tradingName || formData.companyName || "my-app")}
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 font-mono text-sm text-slate-900 transition focus:outline-none focus:ring-2 focus:ring-blue-100 focus:bg-white"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Contact Email */}
-              <div>
-                <label htmlFor="contactEmail" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Privacy Contact Email <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="contactEmail"
-                  name="contactEmail"
-                  value={formData.contactEmail}
-                  onChange={handleChange}
-                  placeholder="privacy@example.com"
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm text-slate-900 transition focus:outline-none focus:ring-2 ${
-                    errors.contactEmail ? "border-rose-300 bg-rose-50/30 focus:ring-rose-200" : "border-slate-200 bg-slate-50/50 focus:ring-blue-100 focus:bg-white"
-                  }`}
-                />
-                {errors.contactEmail && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.contactEmail}</p>}
-              </div>
-
-              {/* DPO Email */}
-              <div>
-                <label htmlFor="dpoEmail" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Data Protection Officer (DPO) <span className="text-slate-400 font-normal">(optional)</span>
-                </label>
-                <input
-                  type="email"
-                  id="dpoEmail"
-                  name="dpoEmail"
-                  value={formData.dpoEmail || ""}
-                  onChange={handleChange}
-                  placeholder="dpo@example.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-900 transition focus:outline-none focus:ring-2 focus:ring-blue-100 focus:bg-white"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Country */}
-              <div>
-                <label htmlFor="country" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Country <span className="text-rose-500">*</span>
-                </label>
-                <select
-                  id="country"
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-900 transition focus:outline-none focus:ring-2 focus:ring-blue-100 focus:bg-white"
-                >
-                  {COUNTRIES.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* State / Province */}
-              <div>
-                <label htmlFor="stateProvince" className="block text-xs font-semibold text-slate-800 mb-1">
-                  State / Province <span className="text-slate-400 font-normal">(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  id="stateProvince"
-                  name="stateProvince"
-                  value={formData.stateProvince || ""}
-                  onChange={handleChange}
-                  placeholder="e.g. California"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-900 transition focus:outline-none focus:ring-2 focus:ring-blue-100 focus:bg-white"
-                />
-              </div>
-
-              {/* Physical Address */}
-              <div>
-                <label htmlFor="physicalAddress" className="block text-xs font-semibold text-slate-800 mb-1">
-                  Physical Address <span className="text-slate-400 font-normal">(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  id="physicalAddress"
-                  name="physicalAddress"
-                  value={formData.physicalAddress || ""}
-                  onChange={handleChange}
-                  placeholder="e.g. 100 Main St, Suite 400"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-900 transition focus:outline-none focus:ring-2 focus:ring-blue-100 focus:bg-white"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 2: App Store Mandatory Account Deletion Disclosures */}
-        <div className="p-6 sm:p-8 border-b border-slate-100 bg-emerald-50/30">
-          <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center">
-              2
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-slate-900">App Store &amp; Google Play Account Deletion Policy</h2>
-                <span className="px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 text-[10px] font-extrabold uppercase">
-                  Mandatory Store Requirement
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 mt-0.5">Required by Apple Guideline 5.1.1(v) &amp; Google Play Data Safety</p>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl bg-white border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div>
-                <h3 className="text-sm font-semibold text-slate-800">Does your app allow users to create accounts?</h3>
-                <p className="text-xs text-slate-500">Apple and Google strictly require in-app account deletion if accounts can be created</p>
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => handleRadioChange("hasUserAccounts", "Yes")}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold ${
-                    formData.hasUserAccounts === "Yes" ? "bg-emerald-600 text-white shadow-xs" : "bg-slate-100 text-slate-600"
-                  }`}
-                >
-                  Yes
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleRadioChange("hasUserAccounts", "No")}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold ${
-                    formData.hasUserAccounts === "No" ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-600"
-                  }`}
-                >
-                  No
-                </button>
-              </div>
-            </div>
-
-            {formData.hasUserAccounts === "Yes" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                <div>
-                  <label htmlFor="accountDeletionMethod" className="block text-xs font-semibold text-slate-800 mb-1">
-                    How can users delete their account?
-                  </label>
-                  <select
-                    id="accountDeletionMethod"
-                    name="accountDeletionMethod"
-                    value={formData.accountDeletionMethod || "In-App Setting & Email Request"}
-                    onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-xs text-slate-900"
-                  >
-                    <option value="In-App Setting & Email Request">In-App (Settings &gt; Delete Account) &amp; Email</option>
-                    <option value="In-App Setting Only">In-App Setting (Automated)</option>
-                    <option value="Dedicated Web Deletion URL">Dedicated Web Deletion URL</option>
-                    <option value="Email Request to Privacy Desk">Email Request to Privacy Desk</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="accountDeletionUrl" className="block text-xs font-semibold text-slate-800 mb-1">
-                    Web Data Deletion URL <span className="text-slate-400 font-normal">(Required by Google Play)</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="accountDeletionUrl"
-                    name="accountDeletionUrl"
-                    value={formData.accountDeletionUrl || ""}
-                    onChange={handleChange}
-                    placeholder={`${formData.websiteUrl || "https://example.com"}/delete-account`}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-xs text-slate-900"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Section 3: Mobile Hardware Permissions & Sensors */}
-        <div className="p-6 sm:p-8 border-b border-slate-100">
-          <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center">
-              3
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-900">Mobile Device Hardware Permissions</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Select all runtime hardware sensors requested by your iOS/Android app</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {MOBILE_PERMISSIONS_LIST.map((permission) => {
-              const selected = (formData.mobilePermissions || []).includes(permission);
-              return (
-                <button
-                  key={permission}
-                  type="button"
-                  onClick={() => toggleArrayItem("mobilePermissions", permission)}
-                  className={`p-3.5 rounded-xl border text-left flex items-start justify-between gap-2 transition ${
-                    selected
-                      ? "border-blue-500 bg-blue-50/40 text-blue-950 font-medium"
-                      : "border-slate-200 bg-white hover:border-slate-300 text-slate-700"
-                  }`}
-                >
-                  <div className="text-xs">
-                    <span className="font-bold block mb-0.5">{permission.split("(")[0].trim()}</span>
-                    <span className="text-slate-500 text-[11px]">{permission.includes("(") ? "(" + permission.split("(")[1] : ""}</span>
-                  </div>
-                  <span className={`text-xs font-bold shrink-0 ${selected ? "text-blue-600" : "text-slate-300"}`}>
-                    {selected ? "✓ Enabled" : "+ Add"}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Section 4: Advertising, Tracking (IDFA / ATT) & Crash Reporting */}
-        <div className="p-6 sm:p-8 border-b border-slate-100 bg-slate-50/30">
-          <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center">
-              4
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-900">Ad Networks, Apple ATT (IDFA) &amp; Crash Diagnostics</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Ad monetization disclosures and stability telemetry</p>
-            </div>
-          </div>
-
-          <div className="space-y-5">
-            {/* Advertising & IDFA */}
-            <div className="p-4.5 rounded-xl bg-white border border-slate-200/80">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <h3 className="text-sm font-bold text-slate-800">In-App Ads &amp; Advertising Identifier (IDFA / AAID)</h3>
-                  <p className="text-xs text-slate-500">Do you display ads or track advertising conversions?</p>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleRadioChange("usesAdTracking", "Yes");
-                      handleRadioChange("usesIDFA", "Yes");
-                    }}
-                    className={`px-3 py-1 rounded-lg text-xs font-semibold ${
-                      formData.usesAdTracking === "Yes" ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-700"
-                    }`}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleRadioChange("usesAdTracking", "No");
-                      handleRadioChange("usesIDFA", "No");
-                    }}
-                    className={`px-3 py-1 rounded-lg text-xs font-semibold ${
-                      formData.usesAdTracking === "No" ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-700"
-                    }`}
-                  >
-                    No
-                  </button>
-                </div>
-              </div>
-
-              {formData.usesAdTracking === "Yes" && (
-                <div className="mt-3 pt-3 border-t border-slate-100">
-                  <span className="text-xs font-semibold text-slate-600 block mb-2">Select active ad networks:</span>
-                  <div className="flex flex-wrap gap-2">
-                    {POPULAR_AD_NETWORKS.map((adNet) => {
-                      const selected = (formData.adNetworks || []).includes(adNet);
-                      return (
-                        <button
-                          key={adNet}
-                          type="button"
-                          onClick={() => toggleArrayItem("adNetworks", adNet)}
-                          className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
-                            selected ? "bg-purple-600 text-white" : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
-                          }`}
-                        >
-                          {selected ? "✓ " : "+ "}
-                          {adNet}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Crash Reporting */}
-            <div className="p-4.5 rounded-xl bg-white border border-slate-200/80">
-              <span className="text-sm font-bold text-slate-800 block mb-1">Crash Reporting &amp; Diagnostics Tools</span>
-              <p className="text-xs text-slate-500 mb-3">Google Play Data Safety requires reporting crash telemetry</p>
-              <div className="flex flex-wrap gap-2">
-                {POPULAR_CRASH_REPORTING.map((crashTool) => {
-                  const selected = (formData.crashReportingServices || []).includes(crashTool);
-                  return (
-                    <button
-                      key={crashTool}
-                      type="button"
-                      onClick={() => toggleArrayItem("crashReportingServices", crashTool)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
-                        selected ? "bg-blue-600 text-white" : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
-                      }`}
-                    >
-                      {selected ? "✓ " : "+ "}
-                      {crashTool}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 5: Analytics, Payments, Socials & AI */}
-        <div className="p-6 sm:p-8 border-b border-slate-100">
-          <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-700 font-bold text-xs flex items-center justify-center">
-              5
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-900">Analytics, Store Billing &amp; AI Integrations</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Select specific services to configure automated disclosures</p>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            {/* Analytics */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-              <span className="text-xs font-bold text-slate-800 block mb-2">Analytics &amp; Usage Telemetry:</span>
-              <div className="flex flex-wrap gap-2">
-                {POPULAR_ANALYTICS.map((tool) => {
-                  const selected = (formData.analyticsServices || []).includes(tool);
-                  return (
-                    <button
-                      key={tool}
-                      type="button"
-                      onClick={() => toggleArrayItem("analyticsServices", tool)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
-                        selected ? "bg-blue-600 text-white" : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100"
-                      }`}
-                    >
-                      {selected ? "✓ " : "+ "}
-                      {tool}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* In-App Purchases & Payments */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-              <span className="text-xs font-bold text-slate-800 block mb-2">In-App Purchases &amp; Payment Processors:</span>
-              <div className="flex flex-wrap gap-2">
-                {POPULAR_PAYMENTS.map((payment) => {
-                  const selected = (formData.paymentProcessors || []).includes(payment);
-                  return (
-                    <button
-                      key={payment}
-                      type="button"
-                      onClick={() => toggleArrayItem("paymentProcessors", payment)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
-                        selected ? "bg-emerald-600 text-white" : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100"
-                      }`}
-                    >
-                      {selected ? "✓ " : "+ "}
-                      {payment}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Social Logins */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-              <span className="text-xs font-bold text-slate-800 block mb-2">Social Login &amp; Authentication Providers:</span>
-              <div className="flex flex-wrap gap-2">
-                {POPULAR_AUTH.map((auth) => {
-                  const selected = (formData.authProviders || []).includes(auth);
-                  return (
-                    <button
-                      key={auth}
-                      type="button"
-                      onClick={() => toggleArrayItem("authProviders", auth)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
-                        selected ? "bg-indigo-600 text-white" : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100"
-                      }`}
-                    >
-                      {selected ? "✓ " : "+ "}
-                      {auth}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* AI Integrations */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-slate-800">AI / LLM Cloud APIs (OpenAI, Anthropic, Gemini):</span>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => handleRadioChange("usesAI", "Yes")}
-                    className={`px-2.5 py-0.5 rounded text-xs font-semibold ${
-                      formData.usesAI === "Yes" ? "bg-blue-600 text-white" : "bg-slate-200 text-slate-700"
-                    }`}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleRadioChange("usesAI", "No")}
-                    className={`px-2.5 py-0.5 rounded text-xs font-semibold ${
-                      formData.usesAI === "No" ? "bg-slate-800 text-white" : "bg-slate-200 text-slate-700"
-                    }`}
-                  >
-                    No
-                  </button>
-                </div>
-              </div>
-
-              {formData.usesAI === "Yes" && (
-                <div className="mt-2 pt-2 border-t border-slate-200/70">
-                  <div className="flex flex-wrap gap-2 mb-2">
-                    {POPULAR_AI.map((ai) => {
-                      const selected = (formData.aiServices || []).includes(ai);
-                      return (
-                        <button
-                          key={ai}
-                          type="button"
-                          onClick={() => toggleArrayItem("aiServices", ai)}
-                          className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
-                            selected ? "bg-blue-600 text-white" : "bg-white border border-slate-200 text-slate-700"
-                          }`}
-                        >
-                          {selected ? "✓ " : "+ "}
-                          {ai}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Section 6: Custom Clauses Builder */}
-        <div className="p-6 sm:p-8 bg-slate-50/20">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center">
-                6
-              </div>
-              <div>
-                <h2 className="text-lg font-bold text-slate-900">Custom Clauses &amp; Disclosures</h2>
-                <p className="text-xs text-slate-500 mt-0.5">Insert custom terms, beta notices, or industry-specific disclosures</p>
-              </div>
-            </div>
-
-            {!showAddClause && (
-              <button
-                type="button"
-                onClick={() => setShowAddClause(true)}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 px-3.5 py-2 rounded-xl transition"
-              >
-                <span>+ Add Custom Clause</span>
-              </button>
-            )}
-          </div>
-
-          {/* List of custom clauses */}
-          {formData.customClauses && formData.customClauses.length > 0 && (
-            <div className="space-y-3 mb-4">
-              {formData.customClauses.map((clause) => (
-                <div key={clause.id} className="p-4 rounded-xl bg-white border border-slate-200 flex items-start justify-between gap-3 shadow-xs">
-                  <div className="flex-1">
-                    <h4 className="text-sm font-bold text-slate-900 mb-1">{clause.title}</h4>
-                    <p className="text-xs text-slate-600 whitespace-pre-wrap line-clamp-2">{clause.content}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteCustomClause(clause.id)}
-                    className="text-xs text-rose-600 hover:text-rose-700 font-semibold p-1 hover:bg-rose-50 rounded"
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Add Clause Form */}
-          {showAddClause && (
-            <div className="p-5 rounded-2xl bg-white border border-blue-200 shadow-sm space-y-3 animate-in fade-in">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-blue-700">New Custom Section</h4>
-              <div>
-                <label className="block text-xs font-semibold text-slate-800 mb-1">Clause Title</label>
-                <input
-                  type="text"
-                  value={newCustomTitle}
-                  onChange={(e) => setNewCustomTitle(e.target.value)}
-                  placeholder="e.g. Beta Tester Program Terms or HIPAA Compliance"
-                  className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-xs text-slate-900"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-800 mb-1">Clause Paragraphs</label>
-                <textarea
-                  rows={3}
-                  value={newCustomContent}
-                  onChange={(e) => setNewCustomContent(e.target.value)}
-                  placeholder="Write the specific terms or disclosures here..."
-                  className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-xs text-slate-900"
-                />
-              </div>
-              <div className="flex items-center gap-2 justify-end pt-1">
-                <button
-                  type="button"
-                  onClick={() => setShowAddClause(false)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={handleAddCustomClause}
-                  disabled={!newCustomTitle.trim() || !newCustomContent.trim()}
-                  className="px-4 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 disabled:opacity-50"
-                >
-                  Insert Clause
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Form Actions */}
-        <div className="p-6 sm:p-8 bg-white border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link href="/" className="text-sm font-medium text-slate-500 hover:text-slate-800 transition order-2 sm:order-1">
-            Cancel &amp; Return Home
-          </Link>
-
-          <button
-            type="submit"
-            id="generate-policy-btn"
-            disabled={isSubmitting}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:opacity-70 shadow-md shadow-blue-600/20 hover:shadow-lg transition duration-150 order-1 sm:order-2"
-          >
-            <span>{isSubmitting ? "Generating Preview..." : "Generate Privacy Policy"}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
-export default function CreatePage() {
-  return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
-      {/* Navbar */}
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div className="min-h-screen bg-slate-50/70 text-slate-900 selection:bg-blue-600 selection:text-white flex flex-col">
+      {/* Top Navigation */}
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link
-            href="/"
-            className="flex items-center gap-2.5 font-bold text-lg tracking-tight text-slate-900 hover:opacity-90 transition"
-            id="nav-brand-link"
+            href="/create"
+            className="flex items-center gap-2.5 group transition"
+            id="brand-header-link"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/20">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-700 flex items-center justify-center text-white shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.2"
+                strokeWidth="2.3"
                 className="w-5 h-5"
               >
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
-            <span>Privacy Policy Generator</span>
+            <span className="text-xl font-bold tracking-tight text-slate-900">
+              Privacy<span className="text-blue-600">Flow</span>
+            </span>
           </Link>
 
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              id="back-to-home-link"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition"
+          <div className="flex items-center gap-3 sm:gap-4">
+            {user && (
+              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 text-xs font-medium text-slate-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span className="max-w-[200px] truncate" title={user.email || ""}>
+                  {user.email}
+                </span>
+              </div>
+            )}
+            <button
+              onClick={() => signOut()}
+              id="logout-button"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 hover:text-slate-900 shadow-xs transition"
+              title="Sign out of your account"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="w-4 h-4 text-slate-500"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
               </svg>
-              <span>Back to Home</span>
-            </Link>
+              <span>Sign Out</span>
+            </button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
-        <Suspense fallback={
-          <div className="min-h-[400px] flex items-center justify-center">
-            <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        {/* Page Title & Intro */}
+        <div className="text-center sm:text-left mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold mb-3 border border-blue-200/60">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            Intelligent Compliance Generator
           </div>
-        }>
-          <CreatePolicyForm />
-        </Suspense>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <p className="mb-1">&copy; {new Date().getFullYear()} Privacy Policy Generator. Production App Store &amp; Play Store Ready.</p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
+            Create Your Privacy Policy
+          </h1>
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Describe your app or website in your own words. PrivacyFlow will analyze your data practices, identify privacy requirements, and generate a complete, professional policy document you can review and deploy.
+          </p>
         </div>
-      </footer>
+
+        {/* Generator Card */}
+        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 md:p-10 mb-8 transition-shadow hover:shadow-md">
+          {/* Sample Preset Pills */}
+          <div className="mb-6">
+            <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2.5">
+              Quick Start with Examples
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              {SAMPLE_TEMPLATES.map((sample, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleApplySample(sample.text)}
+                  className="text-left p-3 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/40 text-xs transition group cursor-pointer"
+                >
+                  <div className="font-semibold text-slate-800 group-hover:text-blue-700 mb-0.5">
+                    {sample.title}
+                  </div>
+                  <div className="text-slate-500 text-[11px] line-clamp-1">
+                    {sample.desc}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleGenerate} noValidate>
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <label
+                  htmlFor="appDescription"
+                  className="block text-sm font-bold text-slate-800"
+                >
+                  Describe your app or website <span className="text-blue-600">*</span>
+                </label>
+                <div
+                  className={`text-xs font-medium ${
+                    charCount === 0
+                      ? "text-slate-400"
+                      : charCount < 15
+                      ? "text-amber-600 font-semibold"
+                      : "text-slate-500"
+                  }`}
+                >
+                  {charCount} characters
+                </div>
+              </div>
+
+              <div className="relative">
+                <textarea
+                  id="appDescription"
+                  ref={textareaRef}
+                  rows={8}
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                    if (errorMessage) setErrorMessage(null);
+                  }}
+                  disabled={isGenerating}
+                  placeholder="Explain what your app does, what information it collects, how information is used, whether it uses cookies or analytics, and which third-party services it uses."
+                  className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 text-slate-800 placeholder-slate-400 text-sm sm:text-base leading-relaxed transition resize-y min-h-[160px] outline-hidden disabled:bg-slate-50 disabled:text-slate-400"
+                />
+              </div>
+
+              <p className="mt-2 text-xs text-slate-500 leading-normal flex items-start gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+                <span>
+                  Tip: Include details such as authentication methods, payment processors (e.g. Stripe), analytics (e.g. Google Analytics), database hosting, or your support email address.
+                </span>
+              </p>
+            </div>
+
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-start gap-2.5 animate-in fade-in">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+                <span className="leading-snug">{errorMessage}</span>
+              </div>
+            )}
+
+            {/* Submit Action */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-xs text-slate-500 text-center sm:text-left">
+                Policies are securely saved to your account and can be reviewed, edited, and published.
+              </div>
+
+              <button
+                type="submit"
+                id="generate-policy-button"
+                disabled={isGenerating || !description.trim()}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 py-3.5 px-7 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 focus:outline-hidden focus:ring-4 focus:ring-blue-500/20 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.99] transition disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none cursor-pointer"
+              >
+                {isGenerating ? (
+                  <>
+                    <svg
+                      className="animate-spin w-4 h-4 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    <span>Generating & Saving Policy...</span>
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      className="w-4 h-4"
+                    >
+                      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                    </svg>
+                    <span>Generate Privacy Policy</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* User's Previously Generated Policies */}
+        {recentPolicies.length > 0 && (
+          <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 sm:p-7">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>
+                Your Policies ({recentPolicies.length})
+              </h2>
+              <span className="text-xs text-slate-500">Saved to Supabase</span>
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {recentPolicies.map((p) => (
+                <div
+                  key={p.id}
+                  className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 hover:bg-slate-50/60 rounded-xl px-2.5 transition"
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-slate-900 text-sm truncate">
+                        {p.companyName || "Untitled Application"}
+                      </span>
+                      {p.isPublished ? (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          Live
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                          Draft
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-xs text-slate-400 mt-0.5">
+                      Updated {new Date(p.updatedAt || p.createdAt).toLocaleDateString()} &bull; Slug: /{p.slug}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <Link
+                      href={`/policy/${p.id}`}
+                      className="px-3 py-1.5 rounded-lg border border-slate-200 hover:border-blue-400 bg-white hover:bg-blue-50/50 text-xs font-semibold text-slate-700 hover:text-blue-700 transition"
+                    >
+                      View & Edit &rarr;
+                    </Link>
+                    {p.isPublished && (
+                      <Link
+                        href={`/p/${p.slug}`}
+                        target="_blank"
+                        className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-blue-600 hover:underline"
+                      >
+                        Public Link ↗
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </main>
     </div>
+  );
+}
+
+export default function PolicyGeneratorPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+          <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      }
+    >
+      <PolicyGeneratorContent />
+    </Suspense>
   );
 }

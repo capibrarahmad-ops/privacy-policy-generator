@@ -62,7 +62,7 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
               href="/"
               className="flex items-center gap-2 font-bold text-sm sm:text-base text-slate-900 hover:opacity-90 transition"
             >
-              <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white text-xs">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-700 flex items-center justify-center text-white text-xs shadow-xs">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -74,19 +74,22 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
               </div>
-              <span className="hidden sm:inline">Privacy Policy Generator</span>
-              <span className="sm:hidden">Policy</span>
+              <span>
+                Privacy<span className="text-blue-600">Flow</span>
+              </span>
             </Link>
 
             <div className="flex items-center gap-2">
-              <a
-                href={policy.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-semibold text-blue-600 hover:text-blue-700 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 transition truncate max-w-[180px] sm:max-w-none"
-              >
-                Visit {policy.companyName} &rarr;
-              </a>
+              {policy.websiteUrl && policy.websiteUrl.startsWith("http") && (
+                <a
+                  href={policy.websiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-semibold text-blue-600 hover:text-blue-700 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 transition truncate max-w-[180px] sm:max-w-none"
+                >
+                  Visit {policy.companyName} &rarr;
+                </a>
+              )}
             </div>
           </div>
         </header>
@@ -111,14 +114,20 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-y-2 gap-x-4 text-xs text-slate-500 font-medium">
               <div>
                 <span className="text-slate-400">Website:</span>{" "}
-                <a
-                  href={policy.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline font-semibold"
-                >
-                  {policy.websiteUrl}
-                </a>
+                {policy.websiteUrl && policy.websiteUrl.startsWith("http") ? (
+                  <a
+                    href={policy.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline font-semibold"
+                  >
+                    {policy.websiteUrl}
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                    {policy.websiteUrl || "Needs Confirmation"}
+                  </span>
+                )}
               </div>
               <div>&bull;</div>
               <div>
@@ -126,7 +135,14 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
               </div>
               <div>&bull;</div>
               <div>
-                <span className="text-slate-400">Jurisdiction:</span> {policy.country}
+                <span className="text-slate-400">Jurisdiction:</span>{" "}
+                {policy.country && !policy.country.includes("Needs Confirmation") ? (
+                  policy.country
+                ) : (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                    Needs Confirmation
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -141,22 +157,67 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
                 </h2>
 
                 <div className="space-y-3 text-sm sm:text-base text-slate-700 leading-relaxed">
-                  {sec.paragraphs.map((p, pIdx) => (
-                    <p key={pIdx}>{p}</p>
-                  ))}
+                  {sec.paragraphs.map((p, pIdx) => {
+                    if (p.includes("[") && p.includes("]")) {
+                      return (
+                        <p key={pIdx}>
+                          {p.split(/(\[[^\]]+\])/).map((part, idx) =>
+                            part.startsWith("[") && part.endsWith("]") && part.includes("Needs Confirmation") ? (
+                              <span
+                                key={idx}
+                                className="inline-flex items-center mx-1 px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"
+                              >
+                                {part}
+                              </span>
+                            ) : (
+                              part
+                            )
+                          )}
+                        </p>
+                      );
+                    }
+                    return <p key={pIdx}>{p}</p>;
+                  })}
 
                   {sec.bulletPoints && sec.bulletPoints.length > 0 && (
                     <ul className="list-disc pl-5 sm:pl-6 space-y-2 mt-3 text-slate-700">
-                      {sec.bulletPoints.map((bullet, bIdx) => (
-                        <li key={bIdx} className="leading-relaxed">
-                          {bullet.title && (
-                            <strong className="text-slate-900 font-semibold">
-                              {bullet.title}:{" "}
-                            </strong>
-                          )}
-                          {bullet.text}
-                        </li>
-                      ))}
+                      {sec.bulletPoints.map((bullet, bIdx) => {
+                        const isConfirmedTitle = bullet.title && bullet.title.includes("Needs Confirmation");
+                        const isConfirmedText = bullet.text && bullet.text.includes("Needs Confirmation");
+                        return (
+                          <li key={bIdx} className="leading-relaxed">
+                            {bullet.title && (
+                              <strong
+                                className={
+                                  isConfirmedTitle
+                                    ? "inline-flex items-center mr-1 px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"
+                                    : "text-slate-900 font-semibold"
+                                }
+                              >
+                                {bullet.title}:{" "}
+                              </strong>
+                            )}
+                            {isConfirmedText ? (
+                              <span>
+                                {bullet.text.split(/(\[[^\]]+\])/).map((part, idx) =>
+                                  part.startsWith("[") && part.endsWith("]") && part.includes("Needs Confirmation") ? (
+                                    <span
+                                      key={idx}
+                                      className="inline-flex items-center mx-1 px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"
+                                    >
+                                      {part}
+                                    </span>
+                                  ) : (
+                                    part
+                                  )
+                                )}
+                              </span>
+                            ) : (
+                              bullet.text
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </div>
@@ -170,7 +231,7 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
               This policy is maintained by {policy.companyName}.
             </span>
             <span className="text-slate-400">
-              Hosted via <Link href="/" className="text-blue-600 hover:underline">Privacy Policy Generator</Link>
+              Hosted via <Link href="/" className="text-blue-600 hover:underline">PrivacyFlow</Link>
             </span>
           </div>
         </article>
