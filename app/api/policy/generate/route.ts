@@ -1,42 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createDraftPolicy } from "@/lib/db";
-import { generatePolicyFromDescription } from "@/lib/generatePrivacyPolicy";
+import { convertTextToMarkdown } from "@/lib/textToMarkdown";
+import { createConvertedPolicyDraft } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { description, userId } = body as {
+    const { description, rawText, userId } = body as {
       description?: string;
+      rawText?: string;
       userId?: string;
     };
 
-    if (!description || !description.trim()) {
+    const textToProcess = (rawText || description || "").trim();
+
+    if (!textToProcess) {
       return NextResponse.json(
-        { success: false, error: "Please enter a description of your app or website." },
+        { success: false, error: "Please paste your privacy policy text before converting." },
         { status: 400 }
       );
     }
 
-    if (description.trim().length < 15) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Please provide a slightly more descriptive summary (at least 15 characters).",
-        },
-        { status: 400 }
-      );
-    }
+    // Convert supplied user text into clean Markdown without AI or invented templates
+    const conversion = convertTextToMarkdown(textToProcess);
 
-    // Generate the privacy policy from description
-    const generated = generatePolicyFromDescription(description.trim());
-
-    // Persist as draft in database (Supabase + resilient local store)
-    const policyRecord = await createDraftPolicy({
-      description: description.trim(),
+    const policyRecord = await createConvertedPolicyDraft({
+      rawText: textToProcess,
+      markdown: conversion.markdown,
+      title: conversion.title,
       userId: userId || undefined,
-      generatedPolicy: generated,
     });
 
     return NextResponse.json({
@@ -50,7 +43,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error?.message || "Failed to generate and save policy draft. Please try again.",
+        error: error?.message || "Failed to process and save policy draft. Please try again.",
       },
       { status: 500 }
     );

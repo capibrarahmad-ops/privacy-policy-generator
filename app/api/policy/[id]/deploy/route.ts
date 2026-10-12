@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPolicyById, publishPolicy, getPolicyBySlug } from "@/lib/db";
+import { getPolicyById, updatePolicyContent, getPolicyBySlug } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -25,18 +25,40 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    // Publish the policy
-    const published = await publishPolicy(id);
-    if (!published) {
+    let body: any = {};
+    try {
+      body = await request.json();
+    } catch {
+      // Body is optional
+    }
+
+    const { markdown, title, userId } = body;
+
+    // Verify owner permissions if user_id is assigned
+    if (existing.userId && userId && existing.userId !== userId) {
       return NextResponse.json(
-        { success: false, error: "Failed to publish policy to database." },
+        { success: false, error: "Unauthorized: only the owner can publish this policy." },
+        { status: 403 }
+      );
+    }
+
+    // Save latest Markdown content and mark as published
+    const updated = await updatePolicyContent(id, {
+      markdown: markdown !== undefined ? markdown : existing.markdownContent || existing.generatedPolicy?.markdown,
+      title: title || existing.title || existing.companyName,
+      isPublished: true,
+    });
+
+    if (!updated || !updated.isPublished) {
+      return NextResponse.json(
+        { success: false, error: "Failed to persist publication status in database." },
         { status: 500 }
       );
     }
 
-    // Verify record is retrievable by slug
-    const verifyRecord = await getPolicyBySlug(published.slug);
-    if (!verifyRecord) {
+    // Explicit Verification: Do not claim deployment succeeded until saving succeeds and public record is accessible
+    const verifiedRecord = await getPolicyBySlug(updated.slug, false, true);
+    if (!verifiedRecord || !verifiedRecord.isPublished) {
       return NextResponse.json(
         {
           success: false,
@@ -53,24 +75,26 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     const proto =
       request.headers.get("x-forwarded-proto") ||
       (host.includes("localhost") ? "http" : "https");
-    const liveUrl = `/p/${published.slug}`;
+
+    const liveUrl = `/p/${updated.slug}`;
     const fullLiveUrl = `${proto}://${host}${liveUrl}`;
 
     return NextResponse.json({
       success: true,
-      slug: published.slug,
+      slug: updated.slug,
+      title: updated.title || updated.companyName,
       liveUrl,
       fullLiveUrl,
-      companyName: published.companyName,
-      lastUpdated: published.generatedPolicy.lastUpdated,
-      publishedAt: published.publishedAt || published.updatedAt,
+      publishedAt: updated.publishedAt || updated.updatedAt,
+      isPublished: true,
+      message: "Privacy policy successfully published and accessible.",
     });
   } catch (error: any) {
     console.error("Deploy policy API error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error?.message || "Failed to deploy policy. Please try again.",
+        error: error?.message || "Failed to deploy privacy policy. Please try again.",
       },
       { status: 500 }
     );

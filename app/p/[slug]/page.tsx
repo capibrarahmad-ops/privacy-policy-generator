@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getPolicyBySlug } from "@/lib/db";
+import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import { PrintButton } from "@/components/PrintButton";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -12,20 +14,20 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const policy = await getPolicyBySlug(slug);
+  const policy = await getPolicyBySlug(slug, false, true);
 
-  if (!policy) {
+  if (!policy || !policy.isPublished) {
     return {
       title: "Privacy Policy Not Found",
-      description: "The requested privacy policy document could not be found.",
+      description: "The requested privacy policy document could not be found or has not been published.",
     };
   }
 
-  const title = `Privacy Policy | ${policy.formData.tradingName || policy.companyName}`;
-  const description = `Official Privacy Policy for ${policy.companyName}. Last updated: ${policy.generatedPolicy.lastUpdated}.`;
+  const title = `${policy.title || policy.companyName || "Privacy Policy"}`;
+  const description = `Official Privacy Policy. Published: ${new Date(policy.publishedAt || policy.createdAt).toLocaleDateString()}.`;
 
   return {
-    title,
+    title: `${title} | PrivacyFlow`,
     description,
     openGraph: {
       title,
@@ -40,13 +42,26 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
   const { embed } = await searchParams;
   const isEmbed = embed === "true";
 
-  const record = await getPolicyBySlug(slug, true);
+  // Enforce privacy: only published policies are accessible to the public
+  const record = await getPolicyBySlug(slug, true, true);
 
-  if (!record) {
+  if (!record || !record.isPublished) {
     notFound();
   }
 
-  const { generatedPolicy: policy } = record;
+  const markdownContent =
+    record.markdownContent ||
+    record.generatedPolicy?.markdown ||
+    record.rawContent ||
+    "";
+
+  const displayTitle = record.title || record.companyName || "Privacy Policy";
+  const publishedDate = record.publishedAt || record.createdAt;
+  const formattedDate = new Date(publishedDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <div
@@ -79,15 +94,17 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
               </span>
             </Link>
 
-            <div className="flex items-center gap-2">
-              {policy.websiteUrl && policy.websiteUrl.startsWith("http") && (
+            <div className="flex items-center gap-3">
+              <PrintButton />
+
+              {record.websiteUrl && record.websiteUrl.startsWith("http") && (
                 <a
-                  href={policy.websiteUrl}
+                  href={record.websiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-semibold text-blue-600 hover:text-blue-700 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 transition truncate max-w-[180px] sm:max-w-none"
                 >
-                  Visit {policy.companyName} &rarr;
+                  Visit Website &rarr;
                 </a>
               )}
             </div>
@@ -97,141 +114,56 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
 
       {/* Main Document Layout */}
       <main className={`flex-1 max-w-4xl w-full mx-auto ${isEmbed ? "p-0" : "px-4 sm:px-6 py-8 sm:py-12"}`}>
-        {/* Document Sheet */}
         <article
-          id="public-policy-content"
+          id="public-policy-document"
           className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-10 md:p-14 text-slate-800 leading-relaxed font-sans"
         >
-          {/* Header */}
+          {/* Header Metadata */}
           <div className="border-b border-slate-200 pb-7 mb-8 text-center sm:text-left">
             <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold mb-3 border border-emerald-200">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              Official Document
+              Official Published Privacy Policy
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
-              Privacy Policy for {policy.companyName}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+              {displayTitle}
             </h1>
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-y-2 gap-x-4 text-xs text-slate-500 font-medium">
               <div>
-                <span className="text-slate-400">Website:</span>{" "}
-                {policy.websiteUrl && policy.websiteUrl.startsWith("http") ? (
-                  <a
-                    href={policy.websiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline font-semibold"
-                  >
-                    {policy.websiteUrl}
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
-                    {policy.websiteUrl || "Needs Confirmation"}
-                  </span>
-                )}
+                <span className="text-slate-400">Published / Effective Date:</span>{" "}
+                <span className="text-slate-700 font-semibold">{formattedDate}</span>
               </div>
               <div>&bull;</div>
               <div>
-                <span className="text-slate-400">Last Updated:</span> {policy.lastUpdated}
+                <span className="text-slate-400">Status:</span>{" "}
+                <span className="text-emerald-600 font-semibold">Active Document</span>
               </div>
-              <div>&bull;</div>
-              <div>
-                <span className="text-slate-400">Jurisdiction:</span>{" "}
-                {policy.country && !policy.country.includes("Needs Confirmation") ? (
-                  policy.country
-                ) : (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
-                    Needs Confirmation
-                  </span>
-                )}
-              </div>
+              {record.country && record.country !== "Worldwide" && (
+                <>
+                  <div>&bull;</div>
+                  <div>
+                    <span className="text-slate-400">Jurisdiction:</span>{" "}
+                    <span className="text-slate-700">{record.country}</span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
-          {/* Sections List */}
-          <div className="space-y-8 sm:space-y-10">
-            {policy.sections.map((sec) => (
-              <section key={sec.id} id={sec.id} className="scroll-mt-16">
-                <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 flex items-baseline gap-2">
-                  <span className="text-blue-600 font-extrabold">{sec.number}.</span>
-                  <span>{sec.title}</span>
-                </h2>
-
-                <div className="space-y-3 text-sm sm:text-base text-slate-700 leading-relaxed">
-                  {sec.paragraphs.map((p, pIdx) => {
-                    if (p.includes("[") && p.includes("]")) {
-                      return (
-                        <p key={pIdx}>
-                          {p.split(/(\[[^\]]+\])/).map((part, idx) =>
-                            part.startsWith("[") && part.endsWith("]") && part.includes("Needs Confirmation") ? (
-                              <span
-                                key={idx}
-                                className="inline-flex items-center mx-1 px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"
-                              >
-                                {part}
-                              </span>
-                            ) : (
-                              part
-                            )
-                          )}
-                        </p>
-                      );
-                    }
-                    return <p key={pIdx}>{p}</p>;
-                  })}
-
-                  {sec.bulletPoints && sec.bulletPoints.length > 0 && (
-                    <ul className="list-disc pl-5 sm:pl-6 space-y-2 mt-3 text-slate-700">
-                      {sec.bulletPoints.map((bullet, bIdx) => {
-                        const isConfirmedTitle = bullet.title && bullet.title.includes("Needs Confirmation");
-                        const isConfirmedText = bullet.text && bullet.text.includes("Needs Confirmation");
-                        return (
-                          <li key={bIdx} className="leading-relaxed">
-                            {bullet.title && (
-                              <strong
-                                className={
-                                  isConfirmedTitle
-                                    ? "inline-flex items-center mr-1 px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"
-                                    : "text-slate-900 font-semibold"
-                                }
-                              >
-                                {bullet.title}:{" "}
-                              </strong>
-                            )}
-                            {isConfirmedText ? (
-                              <span>
-                                {bullet.text.split(/(\[[^\]]+\])/).map((part, idx) =>
-                                  part.startsWith("[") && part.endsWith("]") && part.includes("Needs Confirmation") ? (
-                                    <span
-                                      key={idx}
-                                      className="inline-flex items-center mx-1 px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"
-                                    >
-                                      {part}
-                                    </span>
-                                  ) : (
-                                    part
-                                  )
-                                )}
-                              </span>
-                            ) : (
-                              bullet.text
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </div>
-              </section>
-            ))}
+          {/* Rendered Markdown Body */}
+          <div className="space-y-6">
+            <MarkdownRenderer content={markdownContent} stripFirstHeading={true} />
           </div>
 
-          {/* Footer Disclaimer */}
+          {/* Document Footer Disclaimer */}
           <div className="mt-12 pt-6 border-t border-slate-100 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
             <span>
-              This policy is maintained by {policy.companyName}.
+              Maintained and published by {displayTitle}.
             </span>
             <span className="text-slate-400">
-              Hosted via <Link href="/" className="text-blue-600 hover:underline">PrivacyFlow</Link>
+              Published via{" "}
+              <Link href="/" className="text-blue-600 hover:underline">
+                PrivacyFlow
+              </Link>
             </span>
           </div>
         </article>
@@ -241,11 +173,11 @@ export default async function PublicPolicyPage({ params, searchParams }: PagePro
       {!isEmbed && (
         <footer className="print:hidden border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 mt-auto">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p>&copy; {new Date().getFullYear()} {policy.companyName}. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {displayTitle}. All rights reserved.</p>
             <p>
-              Need a privacy policy for your app?{" "}
+              Publish your own privacy policy &bull;{" "}
               <Link href="/create" className="text-blue-600 font-semibold hover:underline">
-                Create yours free
+                PrivacyFlow
               </Link>
             </p>
           </div>

@@ -10,12 +10,16 @@ import {
   generatePolicyFromDescription,
   slugify,
 } from "./generatePrivacyPolicy";
+import { extractTitleFromMarkdown } from "./textToMarkdown";
 
 export interface StoredPolicyRecord {
   id: string;
   slug: string;
   userId?: string;
+  title?: string;
   description?: string;
+  rawContent?: string;
+  markdownContent?: string;
   isPublished?: boolean;
   publishedAt?: string;
   companyName: string;
@@ -24,7 +28,7 @@ export interface StoredPolicyRecord {
   country: string;
   editToken: string;
   formData: PolicyFormData | any;
-  generatedPolicy: GeneratedPolicy;
+  generatedPolicy: GeneratedPolicy | any;
   views: number;
   createdAt: string;
   updatedAt: string;
@@ -148,24 +152,38 @@ function updateLocalPolicy(record: StoredPolicyRecord): void {
 // ---------------------------------------------------------------------------
 // Helpers to map between DB row and Typescript record
 // ---------------------------------------------------------------------------
+
 function mapRowToPolicyRecord(row: any): StoredPolicyRecord {
   const formData = (typeof row.form_data === "string" ? JSON.parse(row.form_data) : row.form_data) || row.formData || {};
   const generatedPolicy = (typeof row.generated_policy === "string" ? JSON.parse(row.generated_policy) : row.generated_policy) || row.generatedPolicy || {};
+
+  const rawContent = row.raw_content || formData?.raw_content || formData?.original_input || row.description || "";
+  const markdownContent = row.markdown_content || generatedPolicy?.markdown || formData?.markdown_content || "";
+  const title = row.title || row.company_name || formData?.title || generatedPolicy?.title || generatedPolicy?.companyName || "Privacy Policy";
 
   return {
     id: String(row.id),
     slug: String(row.slug),
     userId: row.user_id || formData?.user_id || undefined,
-    description: row.description || formData?.description || "",
+    title,
+    description: row.description || rawContent || "",
+    rawContent,
+    markdownContent,
     isPublished: typeof row.is_published === "boolean" ? row.is_published : Boolean(formData?.is_published),
     publishedAt: row.published_at || formData?.published_at || undefined,
-    companyName: row.company_name || row.companyName || generatedPolicy.companyName || "",
-    websiteUrl: row.website_url || row.websiteUrl || generatedPolicy.websiteUrl || "",
-    contactEmail: row.contact_email || row.contactEmail || generatedPolicy.contactEmail || "",
-    country: row.country || generatedPolicy.country || "",
+    companyName: row.company_name || title,
+    websiteUrl: row.website_url || row.websiteUrl || generatedPolicy?.websiteUrl || "",
+    contactEmail: row.contact_email || row.contactEmail || generatedPolicy?.contactEmail || "",
+    country: row.country || generatedPolicy?.country || "Worldwide",
     editToken: row.edit_token || row.editToken || "",
     formData,
-    generatedPolicy,
+    generatedPolicy: {
+      ...generatedPolicy,
+      title,
+      companyName: title,
+      markdown: markdownContent || generatedPolicy?.markdown || "",
+      lastUpdated: row.published_at || row.updated_at || generatedPolicy?.lastUpdated || new Date().toISOString(),
+    },
     views: typeof row.views === "number" ? row.views : 0,
     createdAt: row.created_at || row.createdAt || new Date().toISOString(),
     updatedAt: row.updated_at || row.updatedAt || new Date().toISOString(),
@@ -175,43 +193,91 @@ function mapRowToPolicyRecord(row: any): StoredPolicyRecord {
 async function upsertPolicyToSupabase(record: StoredPolicyRecord): Promise<{ error: any }> {
   if (!supabase) return { error: null };
 
-  const baseRow = {
+  const markdown = record.markdownContent || record.generatedPolicy?.markdown || "";
+  const rawText = record.rawContent || record.description || "";
+  const title = record.title || record.companyName || "Privacy Policy";
+
+  const fullRow = {
     id: record.id,
     slug: record.slug,
-    company_name: record.companyName,
-    website_url: record.websiteUrl,
-    contact_email: record.contactEmail,
-    country: record.country,
-    edit_token: record.editToken,
+    user_id: record.userId || null,
+    title,
+    company_name: title,
+    website_url: record.websiteUrl || "",
+    contact_email: record.contactEmail || "",
+    country: record.country || "Worldwide",
+    edit_token: record.editToken || "",
+    raw_content: rawText,
+    markdown_content: markdown,
+    description: rawText,
+    is_published: Boolean(record.isPublished),
+    published_at: record.publishedAt || null,
     form_data: {
       ...(record.formData || {}),
+      raw_content: rawText,
+      markdown_content: markdown,
+      original_input: rawText,
+      title,
       user_id: record.userId,
-      description: record.description,
       is_published: Boolean(record.isPublished),
       published_at: record.publishedAt,
     },
-    generated_policy: record.generatedPolicy,
-    views: record.views,
+    generated_policy: {
+      ...(record.generatedPolicy || {}),
+      markdown,
+      title,
+      companyName: title,
+      lastUpdated: record.publishedAt || record.updatedAt || new Date().toISOString(),
+    },
+    views: record.views || 0,
     created_at: record.createdAt,
     updated_at: record.updatedAt,
   };
 
   try {
-    // Attempt upsert with explicit columns first (if migration has run)
-    const extendedRow = {
-      ...baseRow,
-      user_id: record.userId || null,
-      description: record.description || null,
-      is_published: Boolean(record.isPublished),
-      published_at: record.publishedAt || null,
-    };
-    const { error } = await supabase.from("policies").upsert(extendedRow, { onConflict: "id" });
+    // 1. Attempt upsert with all extended columns (if migration has run)
+    const { error } = await supabase.from("policies").upsert(fullRow, { onConflict: "id" });
     if (!error) return { error: null };
 
-    // If column missing (e.g. 42703), retry with guaranteed baseRow
+    // 2. If new columns (e.g. raw_content, markdown_content, title) are not in DB, fallback to existing columns
     if (error.code === "42703" || error.message?.includes("column")) {
+      const baseRow = {
+        id: record.id,
+        slug: record.slug,
+        company_name: title,
+        website_url: record.websiteUrl || "",
+        contact_email: record.contactEmail || "",
+        country: record.country || "Worldwide",
+        edit_token: record.editToken || "",
+        form_data: fullRow.form_data,
+        generated_policy: fullRow.generated_policy,
+        user_id: record.userId || null,
+        description: rawText,
+        is_published: Boolean(record.isPublished),
+        published_at: record.publishedAt || null,
+        views: record.views || 0,
+        created_at: record.createdAt,
+        updated_at: record.updatedAt,
+      };
       const { error: baseError } = await supabase.from("policies").upsert(baseRow, { onConflict: "id" });
-      return { error: baseError };
+      if (!baseError) return { error: null };
+
+      // 3. Fallback to minimal base table schema if user_id or is_published is missing
+      const minimalRow = {
+        id: record.id,
+        slug: record.slug,
+        company_name: title,
+        website_url: record.websiteUrl || "",
+        contact_email: record.contactEmail || "",
+        country: record.country || "Worldwide",
+        edit_token: record.editToken || "",
+        form_data: fullRow.form_data,
+        generated_policy: fullRow.generated_policy,
+        views: record.views || 0,
+        created_at: record.createdAt,
+        updated_at: record.updatedAt,
+      };
+      return await supabase.from("policies").upsert(minimalRow, { onConflict: "id" });
     }
     return { error };
   } catch (err: any) {
@@ -247,7 +313,7 @@ export async function isSlugAvailable(slug: string, currentId?: string): Promise
 }
 
 export async function generateUniqueSlug(preferred: string): Promise<string> {
-  const base = slugify(preferred || "app-privacy");
+  const base = slugify(preferred || "privacy-policy");
   let candidate = RESERVED_SLUGS.has(base) ? `${base}-policy` : base;
   let counter = 1;
 
@@ -257,6 +323,79 @@ export async function generateUniqueSlug(preferred: string): Promise<string> {
   }
 
   return candidate;
+}
+
+/**
+ * Creates a private draft policy from converted user Markdown and original text.
+ * Strictly preserves the user's supplied text and Markdown without AI or template generation.
+ */
+export interface CreateConvertedPolicyParams {
+  id?: string;
+  rawText: string;
+  markdown: string;
+  title?: string;
+  userId?: string;
+  customSlug?: string;
+}
+
+export async function createConvertedPolicyDraft(
+  params: CreateConvertedPolicyParams
+): Promise<StoredPolicyRecord> {
+  const now = new Date().toISOString();
+  const id = params.id || crypto.randomUUID();
+
+  const title = params.title || extractTitleFromMarkdown(params.markdown) || "Privacy Policy";
+  const preferredSlug = params.customSlug || slugify(title) || "privacy-policy";
+  const chosenSlug = await generateUniqueSlug(preferredSlug);
+  const editToken = crypto.randomBytes(24).toString("hex");
+
+  const formattedDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const record: StoredPolicyRecord = {
+    id,
+    slug: chosenSlug,
+    userId: params.userId,
+    title,
+    companyName: title,
+    websiteUrl: "",
+    contactEmail: "",
+    country: "Worldwide",
+    editToken,
+    rawContent: params.rawText,
+    markdownContent: params.markdown,
+    description: params.rawText,
+    isPublished: false,
+    formData: {
+      original_input: params.rawText,
+      raw_content: params.rawText,
+      markdown_content: params.markdown,
+      title,
+      user_id: params.userId,
+      is_published: false,
+    },
+    generatedPolicy: {
+      title,
+      companyName: title,
+      markdown: params.markdown,
+      sections: [],
+      websiteUrl: "",
+      contactEmail: "",
+      country: "Worldwide",
+      lastUpdated: formattedDate,
+    },
+    views: 0,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  await upsertPolicyToSupabase(record);
+  saveLocalPolicy(record);
+
+  return record;
 }
 
 export interface CreateDraftPolicyParams {
@@ -287,12 +426,12 @@ export async function createDraftPolicy(params: CreateDraftPolicyParams): Promis
   const companyName =
     generated.companyName && !generated.companyName.includes("Needs Confirmation")
       ? generated.companyName
-      : "My Application";
+      : "Privacy Policy";
 
   const preferredSlug =
     params.customSlug ||
     (generated.slug && !generated.slug.includes("needs-confirmation") ? generated.slug : "") ||
-    (companyName !== "My Application" ? slugify(companyName) : "app-privacy");
+    (companyName !== "Privacy Policy" ? slugify(companyName) : "privacy-policy");
 
   const chosenSlug = await generateUniqueSlug(preferredSlug);
   generated.slug = chosenSlug;
@@ -303,15 +442,20 @@ export async function createDraftPolicy(params: CreateDraftPolicyParams): Promis
     id,
     slug: chosenSlug,
     userId: params.userId,
-    description: params.description,
-    isPublished: false,
+    title: companyName,
     companyName,
     websiteUrl: generated.websiteUrl || "",
     contactEmail: generated.contactEmail || "",
     country: generated.country || "Worldwide",
     editToken,
+    rawContent: params.description,
+    markdownContent: generated.markdown || "",
+    description: params.description,
+    isPublished: false,
     formData: {
       description: params.description,
+      raw_content: params.description,
+      markdown_content: generated.markdown || "",
       user_id: params.userId,
       is_published: false,
     },
@@ -321,10 +465,7 @@ export async function createDraftPolicy(params: CreateDraftPolicyParams): Promis
     updatedAt: now,
   };
 
-  // Persist to Supabase
   await upsertPolicyToSupabase(record);
-
-  // Persist to safe local store
   saveLocalPolicy(record);
 
   return record;
@@ -357,6 +498,8 @@ export async function updatePolicyContent(
   id: string,
   updates: {
     markdown?: string;
+    rawContent?: string;
+    title?: string;
     sections?: any[];
     companyName?: string;
     websiteUrl?: string;
@@ -376,9 +519,12 @@ export async function updatePolicyContent(
     day: "numeric",
   });
 
+  const updatedTitle = updates.title || updates.companyName || existing.title || existing.companyName;
+
   const updatedGenerated: GeneratedPolicy = {
     ...existing.generatedPolicy,
-    companyName: updates.companyName ?? existing.companyName,
+    title: updatedTitle,
+    companyName: updatedTitle,
     websiteUrl: updates.websiteUrl ?? existing.websiteUrl,
     contactEmail: updates.contactEmail ?? existing.contactEmail,
     country: updates.country ?? existing.country,
@@ -408,19 +554,27 @@ export async function updatePolicyContent(
 
   const isPublished = updates.isPublished !== undefined ? updates.isPublished : existing.isPublished;
   const publishedAt = isPublished && !existing.publishedAt ? now : existing.publishedAt;
+  const rawContent = updates.rawContent ?? existing.rawContent;
+  const markdownContent = updates.markdown ?? existing.markdownContent;
 
   const updatedRecord: StoredPolicyRecord = {
     ...existing,
     slug: finalSlug,
-    companyName: updates.companyName ?? existing.companyName,
+    title: updatedTitle,
+    companyName: updatedTitle,
     websiteUrl: updates.websiteUrl ?? existing.websiteUrl,
     contactEmail: updates.contactEmail ?? existing.contactEmail,
     country: updates.country ?? existing.country,
+    rawContent,
+    markdownContent,
     isPublished,
     publishedAt,
     generatedPolicy: updatedGenerated,
     formData: {
       ...(existing.formData || {}),
+      raw_content: rawContent,
+      markdown_content: markdownContent,
+      title: updatedTitle,
       is_published: isPublished,
       published_at: publishedAt,
     },
@@ -492,21 +646,25 @@ export async function getUserPolicies(userId: string): Promise<StoredPolicyRecor
 
 export async function getPolicyBySlug(
   slug: string,
-  incrementView = false
+  incrementView = false,
+  publicOnly = false
 ): Promise<StoredPolicyRecord | null> {
   const normalized = slugify(slug);
   if (!normalized) return null;
 
   if (supabase) {
     try {
-      const { data, error } = await supabase
-        .from("policies")
-        .select("*")
-        .eq("slug", normalized)
-        .maybeSingle();
+      let query = supabase.from("policies").select("*").eq("slug", normalized);
+      if (publicOnly) {
+        query = query.eq("is_published", true);
+      }
+      const { data, error } = await query.maybeSingle();
 
       if (!error && data) {
         const record = mapRowToPolicyRecord(data);
+        if (publicOnly && !record.isPublished) {
+          return null;
+        }
         if (incrementView) {
           const newViews = (record.views || 0) + 1;
           record.views = newViews;
@@ -527,6 +685,10 @@ export async function getPolicyBySlug(
   const policies = readLocalPolicies();
   const found = policies.find((p) => p.slug === normalized);
   if (!found) return null;
+
+  if (publicOnly && !found.isPublished) {
+    return null;
+  }
 
   if (incrementView) {
     found.views = (found.views || 0) + 1;
@@ -571,7 +733,6 @@ export interface DeployPolicyParams {
 export async function deployPolicy(
   params: DeployPolicyParams
 ): Promise<{ policy: StoredPolicyRecord; isNew: boolean }> {
-  // If an editToken is provided, update existing
   if (params.editToken) {
     const existing = await getPolicyByEditToken(params.editToken);
     if (existing) {
@@ -589,7 +750,6 @@ export async function deployPolicy(
     }
   }
 
-  // Create or publish new policy
   let generated = params.generatedPolicy;
   if (!generated && params.description) {
     generated = generatePolicyFromDescription(params.description);
@@ -600,7 +760,7 @@ export async function deployPolicy(
   const preferredSlug =
     params.requestedSlug ||
     generated?.slug ||
-    (generated?.companyName ? slugify(generated.companyName) : "app-privacy");
+    (generated?.companyName ? slugify(generated.companyName) : "privacy-policy");
 
   const chosenSlug = await generateUniqueSlug(preferredSlug);
 
