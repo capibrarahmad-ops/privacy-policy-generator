@@ -103,19 +103,58 @@ function getSafeDbFilePath(): string {
 
 function readLocalPolicies(): StoredPolicyRecord[] {
   try {
-    const dbPath = getSafeDbFilePath();
-    if (fs.existsSync(dbPath)) {
-      const raw = fs.readFileSync(dbPath, "utf8");
-      const list = JSON.parse(raw) as StoredPolicyRecord[];
-      if (Array.isArray(list)) {
-        list.forEach((p) => memoryStore.set(p.id, p));
-        return list;
-      }
+    const list: StoredPolicyRecord[] = [];
+    const seenIds = new Set<string>();
+
+    // 1. Check temporary serverless storage (/tmp/policies.json)
+    const tmpPath = path.join(os.tmpdir(), "policies.json");
+    if (fs.existsSync(tmpPath)) {
+      try {
+        const raw = fs.readFileSync(tmpPath, "utf8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((p) => {
+            if (p && p.id && !seenIds.has(p.id)) {
+              seenIds.add(p.id);
+              list.push(p);
+              memoryStore.set(p.id, p);
+            }
+          });
+        }
+      } catch {}
     }
+
+    // 2. Check workspace bundled data file (data/policies.json)
+    const bundledPath = path.join(process.cwd(), "data", "policies.json");
+    if (fs.existsSync(bundledPath)) {
+      try {
+        const raw = fs.readFileSync(bundledPath, "utf8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((p) => {
+            if (p && p.id && !seenIds.has(p.id)) {
+              seenIds.add(p.id);
+              list.push(p);
+              memoryStore.set(p.id, p);
+            }
+          });
+        }
+      } catch {}
+    }
+
+    // 3. Include any records present in memory
+    memoryStore.forEach((p) => {
+      if (!seenIds.has(p.id)) {
+        seenIds.add(p.id);
+        list.push(p);
+      }
+    });
+
+    return list;
   } catch {
     // Readonly FS or JSON parse failure - fallback to memoryStore
+    return Array.from(memoryStore.values());
   }
-  return Array.from(memoryStore.values());
 }
 
 function writeLocalPolicies(policies: StoredPolicyRecord[]): void {
@@ -239,8 +278,14 @@ async function upsertPolicyToSupabase(record: StoredPolicyRecord): Promise<{ err
     const { error } = await supabase.from("policies").upsert(fullRow, { onConflict: "id" });
     if (!error) return { error: null };
 
-    // 2. If new columns (e.g. raw_content, markdown_content, title) are not in DB, fallback to existing columns
-    if (error.code === "42703" || error.message?.includes("column")) {
+    // 2. If new columns (e.g. raw_content, markdown_content, title, is_published) are not in DB, fallback to existing columns
+    const isColumnError =
+      error.code === "42703" ||
+      error.code === "PGRST204" ||
+      error.message?.toLowerCase().includes("column") ||
+      error.message?.toLowerCase().includes("schema cache");
+
+    if (isColumnError) {
       const baseRow = {
         id: record.id,
         slug: record.slug,
@@ -654,11 +699,13 @@ export async function getPolicyBySlug(
 
   if (supabase) {
     try {
-      let query = supabase.from("policies").select("*").eq("slug", normalized);
-      if (publicOnly) {
-        query = query.eq("is_published", true);
-      }
-      const { data, error } = await query.maybeSingle();
+      // Query by slug (slug is unique). We do not filter by is_published in the SQL query
+      // because is_published may not exist as a column in the database schema (stored in form_data).
+      const { data, error } = await supabase
+        .from("policies")
+        .select("*")
+        .eq("slug", normalized)
+        .maybeSingle();
 
       if (!error && data) {
         const record = mapRowToPolicyRecord(data);
