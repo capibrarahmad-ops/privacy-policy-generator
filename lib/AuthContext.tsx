@@ -55,6 +55,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (err) {
         console.warn("Error checking auth session:", err);
+        if (isMounted) {
+          setSession(null);
+          setUser(null);
+          syncSessionCookie(null);
+        }
       } finally {
         if (isMounted) {
           setIsLoading(false);

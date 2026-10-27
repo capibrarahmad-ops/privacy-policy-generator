@@ -68,6 +68,14 @@ function LoginForm() {
           );
         } else if (errorStatus === 429 || errorMsg.includes("rate limit") || errorMsg.includes("too many requests")) {
           setFormError("Too many login attempts. Please wait a moment before trying again.");
+        } else if (
+          errorMsg.includes("failed to fetch") ||
+          errorMsg.includes("network") ||
+          (error as any).name === "AuthRetryableFetchError"
+        ) {
+          setFormError(
+            "Cannot connect to Supabase database (ERR_NAME_NOT_RESOLVED / Failed to fetch). Your Supabase project is likely PAUSED due to inactivity or the project domain has changed. Please check your Supabase Dashboard to unpause it, or update .env.local."
+          );
         } else {
           setFormError(error.message || "Sign in failed. Please try again.");
         }
@@ -80,7 +88,14 @@ function LoginForm() {
       }
     } catch (err: any) {
       console.error("Login unexpected error:", err);
-      setFormError(err?.message || "An unexpected error occurred. Please check network connection.");
+      const msg = err?.message?.toLowerCase() || "";
+      if (msg.includes("failed to fetch") || msg.includes("network")) {
+        setFormError(
+          "Cannot connect to Supabase (Failed to fetch). Your Supabase project is likely paused in your dashboard, or the URL in .env.local is unreachable."
+        );
+      } else {
+        setFormError(err?.message || "An unexpected error occurred. Please check network connection.");
+      }
       setIsSubmitting(false);
     }
   };

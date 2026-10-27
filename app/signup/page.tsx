@@ -87,6 +87,14 @@ function SignupForm() {
           );
         } else if (errorMsg.includes("password")) {
           setFormError(error.message);
+        } else if (
+          errorMsg.includes("failed to fetch") ||
+          errorMsg.includes("network") ||
+          (error as any).name === "AuthRetryableFetchError"
+        ) {
+          setFormError(
+            "Cannot connect to Supabase database (ERR_NAME_NOT_RESOLVED / Failed to fetch). Your Supabase project is likely PAUSED due to inactivity or the project domain has changed. Please check your Supabase Dashboard to unpause it, or update .env.local."
+          );
         } else {
           setFormError(error.message || "Failed to create account. Please try again.");
         }
@@ -106,7 +114,14 @@ function SignupForm() {
       }
     } catch (err: any) {
       console.error("Signup unexpected error:", err);
-      setFormError(err?.message || "An unexpected error occurred during signup.");
+      const msg = err?.message?.toLowerCase() || "";
+      if (msg.includes("failed to fetch") || msg.includes("network")) {
+        setFormError(
+          "Cannot connect to Supabase (Failed to fetch). Your Supabase project is likely paused in your dashboard, or the URL in .env.local is unreachable."
+        );
+      } else {
+        setFormError(err?.message || "An unexpected error occurred during signup.");
+      }
     } finally {
       setIsSubmitting(false);
     }
